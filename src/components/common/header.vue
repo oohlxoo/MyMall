@@ -47,7 +47,8 @@
 			height: 32px;
 			margin: 5px 10px;
 			z-index: 9;
-			background:url(../../assets/img/icon_back.png) no-repeat left top;
+			background:url(../../assets/img/icon_back.png) no-repeat left center;
+			background-size: 25px;
 		}
 		p{
 		    position: relative;

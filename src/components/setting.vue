@@ -10,9 +10,11 @@
 				<router-link to="/mycollect">
 					<li>我的收藏<span></span></li>
 				</router-link>
-				<li>收货地址</li>
+				<router-link to="/myaddress">
+					<li>收货地址<span></span></li>
+				</router-link>
 				<li>服务中心</li>
-				<li>联系我们</li>
+				<li><a href="tel:10086">联系我们</a></li>
 				<li>清除缓存</li>
 				<li>退出</li>
 			</ul>
@@ -61,7 +63,7 @@
 					margin-top: 3px;
 					float: right;
 					background: url(../assets/img/icon-go.png) no-repeat center center;
-					background-size: 70% 70%;
+					background-size: 50%;
 					
 				}
 			}

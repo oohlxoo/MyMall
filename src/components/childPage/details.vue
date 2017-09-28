@@ -32,7 +32,7 @@
 				</ul>
 			</div>
 			<div class="button_div">
-				<button>立即购买</button>
+				<button @click="buynow()">立即购买</button>
 			</div>
 		</div>
 	
@@ -40,8 +40,8 @@
 </template>
 
 <script>	
-	import header from "./header"	
-	import star from "./star"	
+	import header from "./../common/header"	
+	import star from "./../common/star"	
 	export default {
 		data(){
 			return {
@@ -61,7 +61,10 @@
 				}else{
 					this.nowindex=0
 				}
-			}			
+			},
+			buynow(){
+				this.$router.push('/commitOrder');
+			}
 		},
 		computed:{
 			id(){

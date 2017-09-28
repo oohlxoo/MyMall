@@ -21,7 +21,9 @@
 							<p class="price">￥{{price}}<i>x {{buynum}}</i></p>
 						</div>
 						<p class="num">购买数量  <mybuynumber @changenum="changenumoo"></mybuynumber></p>
-					</li>	
+					</li>
+					
+					
 				</ul>
 			</div>
 		</div>
@@ -165,18 +167,15 @@
 		z-index: 9;
 		text-align: right;
 		button{
-			
-				margin-left: 40px;
-			    background: linear-gradient(to right, #ffa100, #ff6804);
-			    width: 100px;
-			    height: 100%;
-			    color: floralwhite;
-			    text-align: center;
-			    display: inline-block;
-			    line-height: 45px;
-			    float: right;
+			margin-left: 40px;
+		    background: linear-gradient(to right, #ffa100, #ff6804);
+		    width: 100px;
+		    height: 100%;
+		    color: floralwhite;
+		    text-align: center;
+		    display: inline-block;
+		    line-height: 45px;
+		    float: right;
 		}
-		
-		
 	}
 </style>

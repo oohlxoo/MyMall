@@ -9,8 +9,8 @@
 						<div class="detals">
 							<p class="titt" @click="jump(item.id)">{{item.title }}</p>
 							<p class="explain" @click="jump(item.id)">{{item.details}}</p>
-							<p class="price">￥{{item.price}}<del>￥{{item.originalCost}}</del> 
-							<!--<span class="collect></span>  未收藏的样式-->
+							<p class="price"><i>￥</i>{{item.price}}<del>￥{{item.originalCost}}</del> 
+							<!--<span class="collect"></span>  未收藏的样式-->
 								<span class="collect collected"></span</p>
 							<p class="button"><button @click="buypro(item.id)" >立即购买</button></p>
 						</div>
@@ -82,6 +82,7 @@
 					padding: 5px 10px;	
 					border: 1px solid rgba(230, 230, 230, 0.8);
 				}
+				
 				.explain{
 					line-height: 15px;
 					color: #b3b3b3;
@@ -94,6 +95,9 @@
 				.price{
 					color: #ff4b6d;
 					font-size: 20px;
+					i{
+						font-size: 10px;
+					}
 					del{
 						color: #d8d8d8;
 						font-size: 12px;
@@ -120,6 +124,7 @@
 					    padding: 4px 10px;
 					    border-radius: 4px;
 					    color: #4d00ff;
+					    float: right;
 					}
 				}
 			}

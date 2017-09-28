@@ -3,11 +3,13 @@ import Router from 'vue-router'
 import Index from '../components/index'
 import Products from '../components/products'
 import Setting from '../components/setting'
-import details from '../components/common/details'
+import details from '../components/childPage/details'
 import Order from '../components/order'
 import productType from "../components/childPage/productType"
 import mycollect from "../components/childPage/mycollect"
 import commitOrder from "../components/childPage/commitOrder"
+import myAddress from "../components/childPage/myAddress"
+
 
 
 
@@ -46,26 +48,33 @@ export default new Router({
 		    component: Setting
 		   
 	    },
-	    {
-	      path: '/details/:id',
-	      name: "details",
-	      component: details
-	    },
+	    //产品类型
 	    {
 	    	path:"/productType",
 	    	name:"productType",
 	    	component:productType
+	    },
+	    //商品详情
+	    {
+	      path: '/details/:id',
+	      name: "details",
+	      component: details
 	    },
 	    //我的收藏
 	    { 
 			path: "/mycollect",
 			component: mycollect 
 		},
-		//订单
+		//提交订单
 		  { 
 			path: "/commitOrder",
 			component: commitOrder 
 		},
+		//收货地址
+		{
+			path:"/myaddress",
+			component:myAddress
+		}
 		
 	    
 	]
