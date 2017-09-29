@@ -14,10 +14,7 @@
 						<span class="edit">编辑</span>
 						<span class="del">删除</span> 
 					</p>
-				</li>
-				
-				
-				
+				</li>	
 			</ul>
 		</div>
 		<div class="add-address">

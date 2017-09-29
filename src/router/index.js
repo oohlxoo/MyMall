@@ -9,6 +9,8 @@ import productType from "../components/childPage/productType"
 import mycollect from "../components/childPage/mycollect"
 import commitOrder from "../components/childPage/commitOrder"
 import myAddress from "../components/childPage/myAddress"
+import login from "../components/login"
+import register from "../components/register"
 
 
 
@@ -48,6 +50,16 @@ export default new Router({
 		    component: Setting
 		   
 	    },
+	    //登录页面
+	    {
+			path:"/login",
+			component:login
+		},
+		 //注册页面
+	    {
+			path:"/register",
+			component:register
+		},
 	    //产品类型
 	    {
 	    	path:"/productType",

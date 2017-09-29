@@ -30,19 +30,23 @@
 		<div class="total_div">
 			<p>合计：￥{{total}}<button>提交订单</button></p>
 		</div>
+		<!--弹窗-->
+		<!--<mydialog></mydialog>-->
 	</div>
 </template>
 
 <script>
 	import header from "../common/header"
 	import buynumber from "../common/buynumber"
+	import dialog from "../common/dialog.vue"
 	export default{
 		props:{
 			
 		},
 		components:{
 			myheader:header,
-			mybuynumber:buynumber
+			mybuynumber:buynumber,
+			mydialog:dialog
 		},
 		data(){
 			return{

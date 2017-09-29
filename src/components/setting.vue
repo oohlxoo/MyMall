@@ -2,7 +2,7 @@
 	<div class="mainindex">
 		<div class="contents">
 			<div class="userico" >
-				<img src="../../static/u2.png" />
+				<router-link to="/login"><img src="../../static/u2.png" /></router-link>
 				<p>路小雨</p>
 				<p>好好学习，天天向上</p>
 			</div>
