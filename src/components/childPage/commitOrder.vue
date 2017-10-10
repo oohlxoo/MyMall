@@ -2,7 +2,7 @@
 	<div class="commitorder">
 		<myheader :title="title"></myheader>
 		<div class="content">
-			<div class="address">
+			<div class="address" @click="changeAddress()">
 				<button class="choose_add">请选择地址</button>
 				<div class="show_add">
 					<p><span>收件人：路小雨</span>
@@ -65,8 +65,14 @@
 				this.buynum=num;
 				this.total=num*this.price
 			
+			},
+			//切换地址
+			changeAddress(){
+				this.$router.push('myaddress' );
+				
 			}
-		}
+		},
+		
 	}
 </script>
 

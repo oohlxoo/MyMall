@@ -11,6 +11,8 @@ import commitOrder from "../components/childPage/commitOrder"
 import myAddress from "../components/childPage/myAddress"
 import login from "../components/login"
 import register from "../components/register"
+import manageAddress from "../components/childPage/manageAddress"
+
 
 
 
@@ -86,7 +88,13 @@ export default new Router({
 		{
 			path:"/myaddress",
 			component:myAddress
+		},
+		//新增收货地址
+		{
+			path:"/manageaddress",
+			component:manageAddress
 		}
+
 		
 	    
 	]

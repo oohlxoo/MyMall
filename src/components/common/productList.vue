@@ -11,7 +11,7 @@
 							<p class="explain" @click="jump(item.id)">{{item.details}}</p>
 							<p class="price"><i>￥</i>{{item.price}}<del>￥{{item.originalCost}}</del> 
 							<!--<span class="collect"></span>  未收藏的样式-->
-								<span class="collect collected"></span</p>
+								<span class="collect" :class="{'collected':iscollect}"  @click="collect()"></span</p>
 							<p class="button"><button @click="buypro(item.id)" >立即购买</button></p>
 						</div>
 					</a>
@@ -25,7 +25,7 @@
 	export default{
 		data(){
 			return {
-				
+				iscollect:false
 			}
 		},
 		computed:{
@@ -43,6 +43,11 @@
 			buypro(id){
 				this.$router.push('/commitOrder');
 				
+			},
+			//收藏与取消收藏
+			collect(){
+				this.iscollect= !this.iscollect;
+			
 			}
 		},
 		mounted () {
@@ -99,7 +104,7 @@
 						font-size: 10px;
 					}
 					del{
-						color: #d8d8d8;
+						color: #ababab;
 						font-size: 12px;
 						padding-left:20px
 					}

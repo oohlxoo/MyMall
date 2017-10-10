@@ -4,11 +4,11 @@
 		<myheader :title="title" :showback="showback"></myheader>
 		<div class="order_div">
 			<ul class="nav clearfix">
-				<li class="current">全部</li>
-				<li>待付款</li>
-				<li>待发货</li>
-				<li>待收货</li>
-				<li>待评价</li>
+				<li class="current" @click="changtab(0)" :class="{'current':iscurrent}">全部</li>
+				<li @click="changtab(1)" :class="{'current':iscurrent}">待付款</li>
+				<li @click="changtab(2)" :class="{'current':iscurrent}">待发货</li>
+				<li @click="changtab(3)" :class="{'current':iscurrent}">待收货</li>
+				<li @click="changtab(4)" :class="{'current':iscurrent}">待评价</li>
 			</ul>
 			<div class="order_list">
 				<ul class="list">
@@ -19,6 +19,29 @@
 							<p class="explain">哈哈哈哈</p>
 							<p class="price">￥22<i>x 1</i></p>
 						</div>
+						<p class="comfirm">共1件商品&nbsp;合计 ￥<i>22</i>.0 </p>
+						<p class="comfirm"><button>确认收货</button> </p>
+					</li>
+
+					<li>
+						<img src="../../static/c3.png"/>
+						<div class="detals">
+							<p class="titt">夹克<span class="orderstatu">卖家已发货</span></p>
+							<p class="explain">哈哈哈哈</p>
+							<p class="price">￥22<i>x 1</i></p>
+						</div>
+						<p class="comfirm">共1件商品&nbsp;合计 ￥<i>22</i>.0 </p>
+						<p class="comfirm"><button>确认收货</button> </p>
+					</li>
+
+					<li>
+						<img src="../../static/c3.png"/>
+						<div class="detals">
+							<p class="titt">夹克<span class="orderstatu">卖家已发货</span></p>
+							<p class="explain">哈哈哈哈</p>
+							<p class="price">￥22<i>x 1</i></p>
+						</div>
+						<p class="comfirm">共1件商品&nbsp;合计 ￥<i>22</i>.0 </p>
 						<p class="comfirm"><button>确认收货</button> </p>
 					</li>
 				</ul>
@@ -34,11 +57,17 @@
 		data(){
 			return {
 				title:"我的订单",
-				showback:false
+				showback:false,
+				iscurrent:false
 			}
 		},
 		components:{
 			myheader:header
+		},
+		methods:{
+			changtab(num){
+				this.iscurrent=!this.iscurrent;
+			}
 		}
 	}
 </script>
@@ -49,7 +78,10 @@
 			text-align: center;
 		}
 		.order_div{
+			display:flex;
+			flex-direction:column;
 			.nav{
+				flex-basis:25px;
 				li{
 					float: left;
 					width: 20%;
@@ -63,9 +95,12 @@
 			}
 		}
 		.order_list{
+			flex-grow:1;
+			 overflow-y: scroll;
+
 			.list{
 				li{
-	  			    margin-top: 10px;
+	  			    margin-bottom: 10px;
 			    	display: -webkit-box;
 			    	display:flex;/*设为伸缩容器*/  
 			   		/*flex-flow:row;*/
@@ -82,6 +117,7 @@
 						flex:1;
 						padding: 5px 10px;	
 						/*border: 1px solid rgba(230, 230, 230, 0.8);*/
+						background: #f5f5f5;
 						.orderstatu{
 							float: right;
 							font-size: 10px;
@@ -111,20 +147,27 @@
 					}
 					.comfirm{
 						width: 100%;
-						height: 45px;
-						line-height: 45px;
-						background: #f5f5f5;
+						height: 30px;
+						line-height: 30px;
 	    				padding-left: 10px;
-	    				border-top: 1px solid rgba(230, 230, 230, 0.8);
+	    				padding-right: 20px;
+	    				text-align:right;
+	    				&:last-child{
+	    					border-top: 1px solid rgba(230, 230, 230, 0.8);
+	    					height:40px;
+	    				}
+	    				i{
+	    					font-size:14px;
+	    				}
 	    				button{
     					    float: right;
-						    background: #f5f5f5;
-						    height: 32px;
+    					    background: #f5f5f5;
+						    height: 30px;
 						    width: 94px;
 						    border-radius: 8px;
 						    border: 1px solid #ff6804;
 						    color: #ff6804;
-						    margin: 5px 10px;
+						    margin: 5px 0;
 	    					
 	    				}
 					}
