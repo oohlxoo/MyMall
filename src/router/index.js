@@ -12,6 +12,9 @@ import myAddress from "../components/childPage/myAddress"
 import login from "../components/login"
 import register from "../components/register"
 import manageAddress from "../components/childPage/manageAddress"
+import appraise from "../components/childPage/appraise"
+
+
 
 
 
@@ -93,7 +96,13 @@ export default new Router({
 		{
 			path:"/manageaddress",
 			component:manageAddress
+		},
+		//评价页面
+		{
+			path:"/appraise",
+			component:appraise
 		}
+		
 
 		
 	    

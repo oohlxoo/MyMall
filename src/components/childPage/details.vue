@@ -15,7 +15,11 @@
 			</div>
 			<div class="priceinfo">
 				<p class="pri">￥{{detailslist.price}}</p>
-				<p class="others"><span>月销量：{{detailslist.salesvolume}}</span><span>产地：{{detailslist.address}}</span></p>
+				<p class="others"><span>月销量：{{detailslist.salesvolume}}</span><span>产地：{{detailslist.address}}</span>
+					<!--<span class="collect"></span>  未收藏的样式-->
+					<span class="collect" :class="{'collected':iscollect}"  @click="collect()"></span>
+							
+				</p>
 			</div>
 			<div class="appraise">
 				<p class="count">商品评价({{detailslist.assess.length}})</p>
@@ -45,7 +49,8 @@
 	export default {
 		data(){
 			return {
-				nowindex:0
+				nowindex:0,
+				iscollect:false
 			}
 		},
 		components:{
@@ -64,6 +69,11 @@
 			},
 			buynow(){
 				this.$router.push('/commitOrder');
+			},
+			//收藏与取消收藏
+			collect(data){
+				this.iscollect= !this.iscollect;
+			
 			}
 		},
 		computed:{
@@ -144,10 +154,24 @@
 			   		}
 			   		&.others{
 			   			span{
-			   				width: 50%;
+			   				width: 33%;
 							display: inline-block;
 							color:#9c9c9c;
 			   			}
+			   			.collect{
+			   			text-align: right;
+						display: inline-block;
+						width:25px;
+						height: 25px;
+						margin-left: 10px;
+						background: url(../../assets/img/icon-collect.png) no-repeat right bottom;
+						background-size: 80% 80%;
+						&.collected{
+							background: url(../../assets/img/icon-collect1.png) no-repeat right bottom;
+							background-size: 80% 80%;
+						}
+					
+					}
 			   		}
 			   }
 			

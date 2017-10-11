@@ -4,11 +4,7 @@
 		<myheader :title="title" :showback="showback"></myheader>
 		<div class="order_div">
 			<ul class="nav clearfix">
-				<li class="current" @click="changtab(0)" :class="{'current':iscurrent}">全部</li>
-				<li @click="changtab(1)" :class="{'current':iscurrent}">待付款</li>
-				<li @click="changtab(2)" :class="{'current':iscurrent}">待发货</li>
-				<li @click="changtab(3)" :class="{'current':iscurrent}">待收货</li>
-				<li @click="changtab(4)" :class="{'current':iscurrent}">待评价</li>
+				<li v-for="tab in tabArr" @click="changetab(tab.num)" :class="(checkTab == tab.num)?'current':''">{{tab.text}}</li>
 			</ul>
 			<div class="order_list">
 				<ul class="list">
@@ -20,7 +16,7 @@
 							<p class="price">￥22<i>x 1</i></p>
 						</div>
 						<p class="comfirm">共1件商品&nbsp;合计 ￥<i>22</i>.0 </p>
-						<p class="comfirm"><button>确认收货</button> </p>
+						<p class="comfirm"><button>立即评价</button> </p>
 					</li>
 
 					<li>
@@ -58,15 +54,23 @@
 			return {
 				title:"我的订单",
 				showback:false,
-				iscurrent:false
+				iscurrent:false,
+				tabArr: [
+					{num: '0', text: '全部'},
+					{num: '1', text: '待付款'},
+					{num: '2', text: '待发货'},
+					{num: '3', text: '待收货'},
+					{num: '4', text: '待评价'}
+				],
+				checkTab: '0',
 			}
 		},
 		components:{
 			myheader:header
 		},
 		methods:{
-			changtab(num){
-				this.iscurrent=!this.iscurrent;
+			changetab(num){
+				this.checkTab = num
 			}
 		}
 	}

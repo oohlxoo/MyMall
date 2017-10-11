@@ -8,16 +8,9 @@
 					<div class="detals">
 						<p class="titt">夹克<span class="collecttime">收藏于1天前</span></p>
 						<p class="explain">哈哈哈哈</p>
-						<p class="price">￥11 <span class="collect collected"></span></p>
-					</div>
-				</li>
-				
-				<li>
-					<img src="../../../static/c3.png"/>
-					<div class="detals">
-						<p class="titt">夹克</p>
-						<p class="explain">哈哈哈哈</p>
-						<p class="price">￥11 <span class="collect collected"></span></p>
+						<p class="price">￥11 
+							<span class="collect" :class="{'collected':iscollect}" @click="iscollectfunction"></span>
+						</p>
 					</div>
 				</li>
 			</ul>
@@ -30,11 +23,17 @@
 	export  default{
 		data(){
 			return {
-				title:"我的收藏"
+				title:"我的收藏",
+				iscollect:false
 			}
 		},
 		components:{
 			myheader:header
+		},
+		methods:{
+			iscollectfunction(){
+				this.iscollect=!this.iscollect;
+			}
 		}
 	}
 </script>
