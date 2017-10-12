@@ -15,10 +15,25 @@
 						<span class="del">删除</span> 
 					</p>
 				</li>	
+				
+				<li>
+					<p><span class="username">路小雨</span>
+						<span class="phone">187****1234</span>
+					</p>
+					<p>上海市徐汇区xxx路xxxx号xxx楼
+					上海市徐汇区xxx路xxxx号xxx楼上海市徐汇区xxx路xxxx号xxx楼</p>
+					<p class="option">
+						<span class="detault" @click="chooseDetault" :class="{ed:isDefault}">设为默认</span>
+						<span class="edit" @click="manageaddress(1)">编辑</span>
+						<span class="del">删除</span> 
+					</p>
+				</li>
+				
+				
 			</ul>
 		</div>
 		<div class="add-address">
-			<button>添加新地址</button>
+			<button @click="manageaddress(0)">添加新地址</button>
 		</div>
 	</div>
 </template>
@@ -41,8 +56,12 @@
 		methods:{
 			chooseDetault(){
 				this.isDefault=!this.isDefault;
-				console.log(this.isDefault);
+			},
+			manageaddress(data){
+				console.log(data);
+				this.$router.push("/manageaddress");
 			}
+			
 		}
 		
 	}

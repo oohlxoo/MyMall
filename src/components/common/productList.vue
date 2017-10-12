@@ -9,9 +9,7 @@
 						<div class="detals">
 							<p class="titt" @click="jump(item.id)">{{item.title }}</p>
 							<p class="explain" @click="jump(item.id)">{{item.details}}</p>
-							<p class="price"><i>￥</i>{{item.price}}<del>￥{{item.originalCost}}</del> 
-							<!--<span class="collect"></span>  未收藏的样式-->
-								<span class="collect" :class="{'collected':iscollect}"  @click="collect()"></span</p>
+							<p class="price"><i>￥</i>{{item.price}}<del>￥{{item.originalCost}}</del></p>
 							<p class="button"><button @click="buypro(item.id)" >立即购买</button></p>
 						</div>
 					</a>
@@ -44,11 +42,7 @@
 				this.$router.push('/commitOrder');
 				
 			},
-			//收藏与取消收藏
-			collect(){
-				this.iscollect= !this.iscollect;
 			
-			}
 		},
 		mounted () {
 			this.$http.get("api/productList").then((res) => {
@@ -107,19 +101,6 @@
 						color: #ababab;
 						font-size: 12px;
 						padding-left:20px
-					}
-					.collect{
-						display: inline-block;
-						width:25px;
-						height: 25px;
-						margin-left: 10px;
-						background: url(../../assets/img/icon-collect.png) no-repeat right bottom;
-						background-size: 80% 80%;
-						&.collected{
-							background: url(../../assets/img/icon-collect1.png) no-repeat right bottom;
-							background-size: 80% 80%;
-						}
-					
 					}
 				}
 				.button{

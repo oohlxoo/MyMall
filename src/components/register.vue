@@ -11,7 +11,7 @@
 			
 			<p>
 				<input placeholder="手机号" />
-				<button class="getCheckNum">获取验证码</button>
+				<!--<button class="getCheckNum">获取验证码</button>-->
 			</p>
 			
 			<p>
@@ -22,7 +22,7 @@
 			<p>
 			<input type="password" placeholder="密码" />
 			</p>
-			<button class="button">登录</button>
+			<button class="button">立即注册</button>
 		</div>
 	</div>
 </template>
@@ -59,6 +59,9 @@
 	}
 	.part_form{
 		padding: 0 30px;
+		input{
+			display: inline-block;
+		}
 		p{
 			width: 100%;
 			display: block;

@@ -1,13 +1,19 @@
 <template>
 	<div class="header">
 		<i @click="back()" v-show="showback"></i>
-		<p class="h1">{{this.title}}</p>			
+		<p class="h1">{{this.title}}</p>	
+		<span class="button" v-show="showbuttonvalue">{{buttonvalue}}</span>
 	</div>
 </template>
 
 <script>
 	export default{
 		//props:["title"],
+		data(){
+			return{
+				
+			}
+		},
 		props:{
 			title:{
 				type:String,
@@ -16,6 +22,15 @@
 			showback:{
 				type:Boolean,
 				default:true
+			},
+			buttonvalue:{
+				type:String,
+				default:"保存"
+			},
+			//是否显示保存按钮
+			showbuttonvalue:{
+				type:Boolean,
+				default:false
 			}
 		},
 		computed:{
@@ -58,6 +73,18 @@
 		    font-size: 16px;
     		color:#929292;
 		    
+		}
+		.button{
+			position: absolute;
+			right:0;
+			top: 0;
+			display: inline-block;
+			width: 45px;
+			height: 45px;
+			line-height: 45px;
+			z-index: 9;
+			font-size: 16px;
+    		color:#929292;
 		}
 	}
 </style>
