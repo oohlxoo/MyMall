@@ -7,10 +7,10 @@
 				<div id="">
 					<span class="dec gray">描述相符</span>
 					<span class= "star">
-	<img v-for="(o,i) in (currentStarNum)" class="img1" @click="choosestart(i)" src="../../assets/img/star.png"/>	
-	<img v-for="(o,i) in (5-currentStarNum)" class="img1" @click="choosestart(i+currentStarNum)" src="../../assets/img/star1.png"/>	
-					
-					
+	<img v-for="(o,i) in (currentStarNum)" class="img1" @click="choosestart(i+1)" src="../../assets/img/star.png"/>	
+	<template>
+		<img v-for="(o,i) in (5-currentStarNum)" class="img1" @click="choosestart(i+currentStarNum+1)" src="../../assets/img/star1.png"/>	
+	</template>
 							
 					</span>	
 					<span class="grade_text">{{appraGradeText[currentStarNum-1]}}</span>

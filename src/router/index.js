@@ -13,6 +13,7 @@ import login from "../components/login"
 import register from "../components/register"
 import manageAddress from "../components/childPage/manageAddress"
 import appraise from "../components/childPage/appraise"
+import search from "../components/childPage/search"
 
 
 
@@ -70,6 +71,12 @@ export default new Router({
 	    	path:"/productType",
 	    	name:"productType",
 	    	component:productType
+	    },
+	    //搜索页面
+	    {
+	    	path:"/search",
+	    	name:"search",
+	    	component:search
 	    },
 	    //商品详情
 	    {

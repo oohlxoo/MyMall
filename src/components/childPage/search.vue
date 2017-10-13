@@ -1,15 +1,11 @@
 <template>
 	<div class="mainindex">
 		<myheaders :title="title"></myheaders>
-		<!--<div class="search_div">
+		<div class="search_div">
 			<input placeholder="请输入关键字"/>
-		</div>-->
+		</div>
 		<div class="list_div">
-			<ul class="nav clearfix">
-				<li class="current">综合</li>
-				<li>销量</li>
-				<li>价格</li>
-			</ul>		
+					
 			<prodect-list></prodect-list>
 		
 		</div>
@@ -22,7 +18,7 @@
 	export default{
 		data(){
 			return{
-				title:"秋衣"
+				title:"搜索"
 			}
 		},
         components:{
@@ -71,4 +67,4 @@
 				}
 			}
 		}
-</style>
+</style>e>
