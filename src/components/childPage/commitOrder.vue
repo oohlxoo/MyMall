@@ -28,10 +28,10 @@
 			</div>
 		</div>
 		<div class="total_div">
-			<p>合计：￥{{total}}<button>提交订单</button></p>
+			<p>合计：￥{{total}}<button @click="commintOrder">提交订单</button></p>
 		</div>
 		<!--弹窗-->
-		<!--<mydialog></mydialog>-->
+		<mydialog :isshowdialog="isshowdialog"></mydialog>
 	</div>
 </template>
 
@@ -53,7 +53,8 @@
 				title:"确认订单",
 				buynum:1,
 				price:20,
-				total:20
+				total:20,
+				isshowdialog:false
 			}
 		},
 		computed:{},
@@ -69,7 +70,9 @@
 			//切换地址
 			changeAddress(){
 				this.$router.push('myaddress' );
-				
+			},
+			commintOrder(){
+				this.isshowdialog=true;
 			}
 		},
 		
@@ -148,8 +151,8 @@
 	    				font-weight: bold;
 					}
 					.price{
-						color: #ff4b6d;
-						font-size: 20px;
+						color:#ff6804;
+						font-size: 16px;
 						i{
 							float: right;
 							color: #b3b3b3;
@@ -176,6 +179,7 @@
 		width: 100%;
 		z-index: 9;
 		text-align: right;
+		background-color: #f5f5f5;
 		button{
 			margin-left: 40px;
 		    background: linear-gradient(to right, #ffa100, #ff6804);

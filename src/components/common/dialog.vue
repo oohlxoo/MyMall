@@ -1,14 +1,30 @@
 <template>
-	<div class="mydialog">
+	<div class="mydialog" v-show="isshowdialog">
 		<div class="mengceng"></div>
 		<div class="dialogoo">
-			<p class="close">确认购买 <span>x</span></p>
-			
+			<p class="dec">确认购买? </p>
+			<p class="butt"><button>确认</button>
+				<button>取消</button>
+			</p>
 		</div>
 	</div>
 </template>
 
 <script>
+	export default{
+		props:{
+			isshowdialog:{
+				type:Boolean,
+				default:false
+			}
+		},
+		
+		data(){
+			return{
+				
+			}
+		}
+	}
 </script>
 
 <style scoped="scoped" lang="less" >
@@ -29,22 +45,28 @@
 	.dialogoo{
 		position: relative;	
 		width: 80%;
-		height: 70px;
 		margin: 100px auto;
 		background: #fff;
 		z-index: 11;
 		border-radius: 10px;
-		.close{
+		.dec{
+			flex: 1;
 			text-align:center;
-			height:30px;
-			line-height:30px;
-			span{
-				width: 10px;
-				height: 10px;
-				display: inline-block;
-				float: right;
-				font-size: 14px;
-				padding-right: 10px;
+			padding: 20px 0;
+			
+		}
+		.butt{
+			border-top: 1px solid #ececec;
+			height: 45px;
+			line-height: 45px;
+			button{
+				width: 50%;
+				height: 100%;
+				float: left;
+				background: none;
+				&:first-child{
+					border-right: 1px solid #ececec;
+				}
 			}
 		}
 	}

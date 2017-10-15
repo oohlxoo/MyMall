@@ -2,7 +2,7 @@
 		<div class="contents">
 			<ibanner></ibanner>
 			<ul class="new-product">
-				<li class="new1"><i></i>早秋新品</li>
+				<li class="new1" @click="typejump"><i></i>早秋新品</li>
 				<li class="new2"><i></i>心机显瘦</li>
 				<li class="new3"><i></i>气质女神</li>
 				<li class="new4"><i></i>轻装复古</li>
@@ -22,6 +22,11 @@ import prodectList from '../components/common/productList'
         },
         mouneted(){
         	console.log(this.$route);
+        },
+        methods:{
+        	typejump(){
+        		this.$router.push("productType");
+        	}
         }
 	}
 </script>

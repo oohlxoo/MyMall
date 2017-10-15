@@ -14,6 +14,8 @@ import register from "../components/register"
 import manageAddress from "../components/childPage/manageAddress"
 import appraise from "../components/childPage/appraise"
 import search from "../components/childPage/search"
+import shoppingcart from "../components/childPage/shoppingcart"
+
 
 
 
@@ -108,7 +110,13 @@ export default new Router({
 		{
 			path:"/appraise",
 			component:appraise
+		},
+		//购物车
+		{
+			path:"/shoppingcart",
+			component:shoppingcart
 		}
+		
 		
 
 		

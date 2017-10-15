@@ -15,7 +15,7 @@
 			</p>
 			
 			<p>
-				<input type="checknum" placeholder="验证码" />
+				<input class="checknum" placeholder="验证码" />
 				<img class="rrr"  src="../assets/img/rrr.png" />
 				<img class="furbish" src="../assets/img/icon-refurbish.png" />
 			</p>
@@ -59,15 +59,19 @@
 	}
 	.part_form{
 		padding: 0 30px;
-		input{
-			display: inline-block;
-		}
-		p{
+		p {
+			input{
+				display: inline-block;
+			}
 			width: 100%;
 			display: block;
 			line-height: 40px;
 			height: 40px;
 			border-bottom: 1px solid #ececec;
+			.checknum{
+				width: 60%;
+			}
+			
 		}
 		.furbish{
 			width: 20px;
