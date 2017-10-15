@@ -3,7 +3,7 @@
 		<myheader :title="title" :showback="showback"></myheader>
 		<!--<h2>全部分类</h2>-->
 		<div class="search_div">
-			<input placeholder="请输入关键字"/>
+			<input placeholder="请输入关键字" @click="jumpsearch"/>
 		</div>
 		<div class="typeList">
 			<div class="bigType">
@@ -77,6 +77,10 @@
       		jump(){
       			this.$router.push('/productType/');
       			//this.$router.push('/details/' +  value)
+      		},
+      		//搜索页面
+      		jumpsearch(){
+      			this.$router.push('/search');
       		}
       		
       	}

@@ -1,7 +1,7 @@
 <template>
 	<div class="mainindex">
 		<!--<h2 class="h2">我的订单</h2>-->
-		<myheader :title="title" :showback="showback"></myheader>
+		<myheader :title="title"></myheader>
 		<div class="order_div">
 			<ul class="nav clearfix">
 				<li v-for="tab in tabArr" @click="changetab(tab.num)" :class="(checkTab == tab.num)?'current':''">{{tab.text}}</li>
@@ -9,7 +9,7 @@
 			<div class="order_list">
 				<ul class="list">
 					<li>
-						<img src="../../static/c3.png"/>
+						<img src="../../../static/c3.png"/>
 						<div class="detals">
 							<p class="titt">夹克<span class="orderstatu">卖家已发货</span></p>
 							<p class="explain">哈哈哈哈</p>
@@ -20,7 +20,7 @@
 					</li>
 
 					<li>
-						<img src="../../static/c3.png"/>
+						<img src="../../../static/c3.png"/>
 						<div class="detals">
 							<p class="titt">夹克<span class="orderstatu">卖家已发货</span></p>
 							<p class="explain">哈哈哈哈</p>
@@ -31,7 +31,7 @@
 					</li>
 
 					<li>
-						<img src="../../static/c3.png"/>
+						<img src="../../../static/c3.png"/>
 						<div class="detals">
 							<p class="titt">夹克<span class="orderstatu">卖家已发货</span></p>
 							<p class="explain">哈哈哈哈</p>
@@ -48,12 +48,11 @@
 </template>
 
 <script>
-	import header from "./common/header"
+	import header from "../common/header"
 	export default{
 		data(){
 			return {
 				title:"我的订单",
-				showback:false,
 				iscurrent:false,
 				tabArr: [
 					{num: '0', text: '全部'},

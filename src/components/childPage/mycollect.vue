@@ -41,6 +41,7 @@
 <style lang="less">
 	.collectlist{
 		.list{
+			padding:0 10px;
 			li{
   			    margin-top: 10px;
 		    	display: -webkit-box;

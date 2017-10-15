@@ -10,8 +10,8 @@
 				<router-link to="/mycollect">
 					<li>我的收藏<span></span></li>
 				</router-link>
-				<router-link to="/shoppingcart">
-					<li>我的购物车<span></span></li>
+				<router-link to="/order">
+					<li>我的订单<span></span></li>
 				</router-link>
 				<router-link to="/myaddress">
 					<li>收货地址<span></span></li>

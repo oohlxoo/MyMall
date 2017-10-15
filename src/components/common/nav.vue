@@ -3,8 +3,8 @@
 		<nav class="nav">
 			<ul class="clearfix">
                 <li class="ind"><router-link to="/index"><i></i>首页</router-link></li>
-                <li class="pro"><router-link to="/products"><i></i>产品</router-link></li>
-                <li class="ord"><router-link to="/order"><i></i>订单</router-link></li>
+                <li class="pro"><router-link to="/products"><i></i>分类</router-link></li>
+                <li class="ord"><router-link to="shoppingcart"><i></i>购物车</router-link></li>
                 <li class="set"><router-link to="/setting"><i></i>我的</router-link></li>
             </ul>			
 		</nav>
@@ -53,18 +53,18 @@
         	}
         	&.pro{
         		i{
-        			background: url(../../assets/img/icon_pro.png);
+        			background: url(../../assets/img/icon_type.png);
         		}	
         		.active i{
-        			background: url(../../assets/img/icon_pro1.png);
+        			background: url(../../assets/img/icon_type1.png);
         		}
         	}
         	&.ord{
         		i{
-        			background: url(../../assets/img/icon_order.png);
+        			background: url(../../assets/img/icon_shoppingcart.png);
         		}	
         		.active i{
-        			background: url(../../assets/img/icon_order1.png);
+        			background: url(../../assets/img/icon_shoppingcart.png);
         		}
         	}
         	&.set{

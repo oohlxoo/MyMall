@@ -1,6 +1,6 @@
 <template>
 	<div class="commitorder">
-		<myheader :title="title" ></myheader>
+		<myheader :title="title" :showback="showback"></myheader>
 		<div class="content">
 			<div class="shoppinglist">
 				<ul class="list">
@@ -9,7 +9,7 @@
 							<span class="ed"></span>
 						</div>
 						<div class="right-content">
-							<img src="../../../static/c3.png"/>
+							<img src="../assets/img/c3.png"/>
 							<div class="detals">
 								<p class="titt">夹克</p>
 								<p class="explain">哈哈哈哈</p>
@@ -24,7 +24,7 @@
 							<span class="ed"></span>
 						</div>
 						<div class="right-content">
-							<img src="../../../static/c3.png"/>
+							<img src="../assets/img/c3.png"/>
 							<div class="detals">
 								<p class="titt">夹克</p>
 								<p class="explain">哈哈哈哈</p>
@@ -48,9 +48,9 @@
 </template>
 
 <script>
-	import header from "../common/header"
-	import buynumber from "../common/buynumber"
-	import dialog from "../common/dialog.vue"
+	import header from "./common/header"
+	import buynumber from "./common/buynumber"
+	import dialog from "./common/dialog.vue"
 	export default{
 		props:{
 			
@@ -65,7 +65,8 @@
 				title:"购物车(6)",
 				buynum:1,
 				price:20,
-				total:20
+				total:20,
+				showback:false
 			}
 		},
 		computed:{},
@@ -111,10 +112,10 @@
 		    border-radius: 4px;
 		    color: #ff6804;
 		    margin: 15px 0;
-		    background: url(../../assets/img/icon-add.png) no-repeat 20px;  
+		    background: url(../assets/img/icon-add.png) no-repeat 20px;  
 		}
 		.show_add{
-			background: url(../../assets/img/icon-address.png) no-repeat left center;
+			background: url(../assets/img/icon-address.png) no-repeat left center;
 			padding-left: 45px;
 			text-align: left;
 			margin: 14px 0;
@@ -142,14 +143,14 @@
   			    	width: 25px;
   			    	margin:0 5px ;
   			    	span{
-						background: url(../../assets/img/icon-choose.png) no-repeat 10% center;
+						background: url(../assets/img/icon-choose.png) no-repeat 10% center;
 						background-size: 80% !important;
 						width: 25px !important;
 						height: 100%;
 						display: inline-block;
 						float: left;
 						&.ed{
-							background: url(../../assets/img/icon-choose1.png) no-repeat 10% center ;
+							background: url(../assets/img/icon-choose1.png) no-repeat 10% center ;
 						}
 						
 					}
@@ -211,7 +212,7 @@
 		text-align: right;
 		background-color: #f5f5f5;
 		.choose{
-			background: url(../../assets/img/icon-choose.png) no-repeat 10px center;
+			background: url(../assets/img/icon-choose.png) no-repeat 10px center;
 			background-size: 20px 20px;
 			float: left;
 			width: 64px;
@@ -219,7 +220,7 @@
 			height: 47px;
 			line-height: 47px;
 			&.ed{
-				background: url(../../assets/img/icon-choose1.png) no-repeat 10px  center ;
+				background: url(../assets/img/icon-choose1.png) no-repeat 10px  center ;
 			}
 			
 		}

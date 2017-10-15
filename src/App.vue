@@ -19,7 +19,7 @@ export default {
   },
   computed: {
   	isShowo () {
-  		if (this.$route.path == '/' || this.$route.path == '/index' || this.$route.path == '/products' || this.$route.path == '/order' || this.$route.path == '/setting') {
+  		if (this.$route.path == '/' || this.$route.path == '/index' || this.$route.path == '/products' || this.$route.path == '/shoppingcart' || this.$route.path == '/setting') {
   			return true
   		} else {
   			return false

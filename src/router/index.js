@@ -4,7 +4,7 @@ import Index from '../components/index'
 import Products from '../components/products'
 import Setting from '../components/setting'
 import details from '../components/childPage/details'
-import Order from '../components/order'
+import Order from '../components/childPage/order'
 import productType from "../components/childPage/productType"
 import mycollect from "../components/childPage/mycollect"
 import commitOrder from "../components/childPage/commitOrder"
@@ -14,7 +14,7 @@ import register from "../components/register"
 import manageAddress from "../components/childPage/manageAddress"
 import appraise from "../components/childPage/appraise"
 import search from "../components/childPage/search"
-import shoppingcart from "../components/childPage/shoppingcart"
+import shoppingcart from "../components/shoppingcart"
 
 
 
