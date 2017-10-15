@@ -1,28 +1,21 @@
 <template>
 	<div>
-		<!--<p class="part_head">
-			<router-link to="/index">
-				<span class="back">返回</span>
-			</router-link>
-		</p>-->
 		<myheader :title="title"></myheader>
-		<!--<img class="part_myicon" src="../assets/img/icon-myiocn.png"/>
-		--><div class="part_form">
-			
+		<div class="part_form">
 			<p>
-				<input placeholder="手机号" />
+				<input placeholder="手机号" v-model="account" @mouseleave="checkAccount" />
 				<!--<button class="getCheckNum">获取验证码</button>-->
 			</p>
 			
 			<p>
 				<input class="checknum" placeholder="验证码" />
-				<img class="rrr"  src="../assets/img/rrr.png" />
+				<img class="rrr"  @click="getCheckNum"  src="../assets/img/rrr.png" />
 				<img class="furbish" src="../assets/img/icon-refurbish.png" />
 			</p>
 			<p>
 			<input type="password" placeholder="密码" />
 			</p>
-			<button class="button">立即注册</button>
+			<button class="button" @click="register">立即注册</button>
 		</div>
 	</div>
 </template>
@@ -32,12 +25,60 @@
 	export default{
 		data(){
 			return{
-				title:"注册新账号"
+				title:"注册新账号",
+				account:null
 			}
 		},
 		components:{
 			myheader:header
 		},
+		methods:{
+			//检验账号
+			checkAccount(){
+				var regAccount = /^1\d{1}$/;
+				if(!regAccount.test(this.account)){
+					alert("请输入正确的手机号码");
+					this.account="";
+					return
+				}
+				this.$http.get("/api/checkAccount",
+				{params:{account:this.account}}).then((res)=>{
+					console.log(res.data.data.isExist);
+					if(!res.data.data.isExist){
+						alert("该账号已注册");
+					}
+				}).catch((err)=>{
+					console.log(err);
+				});
+			},
+			//获取验证码
+			getCheckNum(){
+				this.$http.get("/api/checkAccount").then((res)=>{
+					console.log(res.data.data.checkNum);
+				}).catch((err)=>{
+					console.log(err);
+				});
+			},
+			//提交注册请求
+			register(){
+				//检验账号 
+				//检验验证码
+				//检验密码
+				this.$http.get("/api/checkAccount",{
+					params:{
+						account:this.account,
+						checkNum:this.checkNum,
+						password:this.password
+					}
+				}).then((res)=>{
+					console.log(res.data.data.checkNum);
+				}).catch((err)=>{
+					console.log(err);
+				});
+				
+			}
+			
+		}
 	}
 </script>
 

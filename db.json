@@ -116,5 +116,30 @@
 				"islast":true				
 			}			
   		]
+	},
+	"login":{
+		"status":0,
+		 "message":"",
+		 "data":{
+		 	"account":"18721781234",
+		 	"password":"admin123",
+		 	"token":"qwertyuiop123456"
+		 }
+		
+	},
+	"checkAccount":{
+		"status":0,
+		"message":"",
+		"data":{
+		 	"isExist":false
+		}
+	},
+	"register":{
+		"status":0,
+		"message":"",
+		"data":{
+		 	"account":"12345678900",
+		 	"token":"qw12324fdsfd"
+		}
 	}
 }

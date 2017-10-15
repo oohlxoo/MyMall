@@ -42,6 +42,14 @@ const store = new  Vuex.Store({
 		    	}
     		]
 		},
+		userinfo:{
+			account:null,
+			password:null,
+			token:null,
+			nickname:null,
+			pic:null,
+			sign:null
+		}
 	},
 	getters: {},
 	mutations: {
@@ -67,7 +75,7 @@ const store = new  Vuex.Store({
 		//根据id获取详情信息
 		getProListById (store, data) {
 			store.commit('setGetdetails',data)
-		}
+		},
 	}
 })
 export default store

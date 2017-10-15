@@ -10,17 +10,52 @@
 		</p>
 		<img class="part_myicon" src="../assets/img/icon-myiocn.png"/>
 		<div class="part_form">
-			<input placeholder="手机号" />
-			<input type="password" placeholder="密码" />
-			<button >登录</button>
+			<input placeholder="手机号" v-model="account"/>
+			<input type="password" placeholder="密码" v-model="password" />
+			<button @click="userlogin">登录</button>
 		</div>
+		<!--<tiptip></tiptip>-->
 	</div>
 </template>
 
 <script>
+	import tiptip from "./common/tiptip"
 	export default{
 		components:{
-			
+			tiptip
+		},
+		data(){
+			return{
+				account:null,
+				password:null,
+				
+			}
+		},
+		methods:{
+			userlogin(){
+				var regAccount = /^1\d{1}$/; //测试的时候，先写两位数字
+				if(!regAccount.test(this.account)){
+					alert("账号需为11位数字");
+					return;
+				}
+				if(this.password.length<6 || this.password==null){
+				    alert("密码至少大于等于6位");
+				    return;
+				}
+				var respassword = /^[0-9a-zA-Z]+$/;
+				if(!respassword.test(this.password)){
+				    alert("密码只能由数字和字母组成");
+				    return;
+				}
+				this.$http.get("/api/login",{params:{account:this.account,password:this.password}}
+				).then((res)=>{
+					console.log(res);
+				}).catch((err)=>{
+					
+				});
+				
+				
+			}
 		}
 	}
 </script>
