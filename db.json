@@ -118,28 +118,17 @@
   		]
 	},
 	"login":{
-		"status":0,
-		 "message":"",
-		 "data":{
-		 	"account":"18721781234",
-		 	"password":"admin123",
-		 	"token":"qwertyuiop123456"
-		 }
-		
+	 	"u_account":"18721781234",
+	 	"u_token":"qwertyuiop123456"
 	},
 	"checkAccount":{
-		"status":0,
-		"message":"",
-		"data":{
-		 	"isExist":false
-		}
+		"isExist":false
+	},
+	"getCheckNum":{
+		"checkNumber":"uwv6"
 	},
 	"register":{
-		"status":0,
-		"message":"",
-		"data":{
-		 	"account":"12345678900",
-		 	"token":"qw12324fdsfd"
-		}
+	 	"u_account":"12345678900",
+	 	"u_token":"qw12324fdsfd"
 	}
 }

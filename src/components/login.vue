@@ -31,7 +31,13 @@
 				
 			}
 		},
+		computed:{
+			userinfo () {
+				return this.$store.state.userinfo
+			}
+		},
 		methods:{
+			
 			userlogin(){
 				var regAccount = /^1\d{1}$/; //测试的时候，先写两位数字
 				if(!regAccount.test(this.account)){
@@ -47,14 +53,12 @@
 				    alert("密码只能由数字和字母组成");
 				    return;
 				}
-				this.$http.get("/api/login",{params:{account:this.account,password:this.password}}
+				this.$http.get('/api/login',{params:{u_account:this.account,u_password:this.password}}
 				).then((res)=>{
-					console.log(res);
+					this.$store.dispatch('fetchUserinfo', res.data);
 				}).catch((err)=>{
 					
 				});
-				
-				
 			}
 		}
 	}

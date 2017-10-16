@@ -8,14 +8,17 @@
 			</p>
 			
 			<p>
-				<input class="checknum" placeholder="验证码" />
+				<input class="checknum" @mouseleave="checkCheckNum" v-model="checkNum" placeholder="验证码" />
 				<img class="rrr"  @click="getCheckNum"  src="../assets/img/rrr.png" />
 				<img class="furbish" src="../assets/img/icon-refurbish.png" />
 			</p>
 			<p>
-			<input type="password" placeholder="密码" />
+			<input type="password" v-model="password" placeholder="密码（大于6位的数字或者密码组合）" />
 			</p>
 			<button class="button" @click="register">立即注册</button>
+			
+			token: <span>{{userinfo.u_token}}</span><br/>
+		account: <span>{{userinfo.u_account}}</span>
 		</div>
 	</div>
 </template>
@@ -26,7 +29,17 @@
 		data(){
 			return{
 				title:"注册新账号",
-				account:null
+				account:null,
+				checkNum:null,
+				password:null,
+				checkNumberss:null,//后台获取的验证码
+				
+				
+			}
+		},
+		computed:{
+			userinfo () {
+				return this.$store.state.userinfo
 			}
 		},
 		components:{
@@ -42,10 +55,11 @@
 					return
 				}
 				this.$http.get("/api/checkAccount",
-				{params:{account:this.account}}).then((res)=>{
-					console.log(res.data.data.isExist);
-					if(!res.data.data.isExist){
+				{params:{u_account:this.account}}).then((res)=>{
+					console.log(res.data.isExist);
+					if(res.data.isExist){
 						alert("该账号已注册");
+						return;
 					}
 				}).catch((err)=>{
 					console.log(err);
@@ -53,31 +67,57 @@
 			},
 			//获取验证码
 			getCheckNum(){
-				this.$http.get("/api/checkAccount").then((res)=>{
-					console.log(res.data.data.checkNum);
+				this.$http.get("/api/getCheckNum").then((res)=>{
+					console.log(res.data.checkNumber);
+					this.checkNumberss=res.data.checkNumber;
 				}).catch((err)=>{
 					console.log(err);
 				});
 			},
+			//检验验证码
+			checkCheckNum(){
+				if(this.checkNum==null || this.checkNum==""){
+					alert("验证码不能为空");
+					return;
+				}else if(this.checkNum.length<4){
+					alert("请输入4位数的验证码");
+					return;
+				}
+				if(this.checkNum !== this.checkNumberss){
+					alert("验证码不正确，请重新填写");
+					return;
+				}
+			},
 			//提交注册请求
 			register(){
-				//检验账号 
-				//检验验证码
 				//检验密码
-				this.$http.get("/api/checkAccount",{
+				if(this.password=="" || this.password.length<6 ){
+				    alert("密码至少大于等于6位");
+				    return;
+				}
+				var respassword = /^[0-9a-zA-Z]+$/;
+				if(!respassword.test(this.password)){
+				    alert("密码需由数字和字母组成");
+				    return;
+				}
+				this.$http.get("/api/register",{
 					params:{
-						account:this.account,
-						checkNum:this.checkNum,
-						password:this.password
+						u_account:this.account,
+						u_checkNum:this.checkNum,
+						u_password:this.password
 					}
 				}).then((res)=>{
-					console.log(res.data.data.checkNum);
+					//保存账号和token
+					this.$store.dispatch("fetchUserinfo",res.data);
+					console.log(res.data.account);
 				}).catch((err)=>{
 					console.log(err);
 				});
 				
 			}
-			
+		},
+		mounted(){
+			this.getCheckNum();
 		}
 	}
 </script>
@@ -103,6 +143,7 @@
 		p {
 			input{
 				display: inline-block;
+				width: 100%;
 			}
 			width: 100%;
 			display: block;

@@ -43,12 +43,14 @@ const store = new  Vuex.Store({
     		]
 		},
 		userinfo:{
-			account:null,
-			password:null,
-			token:null,
-			nickname:null,
-			pic:null,
-			sign:null
+			u_id:null,
+			u_account:null,
+			u_token:null,
+			u_nickname:null,
+			u_sign:null,
+			u_icon:null,
+			u_password:null,
+			u_identity:null
 		}
 	},
 	getters: {},
@@ -61,6 +63,10 @@ const store = new  Vuex.Store({
 		},
 		setGetdetails:(state,data)=>{
 			state.getdetails = data
+		},
+		setUserinfo:(state,data)=>{
+			state.userinfo.u_account = data.u_account
+			state.userinfo.u_token = data.u_token
 		}
 	},
 	actions: {
@@ -76,6 +82,10 @@ const store = new  Vuex.Store({
 		getProListById (store, data) {
 			store.commit('setGetdetails',data)
 		},
+		//登录之后，存储用户的信息
+		fetchUserinfo(store, data){ // 这个地方你没写 我的姐
+			store.commit("setUserinfo",data)
+		}
 	}
 })
 export default store
