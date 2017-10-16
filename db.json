@@ -130,5 +130,44 @@
 	"register":{
 	 	"u_account":"12345678900",
 	 	"u_token":"qw12324fdsfd"
-	}
+	},
+	"register":{
+		"status":0,
+		"message":"",
+		"data":{
+		 	"u_account":"12345678900",
+		 	"u_token":"qw12324fdsfd"
+	 	}
+	},
+	"getPopType":[
+		{"gt_id":1,
+		 "gt_name":"冬款上新",
+		 "gt_status":0,
+		 "gt_icon":"/static/b1.png",
+		 "gt_parent_id":""
+		},
+		{"gt_id":2,
+		 "gt_name":"新款毛呢",
+		 "gt_status":0,
+		 "gt_icon":"/static/b2.png",
+		 "gt_parent_id":""
+		},
+		{"gt_id":3,
+		 "gt_name":"毛衣",
+		 "gt_status":0,
+		 "gt_icon":"/static/b3.png",
+		 "gt_parent_id":""
+		},
+		{"gt_id":4,
+		 "gt_name":"靴子",
+		 "gt_status":0,
+		 "gt_icon":"/static/b4.png",
+		 "gt_parent_id":""
+		}
+		
+	
+	]
+		
+	
+	
 }
