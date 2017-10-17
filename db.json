@@ -147,5 +147,9 @@
 	},
 	"addShoppingList":{
 		"issuccess":true
-	}
+	},
+	"isCollect":{
+		"issuccess":true
+	},
+
 }

@@ -17,7 +17,7 @@
 				<p class="pri">￥{{detailslist.g_price}}</p>
 				<p class="others"><span>月销量：{{detailslist.g_salesvolume}}</span><span>产地：{{detailslist.g_address}}</span>
 					<!--<span class="collect"></span>  未收藏的样式-->
-					<span class="collect" :class="{'collected':iscollect}"  @click="collect()"></span>
+					<span class="collect" :class="{'collected':detailslist.iscollect}"  @click="collect()"></span>
 							
 				</p>
 			</div>
@@ -72,14 +72,27 @@
 				this.$router.push('/commitOrder');
 			},
 			//收藏与取消收藏
-			collect(data){
+			collect(id){
 				this.iscollect= !this.iscollect;
+				this.$http.get("/api/isCollect"/*,{params{
+					account:this.$store.userinfo.account,
+					token:this.$store.userinfo.token,
+					g_id:id
+
+				}}*/)
+				.then((res)=>{
+					console.log(res.data.issuccess);
+
+				}).catch(()=>{
+
+				});
 			
 			},
-			addShopping(){
+			addShopping(id){
 				this.$http.get("/api/addShoppingList"/*,{params{
 					account:this.$store.userinfo.account,
-					token:this.$store.userinfo.token
+					token:this.$store.userinfo.token,
+					g_id:id
 				}}*/)
 				.then((res)=>{
 					console.log(res.data.issuccess);
