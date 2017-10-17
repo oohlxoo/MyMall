@@ -70,7 +70,7 @@ export default new Router({
 		},
 	    //产品类型
 	    {
-	    	path:"/productType",
+	    	path:"/productType/:gt_id",
 	    	name:"productType",
 	    	component:productType
 	    },
@@ -82,7 +82,7 @@ export default new Router({
 	    },
 	    //商品详情
 	    {
-	      path: '/details/:id',
+	      path: '/details/:g_id',
 	      name: "details",
 	      component: details
 	    },
@@ -93,7 +93,7 @@ export default new Router({
 		},
 		//提交订单
 		  { 
-			path: "/commitOrder",
+			path: "/commitOrder/:g_id",
 			component: commitOrder 
 		},
 		//收货地址

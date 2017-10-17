@@ -2,15 +2,15 @@
 	<div>
 		<div class="productlist">
 			<ul class="list">
-				<li v-for="(item,index) in productLists">
+				<li v-for="(item,index) in productlist">
 					<!--<router-link to="/details/10">-->
 					<a>
-						<img :src="item.ico" @click="jump(item.id)"/>
+						<img :src="item.g_img[0]" @click="jump(item.g_id)"/>
 						<div class="detals">
-							<p class="titt" @click="jump(item.id)">{{item.title }}</p>
-							<p class="explain" @click="jump(item.id)">{{item.details}}</p>
-							<p class="price"><i>￥</i>{{item.price}}<del>￥{{item.originalCost}}</del></p>
-							<p class="button"><button @click="buypro(item.id)" >立即购买</button></p>
+							<p class="titt" @click="jump(item.g_id)">{{item.g_title }}</p>
+							<p class="explain" @click="jump(item.g_id)">{{item.g_describe}}</p>
+							<p class="price"><i>￥</i>{{item.g_price}}<del>￥{{item.g_originalCost}}</del></p>
+							<p class="button"><button @click="buypro(item.g_id)" >立即购买</button></p>
 						</div>
 					</a>
 					<!--</router-link>-->
@@ -23,33 +23,27 @@
 	export default{
 		data(){
 			return {
-				iscollect:false
+				iscollect:false,
+				indpic:0
 			}
 		},
-		computed:{
-			productLists:{
-				get(){
-					return this.$store.state.productList
-				},
-				set(){}
+		props:{
+			productlist:{
+				type:Array,
+				default:null
 			}
 		},
+		
 		methods:{
 			jump (value) {
 				this.$router.push('/details/' +  value);
 			},
 			buypro(id){
-				this.$router.push('/commitOrder');
-				
-			},
-			
+				console.log(id);
+				this.$router.push('/commitOrder/'+id);
+			}
 		},
-		mounted () {
-			this.$http.get("api/productList").then((res) => {
-				this.$store.dispatch("fetchProductList",res.data)
-			}).catch((err)=>{
-				console.log(err)
-			})				
+		mounted () {			
 		}	
 	}
 </script>

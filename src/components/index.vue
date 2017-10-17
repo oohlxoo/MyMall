@@ -1,14 +1,15 @@
 <template>
 		<div class="contents">
-			<ibanner></ibanner>
+			<ibanner></ibanner><!--先不调用接口 -->
+			<!--商品类型推荐 （4条数据）-->
 			<ul class="new-product">
-				<li class="new1" @click="typejump"><i></i>早秋新品</li>
-				<li class="new2"><i></i>心机显瘦</li>
-				<li class="new3"><i></i>气质女神</li>
-				<li class="new4"><i></i>轻装复古</li>
+				<li v-for="(item,index) in popTypelist" @click="jumpProType(item.gt_id)">
+					<img :src="item.gt_icon">{{item.gt_name}}
+				</li>
 			</ul>
 			<p class="jptitle">精品推荐</p>
-			<prodect-list></prodect-list>
+			<!--精品推荐列表：获取4件最主流的商品-->
+			<prodect-list :productlist="productList"></prodect-list>
 		</div>		
 </template>
 
@@ -16,17 +17,47 @@
 import ibanner from '../components/common/banner'
 import prodectList from '../components/common/productList'
 	export default{
+		data(){
+			return {
+				popTypelist:null,
+			}
+		},
         components:{
             ibanner,
             prodectList
         },
-        mouneted(){
-        	console.log(this.$route);
-        },
+        computed:{
+			productList(){
+				return this.$store.state.productList;	
+			}
+		},
         methods:{
-        	typejump(){
-        		this.$router.push("productType");
+        	jumpProType(gt_id){
+        		this.$router.push("/productType/"+ gt_id);
+        	},
+        	getPopType(){
+        		this.$http.get("/api/getPopType",{
+        			params:{/*account:this.$store.userinfo.account,
+        					token:this.$store.userinfo.token*/}
+        		}).then((res)=>{
+        			this.popTypelist=res.data;
+        		}).catch((err)=>{
+
+        		});
+        	},
+        	getProListDta(){
+        		this.$http.get("api/productList").then((res) => {
+        			
+					this.$store.dispatch("fetchProductList",res.data)
+				}).catch((err)=>{
+					console.log(err)
+				})
         	}
+
+        },
+          mounted(){
+        	this.getPopType();
+        	this.getProListDta();
         }
 	}
 </script>
@@ -42,36 +73,13 @@ import prodectList from '../components/common/productList'
 			width: 25%;
 			float: left;
 			color: #4d00ff;
-			i{
+			img{
 				width: 60px;
 				height: 60px;
 				border-radius: 30px;
 				display: block;
-				background: red;
 				margin:10px auto ;
-				background-size: 100% 100% !important;
-			}
-			&.new1{
-				i{
-					background:url(../assets/img/c1.png) no-repeat ;
-				}
-			}
-			&.new2{
-				i{
-					background:url(../assets/img/c2.png) no-repeat ;
-				}
-			}
-			&.new3{
-				i{
-					background:url(../assets/img/c3.png) no-repeat ;
-				}
-			}
-			&.new4{
-				i{
-					background:url(../assets/img/c4.png) no-repeat ;
-				}
-			}
-			
+			}		
 		}
 		
 	}

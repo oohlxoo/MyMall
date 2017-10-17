@@ -1,42 +1,43 @@
 <template>
 	<div class="allcontent">
-		<myheaders :title="detailslist.title"></myheaders>
+		<myheaders :title="detailslist.g_title"></myheaders>
 		<div class="details">
 			<div class="typeshow">
 				<ul>
-					<li v-for="item in detailslist.img" v-touch:touchend="onTouchEnd">
-						<img :src="detailslist.img[nowindex]">	
+					<li v-for="item in detailslist.g_img" v-touch:touchend="onTouchEnd">
+						<img :src="detailslist.g_img[nowindex]">	
 					</li>
 				
 				</ul>
 				<div class="length">
-					<p><span v-for="(o,i) in detailslist.img" :class="{current:(i===nowindex)}"></span></p>
+					<p><span v-for="(o,i) in detailslist.g_img" :class="{current:(i===nowindex)}"></span></p>
 				</div>	
 			</div>
 			<div class="priceinfo">
-				<p class="pri">￥{{detailslist.price}}</p>
-				<p class="others"><span>月销量：{{detailslist.salesvolume}}</span><span>产地：{{detailslist.address}}</span>
+				<p class="pri">￥{{detailslist.g_price}}</p>
+				<p class="others"><span>月销量：{{detailslist.g_salesvolume}}</span><span>产地：{{detailslist.g_address}}</span>
 					<!--<span class="collect"></span>  未收藏的样式-->
 					<span class="collect" :class="{'collected':iscollect}"  @click="collect()"></span>
 							
 				</p>
 			</div>
 			<div class="appraise">
-				<p class="count">商品评价({{detailslist.assess.length}})</p>
+				<p class="count">商品评价({{detailslist.t_comment.length}})</p>
 				<ul>
-					<li class="clearfix" v-for="(item,index) in detailslist.assess" :class="{hideBorderBottom:item.islast}">
+					<li class="clearfix" v-for="(item,index) in detailslist.t_comment" :class="{hideBorderBottom:item.islast}">
 						<p class="clearfix">
-							<img class="img" :src="item.userpic">
-							<span class="username">{{item.nikename}}</span>
-							<mystar :num="item.start"></mystar></p>
-						<p class= "text">{{item.content}}
+							<img class="img" :src="item.u_icon">
+							<span class="username">{{item.u_nickname}}</span>
+							<mystar :num="item.com_star"></mystar></p>
+						<p class= "text">{{item.com_content}}
 						</p>
-						<p class="date"><span>{{item.date}}</span></p>
+						<p class="date"><span>{{item.com_date}}</span></p>
 					</li>
 				</ul>
 			</div>
 			<div class="button_div">
-				<button @click="buynow()">立即购买</button>
+			    <button @click="addShopping(detailslist.g_id)">加入购物车</button>
+				<button @click="buynow(detailslist.g_id)">立即购买</button>
 			</div>
 		</div>
 	
@@ -60,7 +61,7 @@
 		methods:{
 			//点击屏幕，切换图片
 			onTouchEnd(){
-				var count=this.detailslist.img.length-1;
+				var count=this.detailslist.g_img.length-1;
 				if(this.nowindex<count){
 					this.nowindex++;
 				}else{
@@ -74,6 +75,18 @@
 			collect(data){
 				this.iscollect= !this.iscollect;
 			
+			},
+			addShopping(){
+				this.$http.get("/api/addShoppingList"/*,{params{
+					account:this.$store.userinfo.account,
+					token:this.$store.userinfo.token
+				}}*/)
+				.then((res)=>{
+					console.log(res.data.issuccess);
+
+				}).catch(()=>{
+
+				});
 			}
 		},
 		computed:{
@@ -233,14 +246,18 @@
 		margin-top: 10px;
 		height: 50px;
 		button{
-	   	    background: linear-gradient(to right, #ffa100,#ff6804);
-			width: 100%;
+	   	    background: linear-gradient(to right, #9cf559,#ff8302);
+			width: 50%;
 			height: 100%;
 		    color: floralwhite;
 		    text-align: center;
 		    display: block;
 		    line-height: 50px;
 		    font-size: 16px;
+		    float: left;
+		    &:last-child{
+		    	 background: linear-gradient(to right, #8d46ff,#ff6804);
+		    }
 		    
 		}
 	}

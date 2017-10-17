@@ -23,100 +23,11 @@
 		"srco":"/static/b1.png",
 		"title":"第4张图",
 		"href":"https://baidu.com"
-	},
-	{
-		"id":2,
-		"srco":"/static/b1.png",
-		"title":"第2张图",
-		"href":"https://baidu.com"
-	},
-	{
-		"id":3,
-		"srco":"/static/b3.png",
-		"title":"第3张图",
-		"href":"https://baidu.com"
-	},
-	{
-		"id":4,
-		"srco":"/static/b4.png",
-		"title":"第4张图",
-		"href":"https://baidu.com"
 	}
-	
   ],
-  "productList":[
-  	{
-		"id":1,
-		"ico":"/static/c1.png",
-		"title":"时尚风衣",
-		"price":100,
-		"originalCost":145,
-		"details":"送腰带~夏新款韩版宽松显瘦纯色"		
-	},
-	{
-		"id":2,
-		"ico":"/static/c2.png",
-		"title":"时尚风衣",
-		"price":100,
-		"originalCost":145,
-		"details":"纯色百搭时尚气质高腰九分休闲裤女潮"		
-	},
-	{
-		"id":3,
-		"ico":"/static/c3.png",
-		"title":"时尚风衣",
-		"price":100,
-		"originalCost":145,
-		"details":"送腰带~夏新款色百搭腰九分休闲裤女潮"		
-	},
-	{
-		"id":4,
-		"ico":"/static/c4.png",
-		"title":"时尚风衣",
-		"price":100,
-		"originalCost":145,
-		"details":"送纯色百搭时尚气质高腰九分休闲裤女潮"		
-	}				
-  ],
-  "getdetails":
-  	{
-		"id":1,
-		"title":"时尚风衣",
-		"img":["/static/d1.png","/static/d2.png","/static/d3.png","/static/d4.png"],
-		"price":100,
-		"salesvolume":8888,
-		"address":"上海",
-		"assess":[
-			{
-				"id":1,
-				"userid":1,
-				"userpic":"/static/u1.png",
-				"nikename":"单色凌",
-				"content":"宝贝非常漂亮 客服态度也很好 下次还会继续来买的",
-				"start":5,
-				"date":"2017.09.18"				
-			},
-			{
-			    "id":2,
-				"userid":2,
-				"userpic":"/static/u2.png",
-				"nikename":"jay",
-				"content":"窗外的麻雀，在电线杆上多嘴，你说这一句很有夏天的感觉",
-				"start":4,
-				"date":"2017.09.20"				
-			},
-			{
-			    "id":3,
-				"userid":3,
-				"userpic":"/static/u3.png",
-				"nikename":"林俊杰",
-				"content":"因为在 一千年以后世界早已没有我无法深情挽着你的手浅吻着你额头",
-				"start":3,
-				"date":"2017.09.22",
-				"islast":true				
-			}			
-  		]
-	},
+
+ 
+
 	"login":{
 	 	"u_account":"18721781234",
 	 	"u_token":"qwertyuiop123456"
@@ -139,35 +50,102 @@
 		 	"u_token":"qw12324fdsfd"
 	 	}
 	},
+
 	"getPopType":[
 		{"gt_id":1,
 		 "gt_name":"冬款上新",
 		 "gt_status":0,
-		 "gt_icon":"/static/b1.png",
+		 "gt_icon":"/static/c1.png",
 		 "gt_parent_id":""
 		},
 		{"gt_id":2,
 		 "gt_name":"新款毛呢",
 		 "gt_status":0,
-		 "gt_icon":"/static/b2.png",
+		 "gt_icon":"/static/c2.png",
 		 "gt_parent_id":""
 		},
 		{"gt_id":3,
 		 "gt_name":"毛衣",
 		 "gt_status":0,
-		 "gt_icon":"/static/b3.png",
+		 "gt_icon":"/static/c3.png",
 		 "gt_parent_id":""
 		},
 		{"gt_id":4,
 		 "gt_name":"靴子",
 		 "gt_status":0,
-		 "gt_icon":"/static/b4.png",
+		 "gt_icon":"/static/c4.png",
 		 "gt_parent_id":""
 		}
-		
-	
-	]
-		
-	
-	
+	],
+
+	"productList":[
+	  	{
+			"g_id":1,
+			"g_img":["/static/d1.png","/static/d2.png","/static/d3.png","/static/d4.png"],
+			"g_title":"时尚风衣",
+			"g_price":100,
+			"g_originalCost":145,
+			"g_describe":"送腰带~夏新款韩版宽松显瘦纯色"		
+		},
+		{
+			"g_id":2,
+			"g_img":["/static/d2.png","/static/d3.png","/static/d4.png"],
+			"g_title":"时尚风衣",
+			"g_price":100,
+			"g_originalCost":145,
+			"g_describe":"送腰带~夏新款韩版宽松显瘦纯色"		
+		},
+		{
+			"g_id":3,
+			"g_img":["/static/d3.png","/static/d4.png"],
+			"g_title":"时尚风衣",
+			"g_price":100,
+			"g_originalCost":145,
+			"g_describe":"送腰带~夏新款韩版宽松显瘦纯色"		
+		},
+		{
+			"g_id":4,
+			"g_img":["/static/d4.png"],
+			"g_title":"时尚风衣",
+			"g_price":100,
+			"g_originalCost":145,
+			"g_describe":"送腰带~夏新款韩版宽松显瘦纯色"		
+		}			
+	],
+
+	"getdetails":
+  	{
+		"g_id":1,
+		"g_title":"时尚风衣",
+		"g_img":["/static/d1.png","/static/d2.png","/static/d3.png","/static/d4.png"],
+		"g_price":100,
+		"g_salesvolume":8888,
+		"g_address":"上海",
+		"g_status":0,
+		"iscollect":true,
+		"t_comment":[
+			{
+				"com_id":1,
+				"u_id":1,
+				"u_icon":"/static/u1.png",
+				"u_nickname":"单色凌",
+				"com_content":"宝贝非常漂亮 客服态度也很好 下次还会继续来买的",
+				"com_star":5,
+				"com_date":"2017.09.18"				
+			},
+			{
+				"com_id":3,
+				"u_id":2,
+				"u_icon":"/static/u3.png",
+				"u_nickname":"林俊杰",
+				"com_content":"因为在 一千年以后世界早已没有我无法深情挽着你的手浅吻着你额头",
+				"com_star":4,
+				"com_date":"2017.09.18",
+				"islast":true				
+			}			
+  		]
+	},
+	"addShoppingList":{
+		"issuccess":true
+	}
 }
