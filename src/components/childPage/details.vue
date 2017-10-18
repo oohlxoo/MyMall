@@ -68,9 +68,6 @@
 					this.nowindex=0
 				}
 			},
-			buynow(){
-				this.$router.push('/commitOrder');
-			},
 			//收藏与取消收藏
 			collect(id){
 				this.iscollect= !this.iscollect;
@@ -88,6 +85,7 @@
 				});
 			
 			},
+			//加入购物车
 			addShopping(id){
 				this.$http.get("/api/addShoppingList"/*,{params{
 					account:this.$store.userinfo.account,
@@ -100,6 +98,10 @@
 				}).catch(()=>{
 
 				});
+			},
+			//立即购买
+			buynow(g_id){
+				this.$router.push('/commitorder/'+ g_id);
 			}
 		},
 		computed:{

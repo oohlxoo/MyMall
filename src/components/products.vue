@@ -14,14 +14,7 @@
 					<li :class="{current:number==3}" @click="showDetails(3)">女鞋</li>
 					<li :class="{current:number==4}" @click="showDetails(4)">男友</li>
 					<li :class="{current:number==5}" @click="showDetails(5)">包包</li>
-					<li :class="{current:number==6}" @click="showDetails(6)">外套</li>
-					<li :class="{current:number==7}" @click="showDetails(7)">女鞋</li>
-					<li :class="{current:number==8}" @click="showDetails(8)">男友</li>
-					<li :class="{current:number==9}" @click="showDetails(9)">包包</li>	
-					<li :class="{current:number==6}" @click="showDetails(6)">外套</li>
-					<li :class="{current:number==7}" @click="showDetails(7)">女鞋</li>
-					<li :class="{current:number==8}" @click="showDetails(8)">男友</li>
-					<li :class="{current:number==9}" @click="showDetails(9)">包包</li>
+					
 				</ul>
 			</div>
 			<div class="smallType">
@@ -81,10 +74,22 @@
       		//搜索页面
       		jumpsearch(){
       			this.$router.push('/search');
+      		},
+      		getAllProType(){
+      			this.$http.get("api/allProTypeList",{params:
+      				{/*account:this.$store.userinfo.account,
+        			  token:this.$store.userinfo.token*/}
+      			}).then((res)=>{
+      					console.log(res.data);
+      					
+      			}).catch((err)=>{
+
+      			});
       		}
-      		
+      	},
+      	mounted(){
+			this.getAllProType();
       	}
-      
 	}
 
 </script>

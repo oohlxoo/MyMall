@@ -15,30 +15,32 @@ const store = new  Vuex.Store({
 		],
 		productList: [
 			{
-				id: null,
+				g_id: null,
 				ico: null,
-				title: null,
-				price: null,
-				originalCost: null,
-				details: null
+				g_title: null,
+				g_price: null,
+				g_describe: null,
+				g_originalCost: null,
+				g_img: []
 			}
 	    ],
 	    getdetails: {
-    		id:null,
-			title:null,
-			img:[],
-			price: null,
-			salesvolume:null,
-			address:null,
-			assess:[
+    		g_id:null,
+			g_title:null,
+			g_img:[],
+			g_price: null,
+			g_salesvolume:null,
+			g_address:null,
+			iscollect:null,
+			t_comment:[
 				{
-					id:null,
-					userid:null,
-					userpic:null,
-					nikename:null,
-					content:null,
-					start:null,
-					date:null	
+					com_id:null,
+					u_id:null,
+					u_icon:null,
+					u_nickname:null,
+					com_content:null,
+					com_star:null,
+					com_date:null	
 		    	}
     		]
 		},

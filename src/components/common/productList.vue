@@ -40,7 +40,7 @@
 			},
 			buypro(id){
 				console.log(id);
-				this.$router.push('/commitOrder/'+id);
+				this.$router.push('/commitorder/' + id);
 			}
 		},
 		mounted () {			

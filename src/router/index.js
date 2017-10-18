@@ -93,7 +93,7 @@ export default new Router({
 		},
 		//提交订单
 		  { 
-			path: "/commitOrder/:g_id",
+			path: "/commitorder/:g_id",
 			component: commitOrder 
 		},
 		//收货地址
