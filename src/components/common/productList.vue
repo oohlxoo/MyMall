@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="productlist">
-			<ul class="list">
+			<ul class="list" v-if="!(productlist.length==0)">
 				<li v-for="(item,index) in productlist">
 					<!--<router-link to="/details/10">-->
 					<a>
@@ -14,8 +14,10 @@
 						</div>
 					</a>
 					<!--</router-link>-->
-				</li>				
+				</li>
 			</ul>
+
+			<p v-if="(productlist.length==0)" class="none" >暂无数据</p>
 		</div>
 	</div>
 </template>
@@ -33,7 +35,6 @@
 				default:null
 			}
 		},
-		
 		methods:{
 			jump (value) {
 				this.$router.push('/details/' +  value);
@@ -107,7 +108,12 @@
 					    float: right;
 					}
 				}
+				
 			}
+			
+		}
+		.none{
+			text-align: center;
 		}
 	}
 </style>

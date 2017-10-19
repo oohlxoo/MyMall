@@ -54,6 +54,7 @@ const store = new  Vuex.Store({
 			u_password:null,
 			u_identity:null
 		}
+
 	},
 	getters: {},
 	mutations: {

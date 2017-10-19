@@ -6,11 +6,9 @@
 		</div>-->
 		<div class="list_div">
 			<ul class="nav clearfix">
-				<li class="current">综合</li>
-				<li>销量</li>
-				<li>价格</li>
+				<li v-for="(obj,index) in navList" :class="{'current':(index==currentindex)}"  @click="getProListById(index)">{{obj}}</li>
 			</ul>		
-			<prodect-list></prodect-list>
+			<prodect-list :productlist="prodectListData"></prodect-list>
 		
 		</div>
 	</div>
@@ -22,12 +20,37 @@
 	export default{
 		data(){
 			return{
-				title:"秋衣"
+				title:"秋衣",
+				prodectListData:null,
+				navList:["综合","销量","价格"],
+				currentindex:0
 			}
 		},
         components:{
     		myheaders:header,
     		prodectList
+        },
+        created(){
+        	this.title=this.$route.params.gt_name;
+        	this.gt_id=this.$route.params.gt_id;
+        },
+        methods:{
+        	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~注意，是否加分页~~~~~~~~~~~~~~~~~~~~~~~
+        	getProListById(index){
+        		//0 代表综合 1销量 2价格
+        		this.currentindex=index;
+        		this.$http.get("/api/getProductListById",{params:{
+        			gt_id:this.gt_id,
+        			order:this.index
+        		}}).then((res)=>{
+        			this.prodectListData=res.data;
+        		}).catch((err)=>{
+        			console.log(err);
+        		});
+        	}
+        },
+        mounted(){
+        	this.getProListById("");
         }
 	}
 </script>

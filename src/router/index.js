@@ -70,7 +70,7 @@ export default new Router({
 		},
 	    //产品类型
 	    {
-	    	path:"/productType/:gt_id",
+	    	path:"/productType/:gt_id/:gt_name",
 	    	name:"productType",
 	    	component:productType
 	    },

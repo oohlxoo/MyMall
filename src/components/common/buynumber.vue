@@ -11,7 +11,13 @@
 	export default{
 		data(){
 			return {
-				buynum:1
+				
+			}
+		},
+		props:{
+			buynum:{
+				type:Number,
+				default:1
 			}
 		},
 		computed:{

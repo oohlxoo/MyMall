@@ -8,39 +8,15 @@
 		<div class="typeList">
 			<div class="bigType">
 				<ul >
-					<li :class="{current:number==0}" @click="showDetails(0)">上衣</li>
-					<li :class="{current:number==1}" @click="showDetails(1)">裙子</li>
-					<li :class="{current:number==2}" @click="showDetails(2)">外套</li>
-					<li :class="{current:number==3}" @click="showDetails(3)">女鞋</li>
-					<li :class="{current:number==4}" @click="showDetails(4)">男友</li>
-					<li :class="{current:number==5}" @click="showDetails(5)">包包</li>
-					
+					<li v-for="(obj,index) in allProType.parent" :class="{current:number==index}" @click="showDetails(obj.gt_id,index)">{{obj.gt_name}}</li>
 				</ul>
 			</div>
 			<div class="smallType">
 				<ul>
-					<li @click="jump()">
-						<img src="../assets/img/t1.png" />
-						<span>秋上新</span>
-					</li>
-					<li>
-						<img src="../assets/img/t1.png" />
-						<span>秋上新</span>
-					<li>
-						<img src="../assets/img/t1.png" />
-						<span>卫衣</span>
-					</li>
-					<li>
-						<img src="../assets/img/t1.png" />
-						<span>秋上新</span>
-					
-					<li>
-						<img src="../assets/img/t1.png" />
-						<span>秋上新</span>
-					<li>
-						<img src="../assets/img/t1.png" />
-						<span>卫衣</span>
-					</li>
+					<li v-for="(obj,index) in childlist" @click="jumpProduct(obj.gt_id,obj.gt_name)" >
+						<img :src="obj.gt_icon" />
+						<span>{{obj.gt_name}}</span>
+					</li>		
 				</ul>
 			</div>
 		</div>
@@ -55,21 +31,38 @@
 			return {
 				number:0,
 				title:"全部分类",
-				showback:false
+				showback:false,
+				allProType:{
+					parent:[],
+					childlist:[]
+				},
+				childlist:null
+
+
 			}
 		},
       	components:{
       		myheader,
       	},
       	methods:{
-      		//切换
-      		showDetails(num){
-      			this.number=num;
+      		//切换一级菜单
+      		showDetails(gt_id,index){
+      			this.number=index;
+      			//获取的子级的类型
+      			this.$http.get("api/getProTypeById",{params:{
+      				gt_parent_id:gt_id
+      			}}).then((res)=>{
+      				console.log(res.data);
+      				this.childlist=res.data;
+      			}).catch((err)=>{
+
+      			});
       		},
       		//跳转页面
-      		jump(){
-      			this.$router.push('/productType/');
+      		jumpProduct(gt_id,gt_name){
+      			this.$router.push('/productType/'+ gt_id +'/'+ gt_name);
       			//this.$router.push('/details/' +  value)
+
       		},
       		//搜索页面
       		jumpsearch(){
@@ -81,7 +74,8 @@
         			  token:this.$store.userinfo.token*/}
       			}).then((res)=>{
       					console.log(res.data);
-      					
+      					this.allProType=res.data;
+      					this.childlist=res.data.child
       			}).catch((err)=>{
 
       			});

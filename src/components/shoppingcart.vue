@@ -4,35 +4,22 @@
 		<div class="content">
 			<div class="shoppinglist">
 				<ul class="list">
-					<li>
+					<li v-for="(item,index) in shoppingListData">
 						<div class="left-choose">
 							<span class="ed"></span>
 						</div>
 						<div class="right-content">
-							<img src="../assets/img/c3.png"/>
+							<img :src="item.g_img[0]"/>
 							<div class="detals">
-								<p class="titt">夹克</p>
-								<p class="explain">哈哈哈哈</p>
-								<p class="price">￥{{price}}<i>x {{buynum}}</i></p>
+								<p class="titt">{{item.g_title}}</p>
+								<p class="explain">{{item.g_describe}}</p>
+								<p class="price">￥{{item.g_price}}<i>x {{item.sc_num}}</i></p>
 							</div>
-							<p class="num clearfix">购买数量  <mybuynumber @changenum="changenumoo"></mybuynumber></p>
+							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.sc_num" @changenum="changenumoo"></mybuynumber></p>
 						</div>	
 					</li>
 					
-					<li>
-						<div class="left-choose">
-							<span class="ed"></span>
-						</div>
-						<div class="right-content">
-							<img src="../assets/img/c3.png"/>
-							<div class="detals">
-								<p class="titt">夹克</p>
-								<p class="explain">哈哈哈哈</p>
-								<p class="price">￥{{price}}<i>x {{buynum}}</i></p>
-							</div>
-							<p class="num clearfix">购买数量  <mybuynumber @changenum="changenumoo"></mybuynumber></p>
-						</div>	
-					</li>
+					
 				</ul>
 			</div>
 		</div>
@@ -66,7 +53,8 @@
 				buynum:1,
 				price:20,
 				total:20,
-				showback:false
+				showback:false,
+				shoppingListData:null
 			}
 		},
 		computed:{},
@@ -83,8 +71,23 @@
 			changeAddress(){
 				this.$router.push('myaddress' );
 				
+			},
+			getShoppingListData(){
+				this.$http.get("api/shoppingCarList"/*,{
+					params:{
+					account:this.$store.userinfo.account,
+					token:this.$store.userinfo.token
+				}}*/).then((res)=>{
+					this.shoppingListData=res.data;
+					console.log(res.data)
+				}).catch((err)=>{
+					console.log(err)
+				});
 			}
 		},
+		mounted(){
+			this.getShoppingListData();
+		}
 		
 	}
 </script>
@@ -175,6 +178,10 @@
 							line-height: 15px;
 							color: #b3b3b3;
 							font-size: 12px;
+							overflow: hidden;
+						    text-overflow: ellipsis;
+						    white-space: nowrap;
+						    width: 160px;
 						}
 						.titt{
 							font-size: 14px;

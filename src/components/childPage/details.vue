@@ -71,7 +71,7 @@
 			//收藏与取消收藏
 			collect(id){
 				this.iscollect= !this.iscollect;
-				this.$http.get("/api/isCollect"/*,{params{
+				this.$http.get("/api/isCollect"/*,{params:{
 					account:this.$store.userinfo.account,
 					token:this.$store.userinfo.token,
 					g_id:id
