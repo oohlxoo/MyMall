@@ -3,12 +3,12 @@
 		<myheader :title="title"></myheader>
 		<div class="add-ressList">
 			<ul class="list">
-				<li>
-					<p><span class="username">路小雨</span>
-						<span class="phone">187****1234</span>
+				<li v-for="(item,index) in myaddressList">
+					<p><span class="username">{{item.a_name}}</span>
+						<span class="phone">{{item.a_phone}}</span>
 					</p>
-					<p>上海市徐汇区xxx路xxxx号xxx楼
-					上海市徐汇区xxx路xxxx号xxx楼上海市徐汇区xxx路xxxx号xxx楼</p>
+					<p>{{item.a_tity}} </p>
+					<p>{{item.a_detailsAddress}} </p>
 					<p class="option">
 						<span class="detault" @click="chooseDetault" :class="{ed:isDefault}">设为默认</span>
 						<span class="edit">编辑</span>
@@ -16,18 +16,7 @@
 					</p>
 				</li>	
 				
-				<li>
-					<p><span class="username">路小雨</span>
-						<span class="phone">187****1234</span>
-					</p>
-					<p>上海市徐汇区xxx路xxxx号xxx楼
-					上海市徐汇区xxx路xxxx号xxx楼上海市徐汇区xxx路xxxx号xxx楼</p>
-					<p class="option">
-						<span class="detault" @click="chooseDetault" :class="{ed:isDefault}">设为默认</span>
-						<span class="edit" @click="manageaddress(1)">编辑</span>
-						<span class="del">删除</span> 
-					</p>
-				</li>
+				
 				
 				
 			</ul>
@@ -44,7 +33,8 @@
 		data(){
 			return {
 				title:"收货地址管理",
-				isDefault:false
+				isDefault:false,
+				myaddressList:null
 			}
 		},
 		components:{
@@ -60,8 +50,21 @@
 			manageaddress(data){
 				console.log(data);
 				this.$router.push("/manageaddress");
-			}
-			
+			},
+			getAddressListData(){
+				this.$http.get("api/getMyaddressList"/*,{params:{
+				account:this.$store.userinfo.account,
+				token:this.$store.userinfo.token
+			}}*/).then((res)=>{
+					console.log(res.data)
+					this.myaddressList=res.data;
+				}).catch((err)=>{
+					console.log(err)
+				});
+			}			
+		},
+		mounted(){
+			this.getAddressListData();
 		}
 		
 	}

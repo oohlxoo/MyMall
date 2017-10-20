@@ -74,7 +74,8 @@
 				this.$http.get("/api/isCollect"/*,{params:{
 					account:this.$store.userinfo.account,
 					token:this.$store.userinfo.token,
-					g_id:id
+					g_id:id，
+					option:0  //0,代表收藏，1代表取消收藏
 
 				}}*/)
 				.then((res)=>{

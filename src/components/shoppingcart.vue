@@ -6,7 +6,7 @@
 				<ul class="list">
 					<li v-for="(item,index) in shoppingListData">
 						<div class="left-choose">
-							<span class="ed"></span>
+							<span :class="{ed:item.sc_ischoose}"></span>
 						</div>
 						<div class="right-content">
 							<img :src="item.g_img[0]"/>
@@ -26,7 +26,7 @@
 		<div class="total_div">
 			<p>
 				<span class="choose" @click="">全选</span>
-				合计：<i>￥{{total}}</i>
+				合计：<i>￥{{choosetotal}}</i>
 				<button>提交订单</button></p>
 		</div>
 		<!--弹窗-->
@@ -52,7 +52,7 @@
 				title:"购物车(6)",
 				buynum:1,
 				price:20,
-				total:20,
+				choosetotal:0,
 				showback:false,
 				shoppingListData:null
 			}
@@ -64,13 +64,7 @@
 		methods:{
 			changenumoo(num){
 				this.buynum=num;
-				this.total=num*this.price
 			
-			},
-			//切换地址
-			changeAddress(){
-				this.$router.push('myaddress' );
-				
 			},
 			getShoppingListData(){
 				this.$http.get("api/shoppingCarList"/*,{
@@ -79,10 +73,19 @@
 					token:this.$store.userinfo.token
 				}}*/).then((res)=>{
 					this.shoppingListData=res.data;
-					console.log(res.data)
+					console.log(res.data);
+					res.data.forEach((obj)=>{
+						if(obj.sc_ischoose){
+							var oo = obj.g_price * obj.sc_num;
+							console.log(oo)
+							this.choosetotal= this.choosetotal + oo;
+						}
+					});
+					
 				}).catch((err)=>{
 					console.log(err)
 				});
+				
 			}
 		},
 		mounted(){

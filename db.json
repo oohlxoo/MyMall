@@ -419,7 +419,9 @@
 			"u_id":"1",
 			"sc_num": "1",
 			"sc_creattime":"2017-10-19",
-			"sc_edittime":"2017-10-19"
+			"sc_edittime":"2017-10-19",
+			"sc_ischoose":true
+
  		},
  		{
 			"sc_id":2, 
@@ -432,7 +434,8 @@
 			"u_id":"1",
 			"sc_num": "2",
 			"sc_creattime":"2017-10-19",
-			"sc_edittime":"2017-10-19"
+			"sc_edittime":"2017-10-19",
+			"sc_ischoose":false
  		},
  		{
 			"sc_id":3, 
@@ -445,7 +448,62 @@
 			"u_id":"1",
 			"sc_num": "5",
 			"sc_creattime":"2017-10-19",
-			"sc_edittime":"2017-10-19"
+			"sc_edittime":"2017-10-19",
+			"sc_ischoose":true
  		}
+	],
+	"myCollectList":[
+		{
+			"c_id":1,
+			"g_id":1,
+			"g_img":["/static/d3.png","/static/c1.png"],
+			"g_title":"包包",
+			"g_price":19,
+			"g_describe":"送腰带~夏新款韩版宽松显瘦纯色",
+			"u_id":1,
+			"c_date":"2017-10-17",
+			"c_iscollect":true
+		},
+		{
+			"c_id":2,
+			"g_id":2,
+			"g_img":["/static/c1.png"],
+			"g_title":"裙子",
+			"g_price":99,
+			"g_describe":"送腰什么",
+			"u_id":1,
+			"c_date":"2017-10-17",
+			"c_iscollect":false
+		},
+		{
+			"c_id":3,
+			"g_id":3,
+			"g_img":["/static/d4.png"],
+			"g_title":"裙子",
+			"g_price":199,
+			"g_describe":"送腰什么刚刚好",
+			"u_id":1,
+			"c_date":"2017-10-17",
+			"c_iscollect":true
+		}
+	],
+	"getMyaddressList":[
+		{
+			"a_id":1,
+			"a_name":"路小雨",
+			"a_phone":"18721781234",
+			"a_tity":"上海市宝山区大华乐购",
+			"a_detailsAddress":"888弄8号",
+			"a_isDefault":true
+		},
+		{
+			"a_id":2,
+			"a_name":"蓝小白",
+			"a_phone":"18700001234",
+			"a_tity":"上海市浦东区大华乐购",
+			"a_detailsAddress":"666弄6号",
+			"a_isDefault":false
+		}
+
 	]
 }

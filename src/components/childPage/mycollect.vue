@@ -3,13 +3,14 @@
 		<myheader :title="title"></myheader>
 		<div class="collectlist">
 			<ul class="list">
-				<li>
-					<img src="../../../static/c3.png"/>
+				<li v-for="(item,index) in collectList">
+					<img :src="item.g_img[0]"/>
 					<div class="detals">
-						<p class="titt">夹克<span class="collecttime">收藏于1天前</span></p>
-						<p class="explain">哈哈哈哈</p>
-						<p class="price">￥11 
-							<span class="collect" :class="{'collected':iscollect}" @click="iscollectfunction"></span>
+						<p class="titt">{{item.g_title[0]}}<span class="collecttime">收藏于：{{item.c_date}}</span></p>
+						<p class="explain">{{item.g_describe}}</p>
+						<p class="price">￥{{item.g_price}}
+							<span class="collect" :class="{'collected':item.c_iscollect}" @click="iscollectfunction"></span>
+						
 						</p>
 					</div>
 				</li>
@@ -24,7 +25,8 @@
 		data(){
 			return {
 				title:"我的收藏",
-				iscollect:false
+				iscollect:false,
+				collectList:null
 			}
 		},
 		components:{
@@ -33,7 +35,20 @@
 		methods:{
 			iscollectfunction(){
 				this.iscollect=!this.iscollect;
+			},
+			getCollectList(){
+				this.$http.get("api/myCollectList"/*,{param:{
+					account:this.$store.userinfo.account,
+					token:this.$store.userinfo.token
+				}}*/).then((res)=>{
+					this.collectList=res.data;
+				}).catch((err)=>{
+					cons.log(err);
+				});
 			}
+		},
+		mounted(){
+			this.getCollectList()
 		}
 	}
 </script>
