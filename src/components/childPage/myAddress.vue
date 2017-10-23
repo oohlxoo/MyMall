@@ -15,10 +15,6 @@
 						<span class="del">删除</span> 
 					</p>
 				</li>	
-				
-				
-				
-				
 			</ul>
 		</div>
 		<div class="add-address">

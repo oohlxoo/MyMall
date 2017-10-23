@@ -12,26 +12,38 @@
 	export default{
 		data(){
 			return{
-				text:"请先登录",
-				isShow:true
+				// showTip: false
 			}
 		},
 		props:{
-			
-		},
-		computed:{
-			
-		},
-		watch:{},
-		methods:{
-			hidetip(){
-				setTimeout(function(){
-					this.isShow=false;
-				},3000)
+			isShow:{
+				type:Boolean,
+				default:false
+
+			},
+			text:{
+				type:String,
+				default:"请先登录"
 			}
 		},
+		computed:{
+
+		},
+		watch:{
+			isShow(value){
+				if (value) {
+					setTimeout(() => {
+						this.$emit('closeModal')
+					},3000)
+				}
+				
+			}		
+		},
+		methods:{
+			
+		},
 		mounted(){
-			this.hidetip();
+			
 		}
 	}
 </script>
@@ -44,8 +56,8 @@
 		text-align: center;
 		bottom: 50px;
 		p{
-			background: #9e9e9e;
-			opacity: 0.5;
+			background: #777777;
+			opacity: 0.7;
 			width: 60%;
 			margin: 0 auto;
 			height: 35px;

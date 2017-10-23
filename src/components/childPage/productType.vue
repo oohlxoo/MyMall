@@ -10,6 +10,8 @@
 			</ul>		
 			<prodect-list :productlist="prodectListData"></prodect-list>
 		
+
+		
 		</div>
 	</div>
 </template>
@@ -17,6 +19,7 @@
 <script>
 	import header from "../common/header"
 	import prodectList from '../common/productList'
+
 	export default{
 		data(){
 			return{
@@ -29,6 +32,7 @@
         components:{
     		myheaders:header,
     		prodectList
+    		
         },
         created(){
         	this.title=this.$route.params.gt_name;

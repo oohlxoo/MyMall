@@ -3,7 +3,7 @@
 			<ibanner></ibanner><!--先不调用接口 -->
 			<!--商品类型推荐 （4条数据）-->
 			<ul class="new-product">
-				<li v-for="(item,index) in popTypelist" @click="jumpProType(item.gt_id)">
+				<li v-for="(item,index) in popTypelist" @click="jumpProType(item.gt_id,item.gt_name)">
 					<img :src="item.gt_icon">{{item.gt_name}}
 				</li>
 			</ul>
@@ -32,8 +32,8 @@ import prodectList from '../components/common/productList'
 			}
 		},
         methods:{
-        	jumpProType(gt_id){
-        		this.$router.push("/productType/"+ gt_id);
+        	jumpProType(gt_id,gt_name){
+        		this.$router.push("/productType/"+ gt_id+"/"+gt_name);
         	},
         	getPopType(){
         		this.$http.get("/api/getPopType",{

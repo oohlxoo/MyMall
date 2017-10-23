@@ -6,7 +6,7 @@
 				<label>收货人</label><input  />
 			</p>
 			<p>
-				<label>联系电话</label><input  />
+				<label>联系电话</label><input type="number" />
 			</p>
 			<p>
 				<label>所在地区</label>

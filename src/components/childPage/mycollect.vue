@@ -37,10 +37,11 @@
 				this.iscollect=!this.iscollect;
 			},
 			getCollectList(){
-				this.$http.get("api/myCollectList"/*,{param:{
-					account:this.$store.userinfo.account,
-					token:this.$store.userinfo.token
-				}}*/).then((res)=>{
+				this.$http.get("api/myCollectList",{param:{
+					/*account:this.$store.userinfo.account,
+					token:this.$store.userinfo.token,*/
+					c_iscollect:true
+				}}).then((res)=>{
 					this.collectList=res.data;
 				}).catch((err)=>{
 					cons.log(err);

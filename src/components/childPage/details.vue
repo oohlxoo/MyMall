@@ -40,23 +40,28 @@
 				<button @click="buynow(detailslist.g_id)">立即购买</button>
 			</div>
 		</div>
-	
+		<mytip  :isShow="mytipShow" :text="tiptext" @closeModal="mytipShow = !mytipShow"></mytip>
 	</div>
 </template>
 
 <script>	
 	import header from "./../common/header"	
 	import star from "./../common/star"	
+	import tip from '../common/tiptip'
+		
 	export default {
 		data(){
 			return {
 				nowindex:0,
-				iscollect:false
+				iscollect:false,
+				mytipShow:false,
+				tiptext:""
 			}
 		},
 		components:{
 			myheaders:header,
-			mystar:star
+			mystar:star,
+			mytip:tip
 		},
 		methods:{
 			//点击屏幕，切换图片
@@ -95,7 +100,8 @@
 				}}*/)
 				.then((res)=>{
 					console.log(res.data.issuccess);
-
+					this.mytipShow=true;
+					this.tiptext="添加购物车成功"
 				}).catch(()=>{
 
 				});
