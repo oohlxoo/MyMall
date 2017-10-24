@@ -15,7 +15,7 @@
 								<p class="explain">{{item.g_describe}}</p>
 								<p class="price">￥{{item.g_price}}<i>x {{item.sc_num}}</i></p>
 							</div>
-							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.sc_num" @changenum="changenumoo"></mybuynumber></p>
+							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.sc_num" @decNum="item.sc_num --" @addNum="item.sc_num ++" :price="item.g_price" :isCheck="item.sc_ischoose"></mybuynumber></p>
 						</div>	
 					</li>
 					
@@ -52,20 +52,24 @@
 				title:"购物车(6)",
 				buynum:1,
 				price:20,
-				choosetotal:0,
+				// choosetotal:0,
 				showback:false,
 				shoppingListData:null
 			}
 		},
-		computed:{},
+		computed:{
+			choosetotal () {
+				return this.$store.state.choosetotal
+			}
+		},
 		watch:{
 			
 		},
 		methods:{
-			changenumoo(num){
-				this.buynum=num;
+			// changenumoo(num){
+			// 	this.buynum=num;
 			
-			},
+			// },
 			getShoppingListData(){
 				this.$http.get("api/shoppingCarList"/*,{
 					params:{
@@ -74,14 +78,21 @@
 				}}*/).then((res)=>{
 					this.shoppingListData=res.data;
 					console.log(res.data);
-					res.data.forEach((obj)=>{
-						if(obj.sc_ischoose){
-							var oo = obj.g_price * obj.sc_num;
-							console.log(oo)
-							this.choosetotal= this.choosetotal + oo;
+					// res.data.forEach((obj)=>{
+					// 	if(obj.sc_ischoose){
+					// 		var oo = obj.g_price * obj.sc_num;
+					// 		console.log(oo)
+					// 		this.choosetotal= this.choosetotal + oo;
+					// 	}
+					// });
+					var total = 0
+					for (var k in res.data) {
+						var item = res.data[k]
+						if (item.sc_ischoose) {
+							total += item.g_price * item.sc_num
 						}
-					});
-					
+					}
+					this.$store.dispatch('getChoosetotal', total)
 				}).catch((err)=>{
 					console.log(err)
 				});

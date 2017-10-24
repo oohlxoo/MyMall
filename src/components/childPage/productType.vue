@@ -24,7 +24,7 @@
 		data(){
 			return{
 				title:"秋衣",
-				prodectListData:null,
+				prodectListData: [],
 				navList:["综合","销量","价格"],
 				currentindex:0
 			}

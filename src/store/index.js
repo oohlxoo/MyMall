@@ -53,7 +53,8 @@ const store = new  Vuex.Store({
 			u_icon:null,
 			u_password:null,
 			u_identity:null
-		}
+		},
+		choosetotal: 0, // 购物车金额
 
 	},
 	getters: {},
@@ -70,7 +71,11 @@ const store = new  Vuex.Store({
 		setUserinfo:(state,data)=>{
 			state.userinfo.u_account = data.u_account
 			state.userinfo.u_token = data.u_token
+		},
+		setChoosetotal (state, data) {
+			state.choosetotal = data
 		}
+
 	},
 	actions: {
 		//获取首页banner图
@@ -88,6 +93,9 @@ const store = new  Vuex.Store({
 		//登录之后，存储用户的信息
 		fetchUserinfo(store, data){ // 这个地方你没写 我的姐
 			store.commit("setUserinfo",data)
+		},
+		getChoosetotal (store, data) {
+			store.commit('setChoosetotal', data)
 		}
 	}
 })

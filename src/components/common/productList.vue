@@ -10,7 +10,7 @@
 							<p class="titt" @click="jump(item.g_id)">{{item.g_title }}</p>
 							<p class="explain" @click="jump(item.g_id)">{{item.g_describe}}</p>
 							<p class="price"><i>￥</i>{{item.g_price}}<del>￥{{item.g_originalCost}}</del></p>
-							<p class="button"><button @click="buypro(item.g_id)" >立即购买</button></p>
+							<p class="button"><button @click="buypro(item.g_id, item.g_price)" >立即购买</button></p>
 						</div>
 					</a>
 					<!--</router-link>-->
@@ -39,9 +39,10 @@
 			jump (value) {
 				this.$router.push('/details/' +  value);
 			},
-			buypro(id){
+			buypro(id, data){
 				console.log(id);
-				this.$router.push('/commitorder/' + id);
+				// this.$router.push('/commitorder/' + id);
+				this.$router.push({path: '/commitorder/' + id, query: {price: data}});
 			}
 		},
 		mounted () {			

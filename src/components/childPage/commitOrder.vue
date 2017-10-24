@@ -18,9 +18,9 @@
 						<div class="detals">
 							<p class="titt">夹克</p>
 							<p class="explain">哈哈哈哈</p>
-							<p class="price">￥{{price}}<i>x {{buynum}}</i></p>
+							<p class="price">￥{{$route.query.price}}<i>x {{buynum}}</i></p>
 						</div>
-						<p class="num">购买数量  <mybuynumber @changenum="changenumoo"></mybuynumber></p>
+						<p class="num">购买数量  <mybuynumber :buynum="buynum" @decNum="buynum --" @addNum="buynum ++" :price="$route.query.price" isCheck="true"></mybuynumber></p>
 					</li>
 					
 					
@@ -52,14 +52,21 @@
 			return{
 				title:"确认订单",
 				buynum:1,
-				price:20,
-				total:20,
+				// price:20,
+				// total:20,
 				isshowdialog:false
 			}
 		},
-		computed:{},
+		computed:{
+			total () {
+				return this.$store.state.choosetotal
+			}
+		},
 		watch:{
 			
+		},
+		created () {
+			this.$store.dispatch('getChoosetotal', this.$route.query.price)
 		},
 		methods:{
 			changenumoo(num){

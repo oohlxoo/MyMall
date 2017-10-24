@@ -1,7 +1,8 @@
 <template>
 	<div class="buynumber">
 		<span class="dec" @click="dec()">-</span>
-		<input :value="buynum" />
+		<!-- <input :value="buynum" /> -->
+		<span style="font-size: 14px;" v-text="buynum"></span>
 		<span class="add" @click="add()">＋</span>
 	</div>
 	
@@ -14,36 +15,49 @@
 				
 			}
 		},
-		props:{
-			buynum:{
-				type:Number,
-				default:1
-			}
-		},
+		// props:{
+		// 	buynum:{
+		// 		type:Number,
+		// 		default:1
+		// 	}
+		// },
+		props: ['buynum', 'price', 'isCheck'],
 		computed:{
-			
+			choosetotal () {
+				return this.$store.state.choosetotal
+			}
 		},
 		methods:{
 			dec(){
 				if(this.buynum<=1){
 					return 1
 				}else{
-					return this.buynum--;
+					// return this.buynum--;
+					this.$emit('decNum')
+					if (this.isCheck) {
+						var choosetotal = Number(this.choosetotal) - Number(this.price)
+						this.$store.dispatch('getChoosetotal', choosetotal)
+					}
 				}
 			},
 			add(){
 				if(this.buynum>=10){
 					return this.buynum;
 				}else{
-					return this.buynum++;
+					// return this.buynum++;
+					this.$emit('addNum')
+					if (this.isCheck) { 
+						var choosetotal = Number(this.choosetotal) + Number(this.price)
+						this.$store.dispatch('getChoosetotal', choosetotal)
+					}
 				}
 				
 			}
 		},
 		watch:{
-			buynum(){
-				this.$emit("changenum",this.buynum);
-			}
+			// buynum(){
+			// 	this.$emit("changenum",this.buynum);
+			// }
 		}
 	}
 </script>

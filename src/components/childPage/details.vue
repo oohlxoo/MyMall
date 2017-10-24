@@ -37,7 +37,7 @@
 			</div>
 			<div class="button_div">
 			    <button @click="addShopping(detailslist.g_id)">加入购物车</button>
-				<button @click="buynow(detailslist.g_id)">立即购买</button>
+				<button @click="buynow(detailslist.g_id,detailslist.g_price)">立即购买</button>
 			</div>
 		</div>
 		<mytip  :isShow="mytipShow" :text="tiptext" @closeModal="mytipShow = !mytipShow"></mytip>
@@ -107,8 +107,9 @@
 				});
 			},
 			//立即购买
-			buynow(g_id){
-				this.$router.push('/commitorder/'+ g_id);
+			buynow(g_id, g_price){
+				//this.$router.push('/commitorder/'+ g_id);
+				this.$router.push({path: '/commitorder/' + id, query: {price: g_price}});
 			}
 		},
 		computed:{
