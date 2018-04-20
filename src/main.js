@@ -22,5 +22,19 @@ new Vue({
   store,
   vueTouch,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  mounted(){
+  	  window.onload = function(){
+        getRem(375,10)
+    };
+    window.onresize = function(){
+        getRem(375,10)
+    };
+    function getRem(pwidth,prem){
+        var html = document.getElementsByTagName("html")[0];
+        var oWidth = document.body.clientWidth || document.documentElement.clientWidth;
+        html.style.fontSize = oWidth/pwidth*prem + "px";
+    }
+
+  }
 })

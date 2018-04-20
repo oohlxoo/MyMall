@@ -1,108 +1,190 @@
 <template>
-	<div>
-		<p class="part_head">
-			<router-link to="/index">
-				<span class="close">关闭</span>
-			</router-link>
-			<router-link to="/register">
-				<span class="register">注册</span>
-			</router-link>
+	<div class="login" >
+	    <img src="../assets/img/icon-myiocn.png">
+		<p class="line input-phone">
+			<input ref="userName" id="account" placeholder="请输入手机号"  @input="addFormat" maxlength="13" />
+			<span v-if="showClear" class="content-clear" @click="clearUserName"></span>
 		</p>
-		<img class="part_myicon" src="../assets/img/icon-myiocn.png"/>
-		<div class="part_form">
-			<input placeholder="手机号" v-model="account"/>
-			<input type="password" placeholder="密码" v-model="password" />
-			<button @click="userlogin">登录</button>
-		</div>
-		<!--<tiptip></tiptip>-->
+		<p class="line">
+			<input id="password" placeholder="请输入密码"  v-model="passWord"  type="password">
+		</p>
+		<p class="line">
+			<button class="but-login"  @click="butLogin">登录</button>
+		</p>
+		<myTip :isShow="mytipShow"  :text="myTipText" @closeModal="mytipShow = !mytipShow"></myTip>
 	</div>
 </template>
 
 <script>
-	import tiptip from "./common/tiptip"
-	export default{
-		components:{
-			tiptip
+	import tip from './common/tiptip'
+	export  default{
+		http:{
+			emulateJSON:true
 		},
 		data(){
-			return{
-				account:null,
-				password:null,
-				
+			return {
+				userName:"",
+				passWord:""	,
+				showClear:false,
+				mytipShow:false,
+				myTipText:""
 			}
 		},
+		components:{
+			myTip:tip
+		},
 		computed:{
-			userinfo () {
-				return this.$store.state.userinfo
+			userinfo(){
+				return this.$store.state.userInfo;
 			}
 		},
 		methods:{
-			
-			userlogin(){
-				var regAccount = /^1\d{1}$/; //测试的时候，先写两位数字
-				if(!regAccount.test(this.account)){
-					alert("账号需为11位数字");
-					return;
-				}
-				if(this.password.length<6 || this.password==null){
-				    alert("密码至少大于等于6位");
-				    return;
-				}
-				var respassword = /^[0-9a-zA-Z]+$/;
-				if(!respassword.test(this.password)){
-				    alert("密码只能由数字和字母组成");
-				    return;
-				}
-				this.$http.get('/api/login',{params:{u_account:this.account,u_password:this.password}}
-				).then((res)=>{
-					this.$store.dispatch('fetchUserinfo', res.data);
-				}).catch((err)=>{
+			//点击登录按钮
+			butLogin(){
+				this.userName=this.$refs.userName.value.trim();
+				if(!this.userName){
+					this.myTipText="账号不能为空";
+					this.mytipShow=true;
+				}else if(this.userName.length<11){
+					this.userNameErr="账号格式不正确"
+				}else{
+					this.userNameErr="";
 					
-				});
+				}
+
+				this.passwordPass = false
+				//6-12位数字或者字母组合
+				var reg = /^[a-zA-Z0-9]{6,12}$/
+				if(!this.passWord){
+					this.passwordErr="密码不能为空"
+				}else if(!reg.test(this.passWord)){
+					this.passwordErr="密码格式不正确"
+				}else{
+					this.passwordErr="";
+					this.passwordPass=true;
+				}
+
+
+				this.$http.post("/wapServer/ajaxLogin",{
+					userName:this.userName,
+					passWord:this.passWord
+				}).then((res)=>{
+					if(res.data.status==200){
+						console.log(res.data.message);
+						this.$store.dispatch("fetchUsernfo",{userName:this.userName,
+					passWord:this.passWord})
+					}
+					//存储账号信息
+					console.log(this.$store.state.userInfo.userName);
+				},(err)=>{
+					console.log("error");
+				})
+			},
+			clearUserName(){
+				this.$refs.userName.value='';
+				this.showClear = false
+			},
+
+			//账号输入框 3 4 4的格式
+			addFormat(e){
+				var val = e.target.value
+		        var arr = val.split(' ');
+		        var Arr = [];
+		        var Str = '';
+		        for(var i = 0 ; i < arr.length ; i ++){
+		            var arr1 = arr[i].split('');
+		            for(var j = 0 ; j < arr1.length ; j ++){
+		                Arr.push(arr1[j]);
+		            }
+		        }
+		        // console.log(Arr);
+		        if(Arr.length > 3 && Arr.length <=7){
+		            Arr.splice(3,0,' ');
+		        }else if(Arr.length > 7){
+		            Arr.splice(7,0,' ');
+		            Arr.splice(3,0,' ');
+		        }
+		        Arr.forEach(function(ele,index){
+		            Str += ele;
+		        })
+		        // this.value = Str
+		        e.target.value = Str
+		        if (Str.length != 0) {
+		        	this.showClear = true
+		        } else {
+		        	this.showClear = false
+		        }
 			}
 		}
 	}
 </script>
-
+	
 <style lang="less">
-	.part_head{
-		height: 45px;
-		line-height: 45px;
-		padding: 0 15px;
-		font-size: 14px;
-		.close{
-			float: left;
+.login{
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		/* background: url(../../assets/images/login_bg.png) no-repeat; */
+	    background: #fff; 
+		background-size: 100% 100%;
+		img{
+				display: block;
+				width: 80px;
+				height: 80px;
+				border-radius: 40px;
+				text-align: center;
+				margin: 60px auto 30px;
+			}
+		p{
+			margin-top: 35px
 		}
-		.register{
-			float: right;
-		}
-	}
-	.part_myicon{
-		margin: 0 auto;
-		width: 70px;
-		height: 70px;
-		border-radius: 35px;
-	}
-	.part_form{
-		padding: 0 30px;
-		input{
-			width: 100%;
-			display: block;
-			line-height: 40px;
-			height: 40px;
-			border-bottom: 1px solid #ececec;
-		}
-		button{
-			background: linear-gradient(to right, #ffa100, #ff6804);
-		    width: 100%;
-		    height: 100%;
-		    margin: 0 auto;
-		    color: floralwhite;
-		    text-align: center;
-		    display: block;
-		    line-height: 40px;
-		    font-size: 16px;
-		    margin-top:40px
+		.line{
+			text-align: center;
+			input{
+				width: 80%;
+				margin: 0 10%;
+				line-height: 30px;
+				height: 30px;
+				border: none;
+				border-bottom: 1px solid #ccc;
+				padding-left: 5px;
+				background:none;
+
+			}
+			//选中时去边框
+			input{
+				outline:none;
+			}
+			.tip{
+				width: 80%;
+				margin: 0 10%;
+				color: red;
+				font-size: 10px;
+				text-align: left;
+				display: block;
+			}
+			.but-login{
+				margin: 20px 10% 0;
+				width: 80%;
+				height: 40px;
+  			    border-radius: 8px;
+  			    background-color:  #ff4b6d;
+  			    color: #fff;
+  			    opacity: 0.7;
+  			    
+			}
+			&.input-phone{
+				position: relative;
+				.content-clear{
+					position: absolute;
+					right: 11%;
+					top: 9px;
+					width: 11px;
+					height: 11px;
+					background: url(../assets/img/icon-clear.png) no-repeat;
+					background-size: 11px 11px;
+				}
+			}
 		}
 	}
 </style>

@@ -35,6 +35,7 @@
 		methods:{
 			iscollectfunction(){
 				this.iscollect=!this.iscollect;
+				console.log(123);
 			},
 			getCollectList(){
 				this.$http.get("api/myCollectList",{param:{

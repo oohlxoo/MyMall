@@ -16,9 +16,7 @@
 				<router-link to="/myaddress">
 					<li>收货地址<span></span></li>
 				</router-link>
-				<li>服务中心</li>
 				<li><a href="tel:10086">联系我们</a></li>
-				<li>清除缓存</li>
 				<li>退出</li>
 			</ul>
 			
@@ -59,6 +57,10 @@
 				height: 45px;
 				border-bottom: 1px solid  #ececec;
 				padding-left: 15px;
+				color:#737373;
+				a{
+					color: #737373;
+				}
 				span{
 					display: inline-block;
 					width: 32px;
@@ -67,7 +69,6 @@
 					float: right;
 					background: url(../assets/img/icon-go.png) no-repeat center center;
 					background-size: 50%;
-					
 				}
 			}
 	}

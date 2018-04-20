@@ -5,8 +5,8 @@
 			<div class="shoppinglist">
 				<ul class="list">
 					<li v-for="(item,index) in shoppingListData">
-						<div class="left-choose">
-							<span :class="{ed:item.sc_ischoose}"></span>
+						<div class="left-choose" @click="chooseStore()">
+							<span :class="{ed:aa}"></span>
 						</div>
 						<div class="right-content">
 							<img :src="item.g_img[0]"/>
@@ -17,9 +17,7 @@
 							</div>
 							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.sc_num" @decNum="item.sc_num --" @addNum="item.sc_num ++" :price="item.g_price" :isCheck="item.sc_ischoose"></mybuynumber></p>
 						</div>	
-					</li>
-					
-					
+					</li>										
 				</ul>
 			</div>
 		</div>
@@ -54,7 +52,8 @@
 				price:20,
 				// choosetotal:0,
 				showback:false,
-				shoppingListData:null
+				shoppingListData:null,
+				aa:false
 			}
 		},
 		computed:{
@@ -97,6 +96,9 @@
 					console.log(err)
 				});
 				
+			},
+			chooseStore(){
+				this.aa=!this.aa;
 			}
 		},
 		mounted(){
@@ -112,6 +114,9 @@
 		flex-direction: column;
 		height: 100%;
 		.content{
+
+
+			
 			flex: 1;
 			overflow-y: scroll;
 		}

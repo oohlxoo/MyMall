@@ -19,7 +19,7 @@
 
 <style lang="less">
 	.active{
-		color: royalblue !important;
+		color: #ff4b6d  !important;
 		font-weight: bold;
 	}
     .nav{
@@ -45,34 +45,34 @@
         	}
         	&.ind{
         		i{
-        			background: url(../../assets/img/icon_index.png);
+        			background: url(../../assets/img/icon-index.png);
         		}
         		.active i{
-        			background: url(../../assets/img/icon_index1.png);
+        			background: url(../../assets/img/icon-index.png);
         		}
         	}
         	&.pro{
         		i{
-        			background: url(../../assets/img/icon_type.png);
+        			background: url(../../assets/img/icon-kind.png);
         		}	
         		.active i{
-        			background: url(../../assets/img/icon_type1.png);
+        			background: url(../../assets/img/icon-kind.png);
         		}
         	}
         	&.ord{
         		i{
-        			background: url(../../assets/img/icon_shoppingcart.png);
+        			background: url(../../assets/img/icon-shopping.png);
         		}	
         		.active i{
-        			background: url(../../assets/img/icon_shoppingcart.png);
+        			background: url(../../assets/img/icon-shopping.png);
         		}
         	}
         	&.set{
         		i{
-        			background: url(../../assets/img/icon_setting.png);
+        			background: url(../../assets/img/icon-mine.png);
         		}
         		.active i{
-        			background: url(../../assets/img/icon_setting1.png);
+        			background: url(../../assets/img/icon-mine.png);
         		}
         	}
         	

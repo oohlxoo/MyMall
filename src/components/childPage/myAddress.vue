@@ -4,11 +4,13 @@
 		<div class="add-ressList">
 			<ul class="list">
 				<li v-for="(item,index) in myaddressList">
-					<p><span class="username">{{item.a_name}}</span>
-						<span class="phone">{{item.a_phone}}</span>
-					</p>
-					<p>{{item.a_tity}} </p>
-					<p>{{item.a_detailsAddress}} </p>
+					<div @click="chooseAddress(item.a_id)">
+						<p><span class="username">{{item.a_name}}</span>
+							<span class="phone">{{item.a_phone}}</span>
+						</p>
+						<p>{{item.a_tity}} </p>
+						<p>{{item.a_detailsAddress}} </p>
+					</div>
 					<p class="option">
 						<span class="detault" @click="chooseDetault" :class="{ed:isDefault}">设为默认</span>
 						<span class="edit">编辑</span>
@@ -29,8 +31,7 @@
 		data(){
 			return {
 				title:"收货地址管理",
-				isDefault:false,
-				myaddressList:null
+				isDefault:false
 			}
 		},
 		components:{
@@ -38,6 +39,11 @@
 		},
 		watch:{
 		
+		},
+		computed:{
+			myaddressList(){
+				return this.$store.state.addressList;
+			}
 		},
 		methods:{
 			chooseDetault(){
@@ -52,11 +58,20 @@
 				account:this.$store.userinfo.account,
 				token:this.$store.userinfo.token
 			}}*/).then((res)=>{
-					console.log(res.data)
-					this.myaddressList=res.data;
+					this.$store.dispatch("getAddressList",res.data);
 				}).catch((err)=>{
 					console.log(err)
 				});
+			},
+			chooseAddress(id){
+				//map
+				this.$store.state.addressList.filter(item=>{
+					if (item.a_id==id) {
+						var chooseAddredd=JSON.stringify(item);
+						sessionStorage.setItem('chooseAddredd',chooseAddredd);						
+					}
+				});
+				this.$router.push("/commitorder/1/"+id+"?price=100");
 			}			
 		},
 		mounted(){

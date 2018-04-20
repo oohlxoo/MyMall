@@ -3,8 +3,9 @@
 		<div class="mengceng"></div>
 		<div class="dialogoo">
 			<p class="dec">确认购买? </p>
-			<p class="butt"><button>确认</button>
-				<button>取消</button>
+			<p class="butt">
+				<button class="confirmed" @click="confirmed()">确认</button>
+				<button @click="cancel()">取消</button>
 			</p>
 		</div>
 	</div>
@@ -12,18 +13,24 @@
 
 <script>
 	export default{
-		props:{
-			isshowdialog:{
-				type:Boolean,
-				default:false
-			}
-		},
+		props:{},
 		
 		data(){
 			return{
-				
+				isshowdialog:false
+			}
+		},
+		methods:{
+			confirmed(){
+				this.isshowdialog=false;
+				this.$emit("confirmModel");
+			},
+			cancel(){
+				this.isshowdialog=false;
+				this.$emit("cancelModel");
 			}
 		}
+		
 	}
 </script>
 
@@ -64,6 +71,9 @@
 				height: 100%;
 				float: left;
 				background: none;
+				&.confirmed{
+					color: #ff4b6d;
+				}
 				&:first-child{
 					border-right: 1px solid #ececec;
 				}

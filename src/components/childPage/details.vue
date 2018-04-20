@@ -269,7 +269,7 @@
 		margin-top: 10px;
 		height: 50px;
 		button{
-	   	    background: linear-gradient(to right, #9cf559,#ff8302);
+	   	    background: #ff8302;
 			width: 50%;
 			height: 100%;
 		    color: floralwhite;
@@ -279,7 +279,7 @@
 		    font-size: 16px;
 		    float: left;
 		    &:last-child{
-		    	 background: linear-gradient(to right, #8d46ff,#ff6804);
+		    	 background: #ff4b6d;
 		    }
 		    
 		}

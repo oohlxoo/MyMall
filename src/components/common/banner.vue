@@ -73,7 +73,7 @@
 <style scoped lang="less">
 	.bannerlist{
 		position: relative;
-		height:120px;
+		height:14rem;
 		width: 100%;
 		position: relative;
 		overflow: hidden;
@@ -84,7 +84,7 @@
 			opacity: 0.7;
 			position:absolute;
 			bottom: 0;
-			color: #011fff;
+			color: #ff4b6d;
 			font-size: 10px;
 			text-align: left;
 			.circle{
@@ -98,7 +98,7 @@
 					height: 6px;
 					display: inline-block;
 					border-radius: 3px;
-					background: #011fff;
+					background: #ff4b6d;
 					margin: 0 1px;				
 				}		
 			}		

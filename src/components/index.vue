@@ -72,7 +72,7 @@ import prodectList from '../components/common/productList'
 			text-align: center;
 			width: 25%;
 			float: left;
-			color: #4d00ff;
+			color: #343437;
 			img{
 				width: 60px;
 				height: 60px;

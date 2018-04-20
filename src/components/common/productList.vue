@@ -42,7 +42,7 @@
 			buypro(id, data){
 				console.log(id);
 				// this.$router.push('/commitorder/' + id);
-				this.$router.push({path: '/commitorder/' + id, query: {price: data}});
+				this.$router.push({path: '/commitorder/' + id+"/1", query: {price: data}});
 			}
 		},
 		mounted () {			
@@ -102,10 +102,10 @@
 				.button{
 					button{
 						background: #fff;
-					    border: 1px solid #4d00ff;
+					    border: 1px solid #ff4b6d;
 					    padding: 4px 10px;
 					    border-radius: 4px;
-					    color: #4d00ff;
+					    color: #ff4b6d;
 					    float: right;
 					}
 				}

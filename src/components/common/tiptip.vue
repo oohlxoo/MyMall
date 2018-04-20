@@ -53,7 +53,8 @@
 		height: 40px;
 		width: 100%;
 		text-align: center;
-		bottom: 50px;
+		top: 31%;
+		z-index: 9;
 		p{
 			background: #777777;
 			opacity: 0.7;
@@ -61,7 +62,7 @@
 			margin: 0 auto;
 			height: 35px;
 			line-height: 35px;
-			border-radius: 10px;
+			border-radius: 8px;
 			color: #fff;
 		}
 	}

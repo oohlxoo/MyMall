@@ -55,6 +55,17 @@ const store = new  Vuex.Store({
 			u_identity:null
 		},
 		choosetotal: 0, // 购物车金额
+		//收货地址
+		addressList:[
+			{
+				"a_id":1,
+				"a_name":"路小雨",
+				"a_phone":"18721781234",
+				"a_tity":"上海市宝山区大华乐购",
+				"a_detailsAddress":"888弄8号",
+				"a_isDefault":true
+			}
+		]
 
 	},
 	getters: {},
@@ -74,7 +85,11 @@ const store = new  Vuex.Store({
 		},
 		setChoosetotal (state, data) {
 			state.choosetotal = data
+		},
+		setAddressList: (state, data)=>{
+			state.addressList = data
 		}
+
 
 	},
 	actions: {
@@ -96,7 +111,11 @@ const store = new  Vuex.Store({
 		},
 		getChoosetotal (store, data) {
 			store.commit('setChoosetotal', data)
+		},
+		getAddressList (store, data) {
+			store.commit('setAddressList', data)
 		}
+
 	}
 })
 export default store

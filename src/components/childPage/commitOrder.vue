@@ -5,10 +5,10 @@
 			<div class="address" @click="changeAddress()">
 				<button class="choose_add">请选择地址</button>
 				<div class="show_add">
-					<p><span>收件人：路小雨</span>
-						<span class="phonenumber">187****1234</span>
+					<p><span>收件人：{{address.a_name}}</span>
+						<span class="phonenumber">{{address.a_phone}}</span>
 					</p>
-					<p>收货地址：上海市徐汇区xxx路xxxx号xxx楼</p>
+					<p>收货地址：{{address.a_tity}}</p>
 				</div>
 			</div>
 			<div class="shoppinglist">
@@ -31,7 +31,7 @@
 			<p>合计：￥{{total}}<button @click="commintOrder">提交订单</button></p>
 		</div>
 		<!--弹窗-->
-		<mydialog :isshowdialog="isshowdialog"></mydialog>
+		<mydialog ref="dialog"  @confirmModel="confirmOrdel"  @cancelModel="cancelOrdel"></mydialog>
 	</div>
 </template>
 
@@ -54,7 +54,8 @@
 				buynum:1,
 				// price:20,
 				// total:20,
-				isshowdialog:false
+				isshowdialog:false,
+				address:""
 			}
 		},
 		computed:{
@@ -76,13 +77,31 @@
 			},
 			//切换地址
 			changeAddress(){
-				this.$router.push('myaddress' );
+				this.$router.push('/myaddress');
 			},
 			commintOrder(){
-				this.isshowdialog=true;
+				this.$refs.dialog.isshowdialog=true;
+			},
+			confirmOrdel(){
+				console.log("你选择了确认下单");
+				//this.$refs.dialog.isshowdialog=false;
+				console.log(this.$refs.dialog.isshowdialog.type);
+				this.$router.push("/order");
+
+			},
+			cancelOrdel(){
+				console.log("你放弃了提交");
+				
+				
 			}
 		},
-		
+		mounted(){
+			this.$store.state.addressList.filter(item=>{
+				if (item.a_id==this.$route.params.a_id) {
+					this.address=item;	
+				}
+			});
+		}
 	}
 </script>
 
