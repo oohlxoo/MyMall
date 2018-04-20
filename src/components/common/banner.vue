@@ -59,7 +59,7 @@
 		     },
 		},
 		mounted () {	
-			this.$http.get('api/bannerlists').then((res) => {
+			this.$http.get(this.resource + '/bannerlists').then((res) => {
 				this.$store.dispatch('fetchBannerList', res.data)
 				           
 			}).catch((err) => {

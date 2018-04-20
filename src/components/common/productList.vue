@@ -45,7 +45,8 @@
 				this.$router.push({path: '/commitorder/' + id+"/1", query: {price: data}});
 			}
 		},
-		mounted () {			
+		mounted () {
+		console.log(this.productlist)			
 		}	
 	}
 </script>

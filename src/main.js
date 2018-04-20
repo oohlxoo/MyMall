@@ -7,9 +7,10 @@ import axios from 'axios'
 import store from './store'
 import vueTouch from "vue-plugin-touch"
 
+
 Vue.config.productionTip = false
 Vue.prototype.$http = axios //通过修改原型链，来更方便的使用
-//Vue.prototype.resource="localhost:3000"
+Vue.prototype.resource = "http://localhost:3000"
 
 import "./assets/css/base.css"
 

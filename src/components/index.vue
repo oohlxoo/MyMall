@@ -33,10 +33,10 @@ import prodectList from '../components/common/productList'
 		},
         methods:{
         	jumpProType(gt_id,gt_name){
-        		this.$router.push("/productType/"+ gt_id+"/"+gt_name);
+        		this.$router.push("/productType/" + gt_id+"/"+gt_name);
         	},
         	getPopType(){
-        		this.$http.get("/api/getPopType",{
+        		this.$http.get(this.resource + "/getPopType",{
         			params:{/*account:this.$store.userinfo.account,
         					token:this.$store.userinfo.token*/}
         		}).then((res)=>{
@@ -46,7 +46,7 @@ import prodectList from '../components/common/productList'
         		});
         	},
         	getProListDta(){
-        		this.$http.get("api/productList").then((res) => {
+        		this.$http.get(this.resource + "/productList").then((res) => {
         			
 					this.$store.dispatch("fetchProductList",res.data)
 				}).catch((err)=>{
