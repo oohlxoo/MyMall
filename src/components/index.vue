@@ -2,6 +2,7 @@
 		<div class="contents">
 			<ibanner></ibanner><!--先不调用接口 -->
 			<!--商品类型推荐 （4条数据）-->
+			<p class="jptitle">商品分类</p>
 			<ul class="new-product">
 				<li v-for="(item,index) in popTypelist" @click="jumpProType(item.gt_id,item.gt_name)">
 					<img :src="item.gt_icon">{{item.gt_name}}
