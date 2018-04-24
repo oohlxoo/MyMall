@@ -18,7 +18,7 @@
 			<button class="button" @click="register">立即注册</button>
 			
 			token: <span>{{userinfo.u_token}}</span><br/>
-		account: <span>{{userinfo.u_account}}</span>
+			account: <span>{{userinfo.u_account}}</span>
 		</div>
 	</div>
 </template>

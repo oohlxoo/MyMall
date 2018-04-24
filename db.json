@@ -425,7 +425,7 @@
  		},
  		{
 			"sc_id":2, 
-			"g_id":1,
+			"g_id":2,
 			"g_img":["/static/d2.png","/static/d3.png","/static/d4.png"],
 			"g_title":"毛衣",
 			"g_price":50,
@@ -439,7 +439,7 @@
  		},
  		{
 			"sc_id":3, 
-			"g_id":1,
+			"g_id":3,
 			"g_img":["/static/d3.png","/static/d4.png"],
 			"g_title":"包包",
 			"g_price":199,

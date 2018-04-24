@@ -4,9 +4,9 @@
 		<div class="content">
 			<div class="shoppinglist">
 				<ul class="list">
-					<li v-for="(item,index) in shoppingListData">
-						<div class="left-choose" @click="chooseStore()">
-							<span :class="{ed:aa}"></span>
+					<li v-for="(item,index) in shoppingListData" :key="index">
+						<div class="left-choose" @click="chooseStore(item.g_id,item)">
+							<span :class="{ed:item.sc_ischoose}"></span>
 						</div>
 						<div class="right-content">
 							<img :src="item.g_img[0]"/>
@@ -23,9 +23,10 @@
 		</div>
 		<div class="total_div">
 			<p>
-				<span class="choose" @click="">全选</span>
+				<span :class="{ choose: true, ed: hasChooseAll }" @click="chooseAll">全选</span>
 				合计：<i>￥{{choosetotal}}</i>
-				<button>提交订单</button></p>
+				<button>提交订单</button>
+			</p>
 		</div>
 		<!--弹窗-->
 		<!--<mydialog></mydialog>-->
@@ -50,25 +51,39 @@
 				title:"购物车(6)",
 				buynum:1,
 				price:20,
-				// choosetotal:0,
+				 //choosetotal:0,
 				showback:false,
 				shoppingListData:null,
-				aa:false
+				hasChooseAll:false  //是否全选
 			}
 		},
 		computed:{
 			choosetotal () {
-				return this.$store.state.choosetotal
+				return this.$store.state.choosetotal;
 			}
+			// choosetotal:{
+			// 	get() {
+			// 		return this.$store.state.choosetotal
+			// 	},
+			// 	set() {}
+			// }
 		},
-		watch:{
-			
-		},
+		watch:{},
 		methods:{
-			// changenumoo(num){
-			// 	this.buynum=num;
-			
-			// },
+			//根据数量和单价计算总价
+			computedPrice(prive,num){
+				return prive * num;
+
+			},
+			getPriceAll() {
+				var total = 0
+				this.shoppingListData.map((item, index, array1)=>{
+					if (item.sc_ischoose) {
+						total +=this.computedPrice(item.g_price,item.sc_num)
+					}
+				})
+				this.$store.dispatch('getChoosetotal', total)
+			},
 			getShoppingListData(){
 				this.$http.get("api/shoppingCarList"/*,{
 					params:{
@@ -76,33 +91,53 @@
 					token:this.$store.userinfo.token
 				}}*/).then((res)=>{
 					this.shoppingListData=res.data;
-					console.log(res.data);
-					// res.data.forEach((obj)=>{
-					// 	if(obj.sc_ischoose){
-					// 		var oo = obj.g_price * obj.sc_num;
-					// 		console.log(oo)
-					// 		this.choosetotal= this.choosetotal + oo;
-					// 	}
-					// });
-					var total = 0
-					for (var k in res.data) {
-						var item = res.data[k]
-						if (item.sc_ischoose) {
-							total += item.g_price * item.sc_num
-						}
-					}
-					this.$store.dispatch('getChoosetotal', total)
+					
+					this.$store.dispatch("getShoppingCarList",res.data);
+					this.getPriceAll();
+					
 				}).catch((err)=>{
 					console.log(err)
 				});
-				
 			},
-			chooseStore(){
-				this.aa=!this.aa;
+			chooseStore(id,item){
+				item.sc_ischoose = !item.sc_ischoose;
+				var sum = 0;
+				this.shoppingListData.map((obj, index, array1)=>{
+					if(obj.sc_ischoose==true){
+						sum ++;
+					}
+
+				});
+				if(sum==this.shoppingListData.length){
+					this.hasChooseAll= true;
+				}else{
+					this.hasChooseAll= false;
+				}
+				this.getPriceAll();
+				//进行数据请求
+			},
+			chooseAll () {
+				if(this.hasChooseAll){
+					this.shoppingListData.map((obj, index, array1)=>{
+						obj.sc_ischoose=false;
+					});
+					this.hasChooseAll= false;
+					this.$store.dispatch('getChoosetotal', 0)
+				}else{
+					this.shoppingListData.map((obj, index, array1)=>{
+						obj.sc_ischoose=true;
+					});
+					this.hasChooseAll= true;
+					this.getPriceAll();
+				}
+				console.log(this.shoppingListData)
+				
+
 			}
 		},
 		mounted(){
 			this.getShoppingListData();
+
 		}
 		
 	}
@@ -247,6 +282,7 @@
 			line-height: 47px;
 			&.ed{
 				background: url(../assets/img/icon-choose1.png) no-repeat 10px  center ;
+				background-size: 20px 20px;
 			}
 			
 		}

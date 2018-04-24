@@ -65,7 +65,25 @@ const store = new  Vuex.Store({
 				"a_detailsAddress":"888弄8号",
 				"a_isDefault":true
 			}
+		],
+		//购物车列表
+		shoppingCarList:[
+			{
+				"sc_id":1, 
+				"g_id":1,
+				"g_img":["/static/d1.png","/static/d2.png","/static/d3.png","/static/d4.png"],
+				"g_title":"时尚风衣",
+				"g_price":100,
+				"g_describe":"送腰带~夏新款韩版宽松显瘦纯色",
+				"gt_id":11,
+				"u_id":"1",
+				"sc_num": "1",
+				"sc_creattime":"2017-10-19",
+				"sc_edittime":"2017-10-19",
+				"sc_ischoose":true
+			}
 		]
+
 
 	},
 	getters: {},
@@ -88,7 +106,11 @@ const store = new  Vuex.Store({
 		},
 		setAddressList: (state, data)=>{
 			state.addressList = data
+		},
+		setShoppingCarList : (state,data)=>{
+			state.shoppingCarList = data;
 		}
+
 
 
 	},
@@ -114,7 +136,11 @@ const store = new  Vuex.Store({
 		},
 		getAddressList (store, data) {
 			store.commit('setAddressList', data)
-		}
+		},
+		getShoppingCarList (store, data) {
+			store.commit('setShoppingCarList',data)
+		},
+		
 
 	}
 })
