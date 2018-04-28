@@ -5,12 +5,17 @@
 			<input ref="userName" id="account" placeholder="请输入手机号"  @input="addFormat" maxlength="13" />
 			<span v-if="showClear" class="content-clear" @click="clearUserName"></span>
 		</p>
-		<p class="line">
-			<input id="password" placeholder="请输入密码"  v-model="passWord"  type="password">
+		<p class="line input-password">
+			<input id="password" placeholder="请输入密码"  v-model="passWord"  :type="isPassWord?'text':'password'">
+			<span  v-show="eyeIsShow" class='but-nosee' :class="{'see':isPassWord}" @click="changePassShow()"></span>
 		</p>
 		<p class="line">
 			<button class="but-login"  @click="butLogin">登录</button>
 		</p>
+		<p class="line register-p">
+			<span class="span1">还没有账号？<i> <router-link to="/register">注册一个</router-link></i></span>	
+		</p>
+		
 		<myTip :isShow="mytipShow"  :text="myTipText" @closeModal="mytipShow = !mytipShow"></myTip>
 	</div>
 </template>
@@ -27,7 +32,9 @@
 				passWord:""	,
 				showClear:false,
 				mytipShow:false,
-				myTipText:""
+				myTipText:"",
+				isPassWord:false,
+				eyeIsShow:false
 			}
 		},
 		components:{
@@ -38,41 +45,57 @@
 				return this.$store.state.userInfo;
 			}
 		},
+		watch: {
+			passWord : {
+				handler(newval){
+					if(newval ==null || newval ==""){
+						this.eyeIsShow = false
+					}else{
+						this.eyeIsShow = true
+					}                                                                                                                                                                                                                                                                                             
+				}
+			}
+		},
 		methods:{
 			//点击登录按钮
 			butLogin(){
-				this.userName=this.$refs.userName.value.trim();
+				this.userName = this.$refs.userName.value.replace(/\s+/g,"");
 				if(!this.userName){
 					this.myTipText="账号不能为空";
 					this.mytipShow=true;
-				}else if(this.userName.length<11){
-					this.userNameErr="账号格式不正确"
-				}else{
-					this.userNameErr="";
+					return;
 					
+				}else if(!(/^1[3|4|5|7|8][0-9]{9}$/).test(this.userName)){
+					this.myTipText="用户名或密码错误，请重新输入";
+					this.mytipShow=true;
+					return;
 				}
 
-				this.passwordPass = false
 				//6-12位数字或者字母组合
 				var reg = /^[a-zA-Z0-9]{6,12}$/
 				if(!this.passWord){
-					this.passwordErr="密码不能为空"
-				}else if(!reg.test(this.passWord)){
-					this.passwordErr="密码格式不正确"
-				}else{
-					this.passwordErr="";
-					this.passwordPass=true;
+					this.myTipText="密码不能为空";
+					this.mytipShow=true;
+					return;
+				}else if(this.passWord.length < 12){
+					this.passwordErr=""
+					this.myTipText="用户名或密码错误，请重新输入";
+					this.mytipShow=true;
+					return;
 				}
+					
+				
+				this.$http.post("/user/login",{
+					phone:this.userName,
+					password:this.passWord,
+					role: 0 //(角色0或1)(0代表普通用户)
 
-
-				this.$http.post("/wapServer/ajaxLogin",{
-					userName:this.userName,
-					passWord:this.passWord
 				}).then((res)=>{
+					console.log(res);
 					if(res.data.status==200){
-						console.log(res.data.message);
-						this.$store.dispatch("fetchUsernfo",{userName:this.userName,
-					passWord:this.passWord})
+					localStorage.setItem("userName",this.userName);
+					//console.log(localStorage.getItem("userName"));
+						//this.$store.dispatch("fetchUsernfo",{userName:this.userName,passWord:this.passWord})
 					}
 					//存储账号信息
 					console.log(this.$store.state.userInfo.userName);
@@ -114,6 +137,9 @@
 		        } else {
 		        	this.showClear = false
 		        }
+			},
+			changePassShow (){
+				this.isPassWord = !this.isPassWord;
 			}
 		}
 	}
@@ -163,6 +189,42 @@
 				text-align: left;
 				display: block;
 			}
+			&.input-password{
+				position: relative;
+				.but-nosee{
+					display: inline-block;
+					position: absolute;
+					right: 11%;
+					top: 9px;
+					height: 11px;
+					width: 16px;
+					background: url(../assets/img/icon-nosee.png) no-repeat;
+					background-size:16px 11px;
+					z-index: 10;
+					&.see{
+						background: url(../assets/img/icon-see.png) no-repeat;
+						background-size:16px 11px;
+
+					}
+				}
+			}
+			&.register-p{
+				width: 80%;
+				border: none;
+				margin: 35px 10% 0;
+				.span1{
+					display: inline-block;
+					color: #999999;
+					
+					
+					a,i{
+						color: #333;
+						padding: 0.1rem 2px
+					}
+				}
+				
+			}
+			
 			.but-login{
 				margin: 20px 10% 0;
 				width: 80%;

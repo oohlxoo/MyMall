@@ -2,39 +2,41 @@
 	<div>
 		<myheader :title="title"></myheader>
 		<div class="part_form">
-			<p>
-				<input placeholder="手机号" v-model="account" @mouseleave="checkAccount" />
-				<!--<button class="getCheckNum">获取验证码</button>-->
-			</p>
-			
-			<p>
-				<input class="checknum" @mouseleave="checkCheckNum" v-model="checkNum" placeholder="验证码" />
-				<img class="rrr"  @click="getCheckNum"  src="../assets/img/rrr.png" />
-				<img class="furbish" src="../assets/img/icon-refurbish.png" />
+			<p class="input-phone">
+				<input placeholder="手机号"  ref="phone"  maxlength="13"   @input="addFormat"/>
+				<span v-if="showClear" class="content-clear" @click="clearUserName"></span>
 			</p>
 			<p>
-			<input type="password" v-model="password" placeholder="密码（大于6位的数字或者密码组合）" />
+				<input class="checknum" v-model="checkNum" placeholder="验证码" />
+				<img class="checkNumimg"  @click="getCheckNum"  src="../assets/img/rrr.png" />
+			</p>
+			<p class="input-password">
+				<input :type="isPassWord ? 'text' :'password'" v-model="password" placeholder="密码（6-12位的数字及密码组合）" />
+				<span  v-show="eyeIsShow" class='but-nosee' :class="{'see':isPassWord}" @click="changePassShow()"></span>
 			</p>
 			<button class="button" @click="register">立即注册</button>
-			
-			token: <span>{{userinfo.u_token}}</span><br/>
-		account: <span>{{userinfo.u_account}}</span>
 		</div>
+	<myTip :isShow="mytipShow"  :text="myTipText" @closeModal="mytipShow = !mytipShow"></myTip>
 	</div>
 </template>
 
 <script>
 	import header from './common/header'
+	import tip from './common/tiptip'
 	export default{
-		data(){
-			return{
-				title:"注册新账号",
-				account:null,
+		data () {
+			return {
+				title:"注册",
+				phone:null,
 				checkNum:null,
 				password:null,
-				checkNumberss:null,//后台获取的验证码
-				
-				
+				checkNumberss:null,//后台获取的验证码	
+				showClear:false,
+				mytipShow : false,
+				myTipText : "",
+				eyeIsShow : true,
+				isPassWord : false
+
 			}
 		},
 		computed:{
@@ -43,28 +45,11 @@
 			}
 		},
 		components:{
-			myheader:header
+			myheader:header,
+			myTip:tip
 		},
 		methods:{
-			//检验账号
-			checkAccount(){
-				var regAccount = /^1\d{1}$/;
-				if(!regAccount.test(this.account)){
-					alert("请输入正确的手机号码");
-					this.account="";
-					return
-				}
-				this.$http.get("/api/checkAccount",
-				{params:{u_account:this.account}}).then((res)=>{
-					console.log(res.data.isExist);
-					if(res.data.isExist){
-						alert("该账号已注册");
-						return;
-					}
-				}).catch((err)=>{
-					console.log(err);
-				});
-			},
+			
 			//获取验证码
 			getCheckNum(){
 				this.$http.get("/api/getCheckNum").then((res)=>{
@@ -74,46 +59,105 @@
 					console.log(err);
 				});
 			},
-			//检验验证码
-			checkCheckNum(){
-				if(this.checkNum==null || this.checkNum==""){
-					alert("验证码不能为空");
+			
+			//提交注册请求
+			register(){
+				//检测账号
+				var regAccount =/^1[3|4|5|7|8][0-9]{9}$/; //验证规则
+				if(!regAccount.test(this.phone)){
+					this.mytipShow=true;
+					this.myTipText="请输入正确的手机号码";
 					return;
-				}else if(this.checkNum.length<4){
-					alert("请输入4位数的验证码");
+				}
+				this.$http.get("/user/checkAccount",{params:
+					{phone:this.$refs.phone.value}  }
+				).then((res)=>{
+					console.log(res.data.isExist);
+					if(res.data.isExist){
+						this.mytipShow=true;
+						this.myTipText="该账号已注册";
+						return;
+					}
+				}).catch((err)=>{
+					console.log(err);
+				});
+
+				//检验验证码
+				if(this.checkNum==null || this.checkNum==""){
+					this.mytipShow=true;
+					this.myTipText="验证码不能为空";
+					return;
+				}else if(this.checkNum.length != 4){
+					this.mytipShow=true;
+					this.myTipText="验证码格式为空";
 					return;
 				}
 				if(this.checkNum !== this.checkNumberss){
-					alert("验证码不正确，请重新填写");
+					this.mytipShow=true;
+					this.myTipText="验证码不正确，请重新填写";
 					return;
 				}
-			},
-			//提交注册请求
-			register(){
+				
 				//检验密码
-				if(this.password=="" || this.password.length<6 ){
-				    alert("密码至少大于等于6位");
+				if(!this.password){
+					this.mytipShow=true;
+					this.myTipText="密码不能为空";
 				    return;
 				}
-				var respassword = /^[0-9a-zA-Z]+$/;
+				var respassword =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
 				if(!respassword.test(this.password)){
-				    alert("密码需由数字和字母组成");
+				    this.mytipShow=true;
+					this.myTipText="密码格式不正确";
 				    return;
 				}
-				this.$http.get("/api/register",{
-					params:{
-						u_account:this.account,
-						u_checkNum:this.checkNum,
-						u_password:this.password
-					}
+				this.$http.post("/user/add",{
+						phone:this.phone,
+						password:this.checkNum,
+						role:0 //(角色0或1)(0代表普通用户)	
 				}).then((res)=>{
 					//保存账号和token
-					this.$store.dispatch("fetchUserinfo",res.data);
-					console.log(res.data.account);
+					console.log(res);
 				}).catch((err)=>{
 					console.log(err);
 				});
 				
+			},
+			clearUserName () {
+				this.$refs.phone.value = "";
+				this.showClear = false;
+			},
+				//账号输入框 3 4 4的格式
+			addFormat(e){
+				var val = e.target.value
+		        var arr = val.split(' ');
+		        var Arr = [];
+		        var Str = '';
+		        for(var i = 0 ; i < arr.length ; i ++){
+		            var arr1 = arr[i].split('');
+		            for(var j = 0 ; j < arr1.length ; j ++){
+		                Arr.push(arr1[j]);
+		            }
+		        }
+		        // console.log(Arr);
+		        if(Arr.length > 3 && Arr.length <=7){
+		            Arr.splice(3,0,' ');
+		        }else if(Arr.length > 7){
+		            Arr.splice(7,0,' ');
+		            Arr.splice(3,0,' ');
+		        }
+		        Arr.forEach(function(ele,index){
+		            Str += ele;
+		        })
+		        // this.value = Str
+		        e.target.value = Str
+		        if (Str.length != 0) {
+		        	this.showClear = true
+		        } else {
+		        	this.showClear = false
+		        }
+			},
+			changePassShow () {
+				this.isPassWord = !this.isPassWord;
 			}
 		},
 		mounted(){
@@ -139,34 +183,63 @@
 		border-radius: 35px;
 	}
 	.part_form{
-		padding: 0 30px;
+		padding: 0 10%;
 		p {
+			&.input-phone{
+				position: relative;
+				.content-clear{
+					margin: 5px;
+					position: absolute;
+					right: 1%;
+					top: 6px;
+					width: 11px;
+					height: 11px;
+					background: url(../assets/img/icon-clear.png) no-repeat;
+					background-size: 11px 11px;
+				}
+			}
 			input{
 				display: inline-block;
 				width: 100%;
+				padding-left: 5px;
 			}
+			margin-top: 35px;
 			width: 100%;
 			display: block;
-			line-height: 40px;
-			height: 40px;
+			line-height: 30px;
+			height: 30px;
 			border-bottom: 1px solid #ececec;
 			.checknum{
 				width: 60%;
 			}
+			&.input-password{
+				position: relative;
+				.but-nosee{
+					display: inline-block;
+					position: absolute;
+					top: 4px;
+					right: 1%;
+    				margin: 5px;
+					height: 11px;
+					width: 16px;
+					background: url(../assets/img/icon-nosee.png) no-repeat;
+					background-size:16px 11px;
+					z-index: 10;
+					&.see{
+						background: url(../assets/img/icon-see.png) no-repeat;
+						background-size:16px 11px;
+
+					}
+				}
+			}
 			
 		}
-		.furbish{
-			width: 20px;
-			height: 20px;
-			float: right;
-			margin-top: 10px;
-			margin-right: 2px;
-		}
-		.rrr{
+		
+		.checkNumimg{
 			width: 80px;
 			height: 30px;
 			float: right;
-			margin-top: 5px;
+			margin-top: -5px;
 		}
 		button{
 			&.getCheckNum{
@@ -182,10 +255,12 @@
 				
 			}
 			&.button{
-				background: linear-gradient(to right, #ffa100, #ff6804);
-				color: floralwhite;
+				background: #ff4b6d;
+				opacity: .7;
+				color: #ffffff;
 			    width: 100%;
-			    height: 100%;
+				height: 100%;
+				border-radius: 8px;
 			    margin: 0 auto;
 			    text-align: center;
 			    display: block;
