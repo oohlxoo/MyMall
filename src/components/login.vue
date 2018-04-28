@@ -59,7 +59,7 @@
 		methods:{
 			//点击登录按钮
 			butLogin(){
-				this.userName = this.$refs.userName.value.replace(/\s+/g,"");
+				 this.userName = this.$refs.userName.value.replace(/\s+/g,"");
 				if(!this.userName){
 					this.myTipText="账号不能为空";
 					this.mytipShow=true;
@@ -77,28 +77,24 @@
 					this.myTipText="密码不能为空";
 					this.mytipShow=true;
 					return;
-				}else if(this.passWord.length < 12){
-					this.passwordErr=""
-					this.myTipText="用户名或密码错误，请重新输入";
-					this.mytipShow=true;
-					return;
 				}
 					
 				
-				this.$http.post("/user/login",{
-					phone:this.userName,
-					password:this.passWord,
-					role: 0 //(角色0或1)(0代表普通用户)
-
+				this.$http.get(this.resource + "/user/login",{params: {
+						phone:this.userName,
+						password:this.passWord,
+						role: 0 //(角色0或1)(0代表普通用户)
+					}
+				
 				}).then((res)=>{
 					console.log(res);
-					if(res.data.status==200){
-					localStorage.setItem("userName",this.userName);
-					//console.log(localStorage.getItem("userName"));
+					if(res.status==200){
+						this.myTipText="登录成功";
+						this.mytipShow=true;
+						localStorage.setItem("userName",this.userName);
+						this.$router.push("/index");
 						//this.$store.dispatch("fetchUsernfo",{userName:this.userName,passWord:this.passWord})
 					}
-					//存储账号信息
-					console.log(this.$store.state.userInfo.userName);
 				},(err)=>{
 					console.log("error");
 				})

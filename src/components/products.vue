@@ -8,14 +8,15 @@
 		<div class="typeList">
 			<div class="bigType">
 				<ul >
-					<li v-for="(obj,index) in allProType.parent" :class="{current:number==index}" @click="showDetails(obj.gt_id,index)">{{obj.gt_name}}</li>
+					<li v-for="(obj,index) in allProType.parent" :class="{current:number==index}" :key="obj.id"
+					 @click="showDetails(obj.id,index)">{{obj.name}}</li>
 				</ul>
 			</div>
 			<div class="smallType">
 				<ul>
-					<li v-for="(obj,index) in childlist" @click="jumpProduct(obj.gt_id,obj.gt_name)" >
-						<img :src="obj.gt_icon" />
-						<span>{{obj.gt_name}}</span>
+					<li v-for="(obj,ind) in allProType.childlist" @click="jumpProduct(obj.id,obj.name)"  :key="obj.id" >
+						<img :src="obj.coverImg" />
+						<span>{{obj.name}}</span>
 					</li>		
 				</ul>
 			</div>
@@ -45,19 +46,7 @@
       		myheader,
       	},
       	methods:{
-      		//切换一级菜单
-      		showDetails(gt_id,index){
-      			this.number=index;
-      			//获取的子级的类型
-      			this.$http.get("api/getProTypeById",{params:{
-      				gt_parent_id:gt_id
-      			}}).then((res)=>{
-      				console.log(res.data);
-      				this.childlist=res.data;
-      			}).catch((err)=>{
-
-      			});
-      		},
+      		
       		//跳转页面
       		jumpProduct(gt_id,gt_name){
       			this.$router.push('/productType/'+ gt_id +'/'+ gt_name);
@@ -69,15 +58,27 @@
       			this.$router.push('/search');
       		},
       		getAllProType(){
-      			this.$http.get("api/allProTypeList",{params:
-      				{/*account:this.$store.userinfo.account,
-        			  token:this.$store.userinfo.token*/}
-      			}).then((res)=>{
-      					console.log(res.data);
-      					this.allProType=res.data;
-      					this.childlist=res.data.child
+				  this.$http.get(this.resource + "/appkey/list").
+				  then((res)=>{
+						  this.allProType.parent = res.data;
+						  //渲染二级菜单
+						  this.showDetails(this.allProType.parent[0].id,0);
+						  
       			}).catch((err)=>{
-
+					  console.log(err);
+      			});
+			  },
+			  //切换一级菜单
+      		showDetails(id,index){
+      			this.number=index;
+      			//获取的子级的类型
+      			this.$http.get(this.resource + "/goodstype/list",{params:{
+      				id:id
+      			}}).then((res)=>{
+      				console.log(res.data);
+      				this.allProType.childlist=res.data;
+      			}).catch((err)=>{
+					  console.log(err)
       			});
       		}
       	},
@@ -132,10 +133,11 @@
 					text-align: center;
 					border-bottom: 1px solid #ececec;
 					background:#f5f5f5 ;
-					color:#82779c;
+					color:#191919;
 					&.current{
-						color: #011FFF;
+						color: #ff4b6d ;
 						background: #fff;
+						border-left: 4px solid #ff4b6d;
 					}
 				}
 			}

@@ -18,7 +18,7 @@ router.get('/appkey/list', (req, res) => {
 
 // 根据商品一级菜单ID查询商品二级菜单
 router.get('/goodstype/list', (req, res) => {
-	let sql = 'select * from goodstype where paren_id=?'
+	let sql = 'select * from goodstype where parent_id=?'
 	pool.getConnection((err, connection) => {
 		connection.query(sql, [req.query.id], (err, data) => {
 			if (err) {

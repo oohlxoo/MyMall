@@ -6,10 +6,10 @@
 				<input placeholder="手机号"  ref="phone"  maxlength="13"   @input="addFormat"/>
 				<span v-if="showClear" class="content-clear" @click="clearUserName"></span>
 			</p>
-			<p>
+			<!-- <p>
 				<input class="checknum" v-model="checkNum" placeholder="验证码" />
 				<img class="checkNumimg"  @click="getCheckNum"  src="../assets/img/rrr.png" />
-			</p>
+			</p> -->
 			<p class="input-password">
 				<input :type="isPassWord ? 'text' :'password'" v-model="password" placeholder="密码（6-12位的数字及密码组合）" />
 				<span  v-show="eyeIsShow" class='but-nosee' :class="{'see':isPassWord}" @click="changePassShow()"></span>
@@ -52,7 +52,7 @@
 			
 			//获取验证码
 			getCheckNum(){
-				this.$http.get("/api/getCheckNum").then((res)=>{
+				this.$http.get(this.resource + "/getCheckNum").then((res)=>{
 					console.log(res.data.checkNumber);
 					this.checkNumberss=res.data.checkNumber;
 				}).catch((err)=>{
@@ -63,40 +63,41 @@
 			//提交注册请求
 			register(){
 				//检测账号
+				this.phone=this.$refs.phone.value.replace(/\s+/g,"");
 				var regAccount =/^1[3|4|5|7|8][0-9]{9}$/; //验证规则
 				if(!regAccount.test(this.phone)){
 					this.mytipShow=true;
 					this.myTipText="请输入正确的手机号码";
 					return;
 				}
-				this.$http.get("/user/checkAccount",{params:
-					{phone:this.$refs.phone.value}  }
-				).then((res)=>{
-					console.log(res.data.isExist);
-					if(res.data.isExist){
-						this.mytipShow=true;
-						this.myTipText="该账号已注册";
-						return;
-					}
-				}).catch((err)=>{
-					console.log(err);
-				});
+				// this.$http.get(this.resource + "/user/checkAccount",{params:
+				// 	{phone:this.$refs.phone.value}  }
+				// ).then((res)=>{
+				// 	console.log(res.data.isExist);
+				// 	if(res.data.isExist){
+				// 		this.mytipShow=true;
+				// 		this.myTipText="该账号已注册";
+				// 		return;
+				// 	}
+				// }).catch((err)=>{
+				// 	console.log(err);
+				// });
 
 				//检验验证码
-				if(this.checkNum==null || this.checkNum==""){
-					this.mytipShow=true;
-					this.myTipText="验证码不能为空";
-					return;
-				}else if(this.checkNum.length != 4){
-					this.mytipShow=true;
-					this.myTipText="验证码格式为空";
-					return;
-				}
-				if(this.checkNum !== this.checkNumberss){
-					this.mytipShow=true;
-					this.myTipText="验证码不正确，请重新填写";
-					return;
-				}
+				// if(this.checkNum==null || this.checkNum==""){
+				// 	this.mytipShow=true;
+				// 	this.myTipText="验证码不能为空";
+				// 	return;
+				// }else if(this.checkNum.length != 4){
+				// 	this.mytipShow=true;
+				// 	this.myTipText="验证码格式为空";
+				// 	return;
+				// }
+				// if(this.checkNum !== this.checkNumberss){
+				// 	this.mytipShow=true;
+				// 	this.myTipText="验证码不正确，请重新填写";
+				// 	return;
+				// }
 				
 				//检验密码
 				if(!this.password){
@@ -110,9 +111,9 @@
 					this.myTipText="密码格式不正确";
 				    return;
 				}
-				this.$http.post("/user/add",{
+				this.$http.post(this.resource + "/user/add",{
 						phone:this.phone,
-						password:this.checkNum,
+						password:this.password,
 						role:0 //(角色0或1)(0代表普通用户)	
 				}).then((res)=>{
 					//保存账号和token
@@ -161,7 +162,7 @@
 			}
 		},
 		mounted(){
-			this.getCheckNum();
+		//	this.getCheckNum();
 		}
 	}
 </script>

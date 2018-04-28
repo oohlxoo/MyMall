@@ -6,12 +6,9 @@
 		</div>-->
 		<div class="list_div">
 			<ul class="nav clearfix">
-				<li v-for="(obj,index) in navList" :class="{'current':(index==currentindex)}"  @click="getProListById(index)">{{obj}}</li>
+				<li v-for="(obj,index) in navList" :class="{'current':(index==currentindex)}"  :key="index" @click="getProListById(index)">{{obj}}</li>
 			</ul>		
 			<prodect-list :productlist="prodectListData"></prodect-list>
-		
-
-		
 		</div>
 	</div>
 </template>
@@ -36,17 +33,18 @@
         },
         created(){
         	this.title=this.$route.params.gt_name;
-        	this.gt_id=this.$route.params.gt_id;
+        	this.id=this.$route.params.gt_id;
         },
         methods:{
         	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~注意，是否加分页~~~~~~~~~~~~~~~~~~~~~~~
         	getProListById(index){
         		//0 代表综合 1销量 2价格
         		this.currentindex=index;
-        		this.$http.get("/api/getProductListById",{params:{
-        			gt_id:this.gt_id,
-        			order:this.index
+        		this.$http.get(this.resource + "/goods/list",{params:{
+        			id:this.id
+        			//order:this.index
         		}}).then((res)=>{
+					console.log(res.data);
         			this.prodectListData=res.data;
         		}).catch((err)=>{
         			console.log(err);

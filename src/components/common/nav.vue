@@ -33,7 +33,7 @@
         	
         	a{
         		top: 20px;
-        		color: #82779c;
+        		color: #191919;
         	}
         	i{
         		display: block;

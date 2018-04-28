@@ -2,15 +2,15 @@
 	<div>
 		<div class="productlist">
 			<ul class="list" v-if="!(productlist.length==0)">
-				<li v-for="(item,index) in productlist">
+				<li v-for="(item,index) in productlist" :key="index">
 					<!--<router-link to="/details/10">-->
 					<a>
-						<img :src="item.g_img[0]" @click="jump(item.g_id)"/>
+						<img :src="item.name" @click="jump(item.id)"/>
 						<div class="detals">
-							<p class="titt" @click="jump(item.g_id)">{{item.g_title }}</p>
-							<p class="explain" @click="jump(item.g_id)">{{item.g_describe}}</p>
-							<p class="price"><i>￥</i>{{item.g_price}}<del>￥{{item.g_originalCost}}</del></p>
-							<p class="button"><button @click="buypro(item.g_id, item.g_price)" >立即购买</button></p>
+							<p class="titt" @click="jump(item.id)">{{item.describe }}</p>
+							<p class="explain" @click="jump(item.id)">{{item.coverImg}}</p>
+							<p class="price"><i>￥</i>{{item.price}}<del>￥{{item.originalCost}}</del></p>
+							<p class="button"><button @click="buypro(item.id, item.price)" >立即购买</button></p>
 						</div>
 					</a>
 					<!--</router-link>-->
@@ -56,7 +56,6 @@
 		margin:5px auto;
 		width: 98%;
 		padding: 2px 5px;
-		box-shadow: 1px -1px 4px #888888;
 		
 		.list{
 			li{

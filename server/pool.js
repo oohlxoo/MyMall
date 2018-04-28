@@ -4,6 +4,6 @@ var pool  = mysql.createPool({
 	user: 'root',
 	password: '',
 	port: '3306',
-	database: 'ordermeal'
+	database: 'mymall'
 })
 module.exports = pool

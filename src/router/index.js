@@ -27,7 +27,7 @@ Vue.use(Router)
 
 export default new Router({
 	linkActiveClass: 'active',
-	 mode: 'history',
+	// mode: 'history',
 	 routes: [
 	    /*{
 	      path: '/',
@@ -82,7 +82,7 @@ export default new Router({
 	    },
 	    //商品详情
 	    {
-	      path: '/details/:g_id',
+	      path: '/details/:id',
 	      name: "details",
 	      component: details
 	    },

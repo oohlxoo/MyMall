@@ -3,7 +3,7 @@
 		<myheader :title="title"></myheader>
 		<div class="collectlist">
 			<ul class="list">
-				<li v-for="(item,index) in collectList">
+				<li v-for="(item,index) in collectList" :key="index">
 					<img :src="item.g_img[0]"/>
 					<div class="detals">
 						<p class="titt">{{item.g_title[0]}}<span class="collecttime">收藏于：{{item.c_date}}</span></p>
@@ -38,14 +38,15 @@
 				console.log(123);
 			},
 			getCollectList(){
-				this.$http.get("api/myCollectList",{param:{
+				this.$http.get(this.resource + "/collect/list",{param:{
+					u_id:1
 					/*account:this.$store.userinfo.account,
 					token:this.$store.userinfo.token,*/
-					c_iscollect:true
+					//c_iscollect:true
 				}}).then((res)=>{
 					this.collectList=res.data;
 				}).catch((err)=>{
-					cons.log(err);
+					console.log(err);
 				});
 			}
 		},

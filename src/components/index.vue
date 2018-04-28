@@ -53,7 +53,6 @@ import prodectList from '../components/common/productList'
 					console.log(err)
 				})
         	}
-
         },
           mounted(){
         	this.getPopType();

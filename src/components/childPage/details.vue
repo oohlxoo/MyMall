@@ -1,30 +1,33 @@
 <template>
 	<div class="allcontent">
-		<myheaders :title="detailslist.g_title"></myheaders>
+		<myheaders :title="detailslist.describe"></myheaders>
 		<div class="details">
 			<div class="typeshow">
-				<ul>
-					<li v-for="item in detailslist.g_img" v-touch:touchend="onTouchEnd">
-						<img :src="detailslist.g_img[nowindex]">	
+				<!-- <ul>
+					<li v-for="(item,index) in detailslist.g_img" v-touch:touchend="onTouchEnd" :key="index">
+					 -->
+					 <ul>
+					<li  v-touch:touchend="onTouchEnd" >
+						<img :src="detailslist.name">	
 					</li>
 				
 				</ul>
 				<div class="length">
-					<p><span v-for="(o,i) in detailslist.g_img" :class="{current:(i===nowindex)}"></span></p>
+					<p><span v-for="(o,i) in detailslist.g_img" :class="{current:(i===nowindex)}" :key="i"></span></p>
 				</div>	
 			</div>
 			<div class="priceinfo">
-				<p class="pri">￥{{detailslist.g_price}}</p>
-				<p class="others"><span>月销量：{{detailslist.g_salesvolume}}</span><span>产地：{{detailslist.g_address}}</span>
+				<p class="pri">￥{{detailslist.price}}</p>
+				<p class="others"><span>月销量：1000</span><span>产地：{{detailslist.address}}</span>
 					<!--<span class="collect"></span>  未收藏的样式-->
 					<span class="collect" :class="{'collected':detailslist.iscollect}"  @click="collect()"></span>
 							
 				</p>
 			</div>
-			<div class="appraise">
+			<!-- <div class="appraise">
 				<p class="count">商品评价({{detailslist.t_comment.length}})</p>
 				<ul>
-					<li class="clearfix" v-for="(item,index) in detailslist.t_comment" :class="{hideBorderBottom:item.islast}">
+					<li class="clearfix" v-for="(item,index) in detailslist.t_comment" :key="index" :class="{hideBorderBottom:item.islast}">
 						<p class="clearfix">
 							<img class="img" :src="item.u_icon">
 							<span class="username">{{item.u_nickname}}</span>
@@ -34,7 +37,7 @@
 						<p class="date"><span>{{item.com_date}}</span></p>
 					</li>
 				</ul>
-			</div>
+			</div> -->
 			<div class="button_div">
 			    <button @click="addShopping(detailslist.g_id)">加入购物车</button>
 				<button @click="buynow(detailslist.g_id,detailslist.g_price)">立即购买</button>
@@ -55,7 +58,8 @@
 				nowindex:0,
 				iscollect:false,
 				mytipShow:false,
-				tiptext:""
+				tiptext:"",
+				detailslist:[]
 			}
 		},
 		components:{
@@ -65,14 +69,14 @@
 		},
 		methods:{
 			//点击屏幕，切换图片
-			onTouchEnd(){
-				var count=this.detailslist.g_img.length-1;
-				if(this.nowindex<count){
-					this.nowindex++;
-				}else{
-					this.nowindex=0
-				}
-			},
+			// onTouchEnd(){
+			// 	var count=this.detailslist.g_img.length-1;
+			// 	if(this.nowindex<count){
+			// 		this.nowindex++;
+			// 	}else{
+			// 		this.nowindex=0
+			// 	}
+			// },
 			//收藏与取消收藏
 			collect(id){
 				this.iscollect= !this.iscollect;
@@ -124,13 +128,14 @@
 				}
 			}
 		},
-		created(){
-			this.$http.get('/api/getdetails',{params: {id: this.id}}
-		).then((res) => {
-			
-				this.$store.dispatch('getProListById', res.data)			
+		created(){	
+			this.$http.get( this.resource + '/goods/detail',{params: {id: this.id}}
+			).then((res) => {
+				console.log(res);
+				this.detailslist = res.data;
+				//this.$store.dispatch('getProListById', res.data)			
 			}).catch((err) => {
-					console.log(err)
+				console.log(err)
 			});
 		},
 		mounted(){
@@ -264,10 +269,14 @@
 		    	}
 		    }
 		}
+		}
 	}
 	.button_div{
 		margin-top: 10px;
 		height: 50px;
+		position: absolute;
+		width: 100%;
+		bottom: 0;
 		button{
 	   	    background: #ff8302;
 			width: 50%;
@@ -284,5 +293,4 @@
 		    
 		}
 	}
-}
 </style>
