@@ -43,7 +43,7 @@
         	getProListById(index){
         		//0 代表综合 1销量 2价格
         		this.currentindex=index;
-        		this.$http.get("/api/getProductListById",{params:{
+        		this.$http.get("/goods/list",{params:{
         			gt_id:this.gt_id,
         			order:this.index
         		}}).then((res)=>{

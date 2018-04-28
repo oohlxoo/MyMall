@@ -3,6 +3,16 @@ var cors = require('cors');
 var app = express();
 app.use(cors())
 
+// 用户
+var user = require('./user')
+app.use(user)
+// 商品
+var goods = require('./goods')
+app.use(goods)
+// 购物车
+var shop = require('./shop')
+app.use(shop)
+
 // 首页商品查询
 var product = require('./product')
 app.use(product)

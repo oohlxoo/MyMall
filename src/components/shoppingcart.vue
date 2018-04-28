@@ -68,22 +68,23 @@
 			// 	set() {}
 			// }
 		},
-		watch:{},
-		methods:{
-			//根据数量和单价计算总价
-			computedPrice(prive,num){
-				return prive * num;
-
-			},
-			getPriceAll() {
-				var total = 0
-				this.shoppingListData.map((item, index, array1)=>{
-					if (item.sc_ischoose) {
-						total +=this.computedPrice(item.g_price,item.sc_num)
+		watch:{
+			shoppingListData: {
+				handler(newval) {
+					var total = 0
+					if (newval) {
+						newval.map((item, index, array1)=>{
+							if (item.sc_ischoose) {
+								total +=( item.g_price * item.sc_num );
+							}
+						})
 					}
-				})
-				this.$store.dispatch('getChoosetotal', total)
-			},
+					this.$store.dispatch('getChoosetotal', total)
+				},
+				deep: true
+			}
+		},
+		methods:{
 			getShoppingListData(){
 				this.$http.get("api/shoppingCarList"/*,{
 					params:{
@@ -93,7 +94,6 @@
 					this.shoppingListData=res.data;
 					
 					this.$store.dispatch("getShoppingCarList",res.data);
-					this.getPriceAll();
 					
 				}).catch((err)=>{
 					console.log(err)
@@ -113,7 +113,6 @@
 				}else{
 					this.hasChooseAll= false;
 				}
-				this.getPriceAll();
 				//进行数据请求
 			},
 			chooseAll () {
@@ -128,7 +127,6 @@
 						obj.sc_ischoose=true;
 					});
 					this.hasChooseAll= true;
-					this.getPriceAll();
 				}
 				console.log(this.shoppingListData)
 				

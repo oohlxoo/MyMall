@@ -17,7 +17,9 @@
 					<li>收货地址<span></span></li>
 				</router-link>
 				<li><a href="tel:10086">联系我们</a></li>
-				<li>退出</li>
+				<router-link to="/login">
+					<li>退出</li>
+				</router-link>
 			</ul>
 			
 			

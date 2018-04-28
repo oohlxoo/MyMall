@@ -49,11 +49,11 @@
       		showDetails(gt_id,index){
       			this.number=index;
       			//获取的子级的类型
-      			this.$http.get("api/getProTypeById",{params:{
-      				gt_parent_id:gt_id
+      			this.$http.get("goodstype/list",{params:{
+      				id:id
       			}}).then((res)=>{
       				console.log(res.data);
-      				this.childlist=res.data;
+      				//this.childlist=res.data;
       			}).catch((err)=>{
 
       			});
