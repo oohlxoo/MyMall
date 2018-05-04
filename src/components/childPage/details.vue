@@ -20,7 +20,7 @@
 				<p class="pri">￥{{detailslist.price}}</p>
 				<p class="others"><span>月销量：1000</span><span>产地：{{detailslist.address}}</span>
 					<!--<span class="collect"></span>  未收藏的样式-->
-					<span class="collect" :class="{'collected':detailslist.iscollect}"  @click="collect()"></span>
+					<span class="collect" :class="{'collected':iscollect}"  @click="collect(detailslist.gt_id)"></span>
 							
 				</p>
 			</div>
@@ -39,7 +39,7 @@
 				</ul>
 			</div> -->
 			<div class="button_div">
-			    <button @click="addShopping(detailslist.g_id)">加入购物车</button>
+			    <button @click="addShopping(detailslist.id)">加入购物车</button>
 				<button @click="buynow(detailslist.g_id,detailslist.g_price)">立即购买</button>
 			</div>
 		</div>
@@ -59,7 +59,8 @@
 				iscollect:false,
 				mytipShow:false,
 				tiptext:"",
-				detailslist:[]
+				detailslist:[],
+				c_id:""
 			}
 		},
 		components:{
@@ -69,41 +70,71 @@
 		},
 		methods:{
 			//点击屏幕，切换图片
-			// onTouchEnd(){
+			 onTouchEnd(){
 			// 	var count=this.detailslist.g_img.length-1;
 			// 	if(this.nowindex<count){
 			// 		this.nowindex++;
 			// 	}else{
 			// 		this.nowindex=0
 			// 	}
-			// },
+			 },
 			//收藏与取消收藏
 			collect(id){
-				this.iscollect= !this.iscollect;
-				this.$http.get("/api/isCollect"/*,{params:{
-					account:this.$store.userinfo.account,
-					token:this.$store.userinfo.token,
-					g_id:id，
-					option:0  //0,代表收藏，1代表取消收藏
+				console.log(this.c_id, 'c_id')
+				console.log(id)
+				var myDate = new Date();//获取系统当前时间
+				var mytime = myDate.toLocaleString();
+				var u_id = parseInt(localStorage.getItem("userId"));
+				console.log(mytime);
+				console.log(this.c_id);
+				//this.iscollect= !this.iscollect;
+				if(this.iscollect){
+					this.$http.delete( this.resource + "/collect/remove",{params:{
+						id :this.c_id 
+					}})
+					.then((res)=>{
+						if(res.status==200){
+							this.iscollect= !this.iscollect;
+							this.mytipShow=true;
+							this.tiptext="已取消收藏该商品"
+						}
 
-				}}*/)
-				.then((res)=>{
-					console.log(res.data.issuccess);
+					}).catch(()=>{
 
-				}).catch(()=>{
+					});
+				}else{
+					this.$http.post( this.resource + "/collect/add",{
+						"u_id":u_id,
+						"good_id":id,
+						"date": mytime
+					})
+					.then((res)=>{
+						if(res.status==200){
+							this.iscollect= !this.iscollect;
+							this.getCid();
+							this.mytipShow=true;
+							this.tiptext="已收藏该商品"
+						}
 
-				});
+					}).catch(()=>{
+
+					});
+				}
 			
 			},
 			//加入购物车
 			addShopping(id){
-				this.$http.get("/api/addShoppingList"/*,{params{
-					account:this.$store.userinfo.account,
-					token:this.$store.userinfo.token,
-					g_id:id
-				}}*/)
+				if(this.userId == "" && this.userId == null){
+					this.$router.push("/login");
+				}
+				 
+				this.$http.put( this.resource + "/shop/edit",{
+					good_id:id,
+					action:'add',
+					u_id:this.userId
+				})
 				.then((res)=>{
-					console.log(res.data.issuccess);
+					console.log(res.data);
 					this.mytipShow=true;
 					this.tiptext="添加购物车成功"
 				}).catch(()=>{
@@ -114,19 +145,37 @@
 			buynow(g_id, g_price){
 				//this.$router.push('/commitorder/'+ g_id);
 				this.$router.push({path: '/commitorder/' + id, query: {price: g_price}});
-			}
+			},
+			getCid() {
+				this.$http.get(this.resource + '/collect/isCollect',{params:{
+						good_id:this.id,
+						u_id: this.userId
+					}}
+				).then((res)=>{
+					this.iscollect = res.data.isCollect;
+					console.log(res.data.isCollect,'flag')
+					if(res.data.isCollect){
+						this.c_id = res.data.c_id;
+						console.log(this.c_id);
+					}
+
+					
+				}).catch((err)=>{
+					console.log(err);
+				});
+			},
 		},
 		computed:{
 			id(){
 				return  this.$route.params.id
 			},
-			detailslist:{
-				get(){
-					return this.$store.state.getdetails				
-				},
-				set(){
-				}
-			}
+			// detailslist:{
+			// 	get(){
+			// 		return this.$store.state.getdetails				
+			// 	},
+			// 	set(){
+			// 	}
+			// }
 		},
 		created(){	
 			this.$http.get( this.resource + '/goods/detail',{params: {id: this.id}}
@@ -137,10 +186,21 @@
 			}).catch((err) => {
 				console.log(err)
 			});
+			
+
 		},
 		mounted(){
 			//异步请求需要时间加载，此处模拟接口是，执行速度太快，拿不到数据，可写个定时器~~~
 			//console.log(this.detailslist);
+
+			//查询该商品，当前登录用户是否收藏
+			this.userId = localStorage.getItem("userId");
+			console.log(this.userId);
+			if(this.userId== "" || this.userId == null){
+				return;
+			}else{
+				this.getCid()
+			}
 		}
 	}
 </script>

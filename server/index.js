@@ -12,6 +12,12 @@ app.use(goods)
 // 购物车
 var shop = require('./shop')
 app.use(shop)
+// 收藏
+var collect = require('./collect')
+app.use(collect)
+// 地址
+var address = require('./address')
+app.use(address)
 
 // 首页商品查询
 var product = require('./product')

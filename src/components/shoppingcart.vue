@@ -5,17 +5,17 @@
 			<div class="shoppinglist">
 				<ul class="list">
 					<li v-for="(item,index) in shoppingListData" :key="index">
-						<div class="left-choose" @click="chooseStore(item.g_id,item)">
-							<span :class="{ed:item.sc_ischoose}"></span>
+						<div class="left-choose" @click="chooseStore(item.good_id,item)">
+							<span :class="{ed:item.isChoose}"></span>
 						</div>
 						<div class="right-content">
-							<img :src="item.g_img[0]"/>
+							<img :src="item.name"/>
 							<div class="detals">
-								<p class="titt">{{item.g_title}}</p>
-								<p class="explain">{{item.g_describe}}</p>
-								<p class="price">￥{{item.g_price}}<i>x {{item.sc_num}}</i></p>
+								<p class="titt">{{item.describe}}</p>
+								<p class="explain">{{item.coverImg}}</p>
+								<p class="price">￥{{item.price}}<i>x {{item.num}}</i></p>
 							</div>
-							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.sc_num" @decNum="item.sc_num --" @addNum="item.sc_num ++" :price="item.g_price" :isCheck="item.sc_ischoose"></mybuynumber></p>
+							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.num" @decNum="decNum(item)" @addNum="addNum(item.num)" :price="item.price" :isCheck="item.isChoose"></mybuynumber></p>
 						</div>	
 					</li>										
 				</ul>
@@ -44,7 +44,8 @@
 		components:{
 			myheader:header,
 			mybuynumber:buynumber,
-			mydialog:dialog
+			mydialog:dialog,
+			userId:""
 		},
 		data(){
 			return{
@@ -74,8 +75,8 @@
 					var total = 0
 					if (newval) {
 						newval.map((item, index, array1)=>{
-							if (item.sc_ischoose) {
-								total +=( item.g_price * item.sc_num );
+							if (item.isChoose) {
+								total +=( item.price * item.num );
 							}
 						})
 					}
@@ -86,28 +87,48 @@
 		},
 		methods:{
 			getShoppingListData(){
-				this.$http.get("api/shoppingCarList"/*,{
-					params:{
-					account:this.$store.userinfo.account,
-					token:this.$store.userinfo.token
-				}}*/).then((res)=>{
-					this.shoppingListData=res.data;
+				this.userId = localStorage.getItem("userId");
+
+				this.$http.get(this.resource +"/shop/list",{params:{
+					u_id:this.userId
+				}}).then((res)=>{
+					console.log(res.data)
+					 this.shoppingListData=res.data;
 					
-					this.$store.dispatch("getShoppingCarList",res.data);
+					// this.$store.dispatch("getShoppingCarList",res.data);
 					
 				}).catch((err)=>{
 					console.log(err)
 				});
 			},
 			chooseStore(id,item){
-				item.sc_ischoose = !item.sc_ischoose;
+				console.log("123");
+				var isChoose= 0;
+				if(item.isChoose){
+					isChoose = 0;
+				}else {
+					isChoose = 1;
+				}
+				this.$http.put(this.resource + "/shop/edit",{
+					isChoose:isChoose,
+					u_id:this.u_id,
+					good_id:id
+				}).then((res)=>{
+					console.log(res.data);
+				}).catch((err)=>{
+					console.log(err);
+				});
+				item.isChoose = !item.isChoose;
 				var sum = 0;
+				console.log();
+		
 				this.shoppingListData.map((obj, index, array1)=>{
-					if(obj.sc_ischoose==true){
+					if(obj.isChoose==1){
 						sum ++;
 					}
 
 				});
+				console.log(sum);
 				if(sum==this.shoppingListData.length){
 					this.hasChooseAll= true;
 				}else{
@@ -118,23 +139,37 @@
 			chooseAll () {
 				if(this.hasChooseAll){
 					this.shoppingListData.map((obj, index, array1)=>{
-						obj.sc_ischoose=false;
+						obj.ischoose=0;
 					});
-					this.hasChooseAll= false;
+					this.hasChooseAll= 0;
 					this.$store.dispatch('getChoosetotal', 0)
 				}else{
 					this.shoppingListData.map((obj, index, array1)=>{
-						obj.sc_ischoose=true;
+						obj.isChoose=1;
 					});
-					this.hasChooseAll= true;
+					this.hasChooseAll= 1;
 				}
 				console.log(this.shoppingListData)
-				
-
+			},
+			decNum (item) {
+				item.num == item.num--;
+				if (this.isCheck) {
+					var choosetotal = Number(this.choosetotal) - Number(this.price)
+					this.$store.dispatch('getChoosetotal', choosetotal)
+				}
+			},
+			addNum () {
+				console.log(123);
+				if (this.isCheck) { 
+						var choosetotal = Number(this.choosetotal) + Number(this.price)
+						this.$store.dispatch('getChoosetotal', choosetotal)
+					}
 			}
+
 		},
 		mounted(){
 			this.getShoppingListData();
+			this.userId = localStorage.getItem("userId");
 
 		}
 		

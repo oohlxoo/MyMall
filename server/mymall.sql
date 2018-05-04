@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2018-04-28 17:57:24
+Date: 2018-05-04 17:27:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -101,12 +101,13 @@ CREATE TABLE `collect` (
   `u_id` int(11) DEFAULT NULL,
   `date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of collect
 -- ----------------------------
-INSERT INTO `collect` VALUES ('1', '1', '1', '2018.4.28');
+INSERT INTO `collect` VALUES ('33', '1', '4', '2018/5/3 上午10:11:43');
+INSERT INTO `collect` VALUES ('34', '2', '4', '2018/5/3 上午10:14:34');
 
 -- ----------------------------
 -- Table structure for comment
@@ -235,13 +236,53 @@ CREATE TABLE `shop` (
   `u_id` int(11) DEFAULT NULL,
   `good_id` int(11) DEFAULT NULL,
   `num` int(11) DEFAULT NULL,
-  `isChoose` varchar(45) DEFAULT NULL,
+  `isChoose` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shop
 -- ----------------------------
+INSERT INTO `shop` VALUES ('7', '4', '2', '6', '0');
+INSERT INTO `shop` VALUES ('8', '4', '1', '1', '1');
+INSERT INTO `shop` VALUES ('17', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('18', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('19', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('20', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('21', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('22', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('23', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('24', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('25', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('26', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('27', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('28', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('29', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('30', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('31', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('32', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('33', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('34', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('35', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('36', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('37', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('38', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('39', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('40', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('41', null, '1', '1', '0');
+INSERT INTO `shop` VALUES ('42', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('43', null, '1', '1', '0');
+INSERT INTO `shop` VALUES ('44', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('45', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('46', null, '1', '1', '0');
+INSERT INTO `shop` VALUES ('47', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('48', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('49', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('50', null, '1', '1', '0');
+INSERT INTO `shop` VALUES ('51', null, '1', '1', '0');
+INSERT INTO `shop` VALUES ('52', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('53', null, '2', '1', '0');
+INSERT INTO `shop` VALUES ('54', null, '2', '1', '0');
 
 -- ----------------------------
 -- Table structure for site

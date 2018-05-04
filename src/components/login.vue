@@ -91,6 +91,7 @@
 					if(res.status==200){
 						this.myTipText="登录成功";
 						this.mytipShow=true;
+						localStorage.setItem("userId",res.data.id);
 						localStorage.setItem("userName",this.userName);
 						this.$router.push("/index");
 						//this.$store.dispatch("fetchUsernfo",{userName:this.userName,passWord:this.passWord})
@@ -211,8 +212,6 @@
 				.span1{
 					display: inline-block;
 					color: #999999;
-					
-					
 					a,i{
 						color: #333;
 						padding: 0.1rem 2px

@@ -3,14 +3,14 @@
 		<myheader :title="title"></myheader>
 		<div class="collectlist">
 			<ul class="list">
-				<li v-for="(item,index) in collectList" :key="index">
-					<img :src="item.g_img[0]"/>
+				<li v-for="(item,index) in collectList" :key="index" @click="jumpDetails(item.good_id)">
+					<img :src="item.name"/>
 					<div class="detals">
-						<p class="titt">{{item.g_title[0]}}<span class="collecttime">收藏于：{{item.c_date}}</span></p>
-						<p class="explain">{{item.g_describe}}</p>
-						<p class="price">￥{{item.g_price}}
-							<span class="collect" :class="{'collected':item.c_iscollect}" @click="iscollectfunction"></span>
-						
+						<p class="titt">{{item.describe}}<span class="collecttime">收藏于：{{item.date}}</span></p>
+						<p class="explain">{{item.coverImg}}</p>
+						<p class="price">￥{{item.price}}
+							<!-- <span class="collect" :class="{'collected':item.c_iscollect}" @click="iscollectfunction"></span>
+						 -->
 						</p>
 					</div>
 				</li>
@@ -22,11 +22,15 @@
 <script>
 	import header from "../common/header"
 	export  default{
+		// http:{
+		// 	emulateJSON:true
+		// },
 		data(){
 			return {
 				title:"我的收藏",
 				iscollect:false,
-				collectList:null
+				collectList:null,
+				userId:""
 			}
 		},
 		components:{
@@ -35,27 +39,35 @@
 		methods:{
 			iscollectfunction(){
 				this.iscollect=!this.iscollect;
-				console.log(123);
+				// this.$http.delete(
+				// 	this.resource + "/collect/remove"
+				// );
+				
 			},
 			getCollectList(){
-				this.$http.get(this.resource + "/collect/list",{param:{
-					u_id:1
+				this.$http.get(this.resource + "/collect/list",{params:{
+					u_id:this.userId
 					/*account:this.$store.userinfo.account,
 					token:this.$store.userinfo.token,*/
 					//c_iscollect:true
 				}}).then((res)=>{
+					console.log(res.data);
 					this.collectList=res.data;
 				}).catch((err)=>{
 					console.log(err);
 				});
+			},
+			jumpDetails(id){
+				console.log("即将跳转");
+				this.$router.push("/details/" + id);
 			}
 		},
 		mounted(){
-			this.getCollectList()
+			this.userId = localStorage.getItem("userId");
+			this.getCollectList();	
 		}
 	}
 </script>
-
 <style lang="less">
 	.collectlist{
 		.list{

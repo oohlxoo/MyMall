@@ -3,7 +3,7 @@ var pool = require('./pool.js')
 
 // 查询用户的购物车列表
 router.get('/shop/list', (req, res) => {
-	let sql = 'select s.id, s.good_id, s.num, s.isChoose, g.name, g.price, g.describe, g.coverImg from shop s inner join goods g on s.good_id=g.id where s.u_id=?'
+	let sql = 'select s.id, s.good_id,s.num, s.isChoose, g.name, g.price, g.describe, g.coverImg from shop s inner join goods g on s.good_id=g.id where s.u_id=?'
 	pool.getConnection((err, connection) => {
 		connection.query(sql, [req.query.u_id], (err, data) => {
 			if (err) {

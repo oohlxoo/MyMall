@@ -21,37 +21,28 @@
 		// 		default:1
 		// 	}
 		// },
-		props: ['buynum', 'price', 'isCheck'],
+		props: ['buynum'],
 		computed:{
-			choosetotal () {
-				return this.$store.state.choosetotal
-			}
+			// choosetotal () {
+			// 	return this.$store.state.choosetotal
+			// }
 		},
 		methods:{
 			dec(){
+
 				if(this.buynum<=1){
 					return 1
 				}else{
-					// return this.buynum--;
 					this.$emit('decNum')
-					if (this.isCheck) {
-						var choosetotal = Number(this.choosetotal) - Number(this.price)
-						this.$store.dispatch('getChoosetotal', choosetotal)
-					}
+				
 				}
 			},
 			add(){
 				if(this.buynum>=10){
 					return this.buynum;
 				}else{
-					// return this.buynum++;
 					this.$emit('addNum')
-					if (this.isCheck) { 
-						var choosetotal = Number(this.choosetotal) + Number(this.price)
-						this.$store.dispatch('getChoosetotal', choosetotal)
-					}
 				}
-				
 			}
 		},
 		watch:{
