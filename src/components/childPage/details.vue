@@ -60,7 +60,8 @@
 				mytipShow:false,
 				tiptext:"",
 				detailslist:[],
-				c_id:""
+				c_id:"",
+				good_id:""
 			}
 		},
 		components:{
@@ -182,8 +183,18 @@
 			).then((res) => {
 				console.log(res);
 				this.detailslist = res.data;
+				this.good_id= res.data.good_id;
 				//this.$store.dispatch('getProListById', res.data)			
 			}).catch((err) => {
+				console.log(err)
+			});
+			
+			//评论 good_id
+			this.$http.get(this.resource + '/comment/get',{params:{
+				good_id:this.good_id
+			}}).then((obj)=>{
+				console.log(obj)
+			}).catch((err)=>{
 				console.log(err)
 			});
 			

@@ -9,6 +9,9 @@ app.use(user)
 // 商品
 var goods = require('./goods')
 app.use(goods)
+// //商品评论
+// var comment = require('./comment')
+// app.use(comment)
 // 购物车
 var shop = require('./shop')
 app.use(shop)
@@ -22,6 +25,7 @@ app.use(address)
 // 首页商品查询
 var product = require('./product')
 app.use(product)
+
  
 var server = app.listen(3000, function () {
  

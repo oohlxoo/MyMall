@@ -15,7 +15,7 @@
 								<p class="explain">{{item.coverImg}}</p>
 								<p class="price">￥{{item.price}}<i>x {{item.num}}</i></p>
 							</div>
-							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.num" @decNum="decNum(item)" @addNum="addNum(item.num)" :price="item.price" :isCheck="item.isChoose"></mybuynumber></p>
+							<p class="num clearfix">购买数量  <mybuynumber :buynum="item.num" @decNum="decNum(item)" @addNum="addNum(item)" :price="item.price" :isCheck="item.isChoose"></mybuynumber></p>
 						</div>	
 					</li>										
 				</ul>
@@ -62,6 +62,7 @@
 			choosetotal () {
 				return this.$store.state.choosetotal;
 			}
+			
 			// choosetotal:{
 			// 	get() {
 			// 		return this.$store.state.choosetotal
@@ -73,13 +74,19 @@
 			shoppingListData: {
 				handler(newval) {
 					var total = 0
+					var sum = 0;
 					if (newval) {
 						newval.map((item, index, array1)=>{
 							if (item.isChoose) {
 								total +=( item.price * item.num );
+								sum ++ ;
 							}
 						})
+						if(sum == newval.length ){
+							this.hasChooseAll = true;
+						}
 					}
+					
 					this.$store.dispatch('getChoosetotal', total)
 				},
 				deep: true
@@ -93,16 +100,14 @@
 					u_id:this.userId
 				}}).then((res)=>{
 					console.log(res.data)
-					 this.shoppingListData=res.data;
+					this.shoppingListData=res.data;
 					
 					// this.$store.dispatch("getShoppingCarList",res.data);
-					
 				}).catch((err)=>{
 					console.log(err)
 				});
 			},
 			chooseStore(id,item){
-				console.log("123");
 				var isChoose= 0;
 				if(item.isChoose){
 					isChoose = 0;
@@ -137,33 +142,63 @@
 				//进行数据请求
 			},
 			chooseAll () {
+				//反选
 				if(this.hasChooseAll){
-					this.shoppingListData.map((obj, index, array1)=>{
-						obj.ischoose=0;
-					});
-					this.hasChooseAll= 0;
-					this.$store.dispatch('getChoosetotal', 0)
+					this.$http.put( this.resource + "/shop/multiple",{
+						isChoose: false,
+						u_id:this.userId}
+						).then((obj)=>{
+							console.log("反选成功");
+							this.shoppingListData.map((obj, index, array1)=>{
+								obj.isChoose=0;
+							});
+							this.hasChooseAll= 0;
+							this.$store.dispatch('getChoosetotal', 0)
+
+						}).catch((err)=>{
+							console.log(err);
+						});
+					
+				//全选
 				}else{
-					this.shoppingListData.map((obj, index, array1)=>{
-						obj.isChoose=1;
-					});
-					this.hasChooseAll= 1;
+					this.$http.put( this.resource + "/shop/multiple",{
+						isChoose: true,
+						u_id:this.userId}
+						).then((obj)=>{
+							this.shoppingListData.map((obj, index, array1)=>{
+								obj.isChoose=1;
+							});
+							this.hasChooseAll= 1;
+
+						}).catch((err)=>{
+							console.log(err);
+						});	
 				}
 				console.log(this.shoppingListData)
 			},
 			decNum (item) {
-				item.num == item.num--;
-				if (this.isCheck) {
-					var choosetotal = Number(this.choosetotal) - Number(this.price)
-					this.$store.dispatch('getChoosetotal', choosetotal)
-				}
+				this.$http.put( this.resource + "/shop/edit",{
+					good_id:item.id,
+					u_id:this.userId,
+					action:'remove'
+				}).then((res)=>{
+					item.num == item.num--;
+					console.log(res);
+				}).catch((err)=>{
+					console.log(err);
+				});
 			},
-			addNum () {
-				console.log(123);
-				if (this.isCheck) { 
-						var choosetotal = Number(this.choosetotal) + Number(this.price)
-						this.$store.dispatch('getChoosetotal', choosetotal)
-					}
+			addNum (item) {
+				this.$http.put( this.resource + "/shop/edit",{
+					good_id:item.id,
+					u_id:this.userId,
+					action:'add'
+				}).then((res)=>{
+					item.num == item.num ++;
+					console.log(res);
+				}).catch((err)=>{
+					console.log(err);
+				});
 			}
 
 		},

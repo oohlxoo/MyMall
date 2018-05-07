@@ -1,24 +1,27 @@
-/*
-Navicat MySQL Data Transfer
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: mymall
+-- ------------------------------------------------------
+-- Server version	5.6.17
 
-Source Server         : mysql
-Source Server Version : 50617
-Source Host           : localhost:3306
-Source Database       : mymall
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-Target Server Type    : MYSQL
-Target Server Version : 50617
-File Encoding         : 65001
+--
+-- Table structure for table `address`
+--
 
-Date: 2018-05-04 17:27:37
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for address
--- ----------------------------
 DROP TABLE IF EXISTS `address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contactsName` varchar(45) DEFAULT NULL,
@@ -29,37 +32,48 @@ CREATE TABLE `address` (
   `detailAddress` longtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of address
--- ----------------------------
+--
+-- Dumping data for table `address`
+--
 
--- ----------------------------
--- Table structure for appkey
--- ----------------------------
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `appkey`
+--
+
 DROP TABLE IF EXISTS `appkey`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `appkey` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of appkey
--- ----------------------------
-INSERT INTO `appkey` VALUES ('1', '男装');
-INSERT INTO `appkey` VALUES ('2', '女装');
-INSERT INTO `appkey` VALUES ('3', '运动');
-INSERT INTO `appkey` VALUES ('4', '内衣');
-INSERT INTO `appkey` VALUES ('5', '箱包');
-INSERT INTO `appkey` VALUES ('6', '户外');
-INSERT INTO `appkey` VALUES ('7', '童装');
-INSERT INTO `appkey` VALUES ('8', '配饰');
+--
+-- Dumping data for table `appkey`
+--
 
--- ----------------------------
--- Table structure for banner
--- ----------------------------
+LOCK TABLES `appkey` WRITE;
+/*!40000 ALTER TABLE `appkey` DISABLE KEYS */;
+INSERT INTO `appkey` VALUES (1,'男装'),(2,'女装'),(3,'运动'),(4,'内衣'),(5,'箱包'),(6,'户外'),(7,'童装'),(8,'配饰');
+/*!40000 ALTER TABLE `appkey` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `banner`
+--
+
 DROP TABLE IF EXISTS `banner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `banner` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `srco` varchar(45) DEFAULT NULL,
@@ -67,34 +81,49 @@ CREATE TABLE `banner` (
   `href` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of banner
--- ----------------------------
-INSERT INTO `banner` VALUES ('1', 'static/b1.png', '第1张图', 'https://baidu.com');
-INSERT INTO `banner` VALUES ('2', 'static/b2.png', '第2张图', 'https://baidu.com');
-INSERT INTO `banner` VALUES ('3', 'static/b3.png', '第3张图', 'https://baidu.com');
-INSERT INTO `banner` VALUES ('4', 'static/b4.png', '第4张图', 'https://baidu.com');
+--
+-- Dumping data for table `banner`
+--
 
--- ----------------------------
--- Table structure for city
--- ----------------------------
+LOCK TABLES `banner` WRITE;
+/*!40000 ALTER TABLE `banner` DISABLE KEYS */;
+INSERT INTO `banner` VALUES (1,'static/b1.png','第1张图','https://baidu.com'),(2,'static/b2.png','第2张图','https://baidu.com'),(3,'static/b3.png','第3张图','https://baidu.com'),(4,'static/b4.png','第4张图','https://baidu.com');
+/*!40000 ALTER TABLE `banner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `city`
+--
+
 DROP TABLE IF EXISTS `city`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `province_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of city
--- ----------------------------
+--
+-- Dumping data for table `city`
+--
 
--- ----------------------------
--- Table structure for collect
--- ----------------------------
+LOCK TABLES `city` WRITE;
+/*!40000 ALTER TABLE `city` DISABLE KEYS */;
+/*!40000 ALTER TABLE `city` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `collect`
+--
+
 DROP TABLE IF EXISTS `collect`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `collect` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `good_id` int(11) DEFAULT NULL,
@@ -102,17 +131,25 @@ CREATE TABLE `collect` (
   `date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of collect
--- ----------------------------
-INSERT INTO `collect` VALUES ('33', '1', '4', '2018/5/3 上午10:11:43');
-INSERT INTO `collect` VALUES ('34', '2', '4', '2018/5/3 上午10:14:34');
+--
+-- Dumping data for table `collect`
+--
 
--- ----------------------------
--- Table structure for comment
--- ----------------------------
+LOCK TABLES `collect` WRITE;
+/*!40000 ALTER TABLE `collect` DISABLE KEYS */;
+INSERT INTO `collect` VALUES (33,1,4,'2018/5/3 上午10:11:43'),(34,2,4,'2018/5/3 上午10:14:34');
+/*!40000 ALTER TABLE `collect` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comment`
+--
+
 DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `good_id` int(11) DEFAULT NULL,
@@ -121,16 +158,26 @@ CREATE TABLE `comment` (
   `content` longtext,
   `date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of comment
--- ----------------------------
+--
+-- Dumping data for table `comment`
+--
 
--- ----------------------------
--- Table structure for goods
--- ----------------------------
+LOCK TABLES `comment` WRITE;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,1,4,5,'物美价廉','2018.5.7');
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `goods`
+--
+
 DROP TABLE IF EXISTS `goods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -143,19 +190,25 @@ CREATE TABLE `goods` (
   `gt_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of goods
--- ----------------------------
-INSERT INTO `goods` VALUES ('1', 'static/c4.png', '时尚风衣', '145', '100', '送腰带~夏新款韩版宽松显瘦纯色', '上海', null, '1');
-INSERT INTO `goods` VALUES ('2', 'static/c1.png', '连衣裙', '99', '88', '菲梦伊2018夏装新款网纱刺绣钉珠连衣裙', '长沙', null, '1');
-INSERT INTO `goods` VALUES ('3', 'static/c2.png', '衬衫', '140', '58', 'DGPZ弹力免烫抗皱衬衫女长袖2018新款', '海南', null, '1');
-INSERT INTO `goods` VALUES ('4', 'static/c3.png', '雪纺裙', '218', '188', '森宿2018夏装新品文艺碎花V领雪纺连衣', '金华', null, '2');
+--
+-- Dumping data for table `goods`
+--
 
--- ----------------------------
--- Table structure for goodstype
--- ----------------------------
+LOCK TABLES `goods` WRITE;
+/*!40000 ALTER TABLE `goods` DISABLE KEYS */;
+INSERT INTO `goods` VALUES (1,'static/c4.png','时尚风衣','200','100','送腰带~夏新款韩版宽松显瘦纯色','上海',NULL,1),(2,'static/c1.png','连衣裙','100','88','菲梦伊2018夏装新款网纱刺绣钉珠连衣裙','长沙',NULL,1),(3,'static/c2.png','衬衫','140','58','DGPZ弹力免烫抗皱衬衫女长袖2018新款','海南',NULL,1),(4,'static/c3.png','雪纺裙','218','188','森宿2018夏装新品文艺碎花V领雪纺连衣','金华',NULL,2);
+/*!40000 ALTER TABLE `goods` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `goodstype`
+--
+
 DROP TABLE IF EXISTS `goodstype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `goodstype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -163,38 +216,50 @@ CREATE TABLE `goodstype` (
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of goodstype
--- ----------------------------
-INSERT INTO `goodstype` VALUES ('1', '冬款上新', '/static/c1.png', '1');
-INSERT INTO `goodstype` VALUES ('2', '新款毛呢', '/static/c2.png', '1');
-INSERT INTO `goodstype` VALUES ('3', '毛衣', '/static/c3.png', '2');
-INSERT INTO `goodstype` VALUES ('4', '靴子', '/static/c4.png', '2');
+--
+-- Dumping data for table `goodstype`
+--
 
--- ----------------------------
--- Table structure for img
--- ----------------------------
+LOCK TABLES `goodstype` WRITE;
+/*!40000 ALTER TABLE `goodstype` DISABLE KEYS */;
+INSERT INTO `goodstype` VALUES (1,'冬款上新','/static/c1.png',1),(2,'新款毛呢','/static/c2.png',1),(3,'毛衣','/static/c3.png',2),(4,'靴子','/static/c4.png',2);
+/*!40000 ALTER TABLE `goodstype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `img`
+--
+
 DROP TABLE IF EXISTS `img`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `img` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `src` varchar(45) DEFAULT NULL,
   `d_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of img
--- ----------------------------
-INSERT INTO `img` VALUES ('1', '/static/d1.png', '1');
-INSERT INTO `img` VALUES ('2', '/static/d2.png', '1');
-INSERT INTO `img` VALUES ('3', '/static/d3.png', '1');
-INSERT INTO `img` VALUES ('4', '/static/d4.png', '1');
+--
+-- Dumping data for table `img`
+--
 
--- ----------------------------
--- Table structure for order
--- ----------------------------
+LOCK TABLES `img` WRITE;
+/*!40000 ALTER TABLE `img` DISABLE KEYS */;
+INSERT INTO `img` VALUES (1,'/static/d1.png',1),(2,'/static/d2.png',1),(3,'/static/d3.png',1),(4,'/static/d4.png',1);
+/*!40000 ALTER TABLE `img` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order`
+--
+
 DROP TABLE IF EXISTS `order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `u_id` int(11) DEFAULT NULL,
@@ -208,29 +273,47 @@ CREATE TABLE `order` (
   `content` longtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of order
--- ----------------------------
+--
+-- Dumping data for table `order`
+--
 
--- ----------------------------
--- Table structure for province
--- ----------------------------
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `province`
+--
+
 DROP TABLE IF EXISTS `province`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `province` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of province
--- ----------------------------
+--
+-- Dumping data for table `province`
+--
 
--- ----------------------------
--- Table structure for shop
--- ----------------------------
+LOCK TABLES `province` WRITE;
+/*!40000 ALTER TABLE `province` DISABLE KEYS */;
+/*!40000 ALTER TABLE `province` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shop`
+--
+
 DROP TABLE IF EXISTS `shop`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shop` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `u_id` int(11) DEFAULT NULL,
@@ -238,71 +321,50 @@ CREATE TABLE `shop` (
   `num` int(11) DEFAULT NULL,
   `isChoose` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of shop
--- ----------------------------
-INSERT INTO `shop` VALUES ('7', '4', '2', '6', '0');
-INSERT INTO `shop` VALUES ('8', '4', '1', '1', '1');
-INSERT INTO `shop` VALUES ('17', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('18', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('19', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('20', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('21', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('22', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('23', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('24', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('25', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('26', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('27', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('28', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('29', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('30', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('31', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('32', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('33', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('34', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('35', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('36', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('37', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('38', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('39', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('40', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('41', null, '1', '1', '0');
-INSERT INTO `shop` VALUES ('42', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('43', null, '1', '1', '0');
-INSERT INTO `shop` VALUES ('44', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('45', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('46', null, '1', '1', '0');
-INSERT INTO `shop` VALUES ('47', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('48', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('49', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('50', null, '1', '1', '0');
-INSERT INTO `shop` VALUES ('51', null, '1', '1', '0');
-INSERT INTO `shop` VALUES ('52', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('53', null, '2', '1', '0');
-INSERT INTO `shop` VALUES ('54', null, '2', '1', '0');
+--
+-- Dumping data for table `shop`
+--
 
--- ----------------------------
--- Table structure for site
--- ----------------------------
+LOCK TABLES `shop` WRITE;
+/*!40000 ALTER TABLE `shop` DISABLE KEYS */;
+INSERT INTO `shop` VALUES (7,4,2,6,1),(8,4,1,1,1),(17,NULL,2,1,0),(18,NULL,2,1,0),(19,NULL,2,1,0),(20,NULL,2,1,0),(21,NULL,2,1,0),(22,NULL,2,1,0),(23,NULL,2,1,0),(24,NULL,2,1,0),(25,NULL,2,1,0),(26,NULL,2,1,0),(27,NULL,2,1,0),(28,NULL,2,1,0),(29,NULL,2,1,0),(30,NULL,2,1,0),(31,NULL,2,1,0),(32,NULL,2,1,0),(33,NULL,2,1,0),(34,NULL,2,1,0),(35,NULL,2,1,0),(36,NULL,2,1,0),(37,NULL,2,1,0),(38,NULL,2,1,0),(39,NULL,2,1,0),(40,NULL,2,1,0),(41,NULL,1,1,0),(42,NULL,2,1,0),(43,NULL,1,1,0),(44,NULL,2,1,0),(45,NULL,2,1,0),(46,NULL,1,1,0),(47,NULL,2,1,0),(48,NULL,2,1,0),(49,NULL,2,1,0),(50,NULL,1,1,0),(51,NULL,1,1,0),(52,NULL,2,1,0),(53,NULL,2,1,0),(54,NULL,2,1,0),(55,NULL,2,1,0),(56,NULL,7,1,0),(57,NULL,7,1,0),(58,NULL,7,1,0),(59,NULL,7,1,0),(60,NULL,7,1,0),(61,NULL,7,1,0),(62,NULL,7,1,0),(63,NULL,7,1,0),(64,NULL,7,1,0),(65,NULL,2,1,0),(66,NULL,8,1,0),(67,NULL,7,1,0),(68,4,7,7,1),(69,4,8,9,1),(70,NULL,2,1,0),(71,NULL,2,1,0),(72,NULL,2,1,0),(73,NULL,1,1,0),(74,NULL,1,1,0),(75,NULL,2,1,0),(76,NULL,2,1,0),(77,NULL,1,1,0),(78,NULL,2,1,0),(79,NULL,1,1,0),(80,NULL,1,1,0),(81,NULL,2,1,0),(82,NULL,1,1,0),(83,NULL,1,1,0),(84,NULL,2,1,0),(85,NULL,1,1,0),(86,NULL,2,1,0),(87,NULL,1,1,0),(88,NULL,2,1,0);
+/*!40000 ALTER TABLE `shop` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `site`
+--
+
 DROP TABLE IF EXISTS `site`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `site` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of site
--- ----------------------------
+--
+-- Dumping data for table `site`
+--
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
+LOCK TABLES `site` WRITE;
+/*!40000 ALTER TABLE `site` DISABLE KEYS */;
+/*!40000 ALTER TABLE `site` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
 DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `phone` varchar(45) DEFAULT NULL,
@@ -313,11 +375,25 @@ CREATE TABLE `user` (
   `role` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', '18063211111', '123', 'oo', null, null, '0');
-INSERT INTO `user` VALUES ('2', '2147483647', '123', 'qq', null, null, '0');
-INSERT INTO `user` VALUES ('3', '2147483647', '123', null, null, null, '0');
-INSERT INTO `user` VALUES ('4', '18721784087', 'a123456789', null, null, null, '0');
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'18063211111','123','oo',NULL,NULL,'0'),(2,'2147483647','123','qq',NULL,NULL,'0'),(3,'2147483647','123',NULL,NULL,NULL,'0'),(4,'18721784087','a123456789',NULL,NULL,NULL,'0');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-05-07 16:41:29
